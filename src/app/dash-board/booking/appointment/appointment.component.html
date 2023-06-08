@@ -1,0 +1,16 @@
+<div class="manu-breadcrumb">
+    <app-breadcrumb></app-breadcrumb>
+</div>
+
+<nav mat-tab-nav-bar>
+    <a mat-tab-link routerLink="./app-bookingentry" routerLinkActive #BookingEntryTab="routerLinkActive"
+        [active]="BookingEntryTab.isActive">Booking Entry</a>
+    <a mat-tab-link routerLink="./app-calendar" routerLinkActive #CalendarTab="routerLinkActive"
+        [active]="CalendarTab.isActive">Calendar</a>
+    <a mat-tab-link routerLink="./app-bookingmanagement" routerLinkActive #BookingmanagementTab="routerLinkActive"
+        [active]="BookingmanagementTab.isActive">BookingManagement</a>
+    <!-- <a mat-tab-link routerLink="./app-time" routerLinkActive #TimeTab="routerLinkActive"
+        [active]="TimeTab.isActive">Time</a> -->
+</nav>
+
+<router-outlet></router-outlet>

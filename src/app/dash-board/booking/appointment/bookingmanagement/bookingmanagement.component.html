@@ -1,0 +1,29 @@
+<fieldset lass="scheduler-border">
+    <legend class="scheduler-border">Booking Management</legend>
+    <form [formGroup]="bngmanagementForm">
+        <div class="col-xs-3">
+            <div class="form-group">
+                <div class="p-fluid p-grid p-formgrid">
+                    <div class="p-field p-col-12 p-md-5">
+                        <label path="previewWeek" for="previewWeek" cssClass="required">Date
+                        </label>
+                        <p-calendar [monthNavigator]="true" [yearNavigator]="true" formControlName="previewWeek"
+                            name="previewWeek" yearRange="2000:2040" inputId="navigators" [showIcon]="true"
+                            inputId="icon" (onSelect)="onSelect($event)">
+                        </p-calendar>
+                        <!-- <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                        <div *ngIf="f.date.errors.required"> Date is Required
+                        </div>
+                    </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</fieldset>
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Booking Management</legend>
+    <ag-grid-angular #agGrid class="ag-theme-balham" [gridOptions]="gridOptions" style="width: 100%; height: 350px;"
+        [pagination]="true" [frameworkComponents]="frameworkComponents">
+    </ag-grid-angular>
+</fieldset>

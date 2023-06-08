@@ -1,0 +1,20 @@
+<div [formGroup]="parts" class="date-time-container">
+    <select matInput class="hours-element" formControlName="hour" placeholder="Hours" (change)="_handleInput()"
+        style="border-right-style: none;">
+        <option *ngFor="let singleHour of hoursRange()" [value]="singleHour">{{
+            singleHour
+            }}</option>
+    </select>
+    <select matInput class="hours-element"  formControlName="minute" placeholder="Minute"
+        (change)="_handleInput()" style="border-right-style: none;
+        border-left-style: none;">
+        <option *ngFor="let singleMinute of minutesRange()" [value]="singleMinute">{{ singleMinute }}</option>
+    </select>
+    <select matInput class="minutes-element" formControlName="type" (change)="_handleInput()"
+        style="border-left-style: none">
+        <option value="AM" selected="">AM</option>
+        <option value="PM">PM</option>
+    </select>
+</div>
+
+

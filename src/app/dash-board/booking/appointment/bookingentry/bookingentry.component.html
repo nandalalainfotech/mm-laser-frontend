@@ -1,0 +1,133 @@
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Booking Entry</legend>
+    <div class="formData">
+        <form [formGroup]="bookingForm" (ngSubmit)="onUserClick($event, bookingForm)">
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 ">
+                    <div class="form-group">
+                        <label for="mslno">Machine</label>
+                        <select formControlName="mslno" class="form-control" name="mslno" id="mslno"
+                            [ngClass]="{ 'is-invalid': submitted && f.mslno.errors }">
+                            <option value="" hidden> - Select the Machine - </option>
+                            <option value="null"> - Select the Machine - </option>
+                            <option *ngFor="let mslno of machiness" [value]="mslno.slNo">
+                                {{mslno.machinename}}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted && f.mslno.errors" class="invalid-feedback">
+                            <div *ngIf="f.mslno.errors.required">Machine is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 ">
+                    <div class="form-group">
+                        <label for="dslno">Doctor</label>
+                        <select formControlName="dslno" class="form-control" name="dslno" id="dslno"
+                            [ngClass]="{ 'is-invalid': submitted && f.dslno.errors }">
+                            <option value="" hidden> - Select the Doctor - </option>
+                            <option value="null"> - Select the Doctor - </option>
+                            <option *ngFor="let dslno of Doctormaster" [value]="dslno.slNo">
+                                {{dslno.doctorname}}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted && f.dslno.errors" class="invalid-feedback">
+                            <div *ngIf="f.dslno.errors.required">Doctor is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 form-group">
+                    <label path="hospital" for="hospital" cssClass="required">Hospital
+                    </label>
+                    <select formControlName="hospital" class="form-control" name="hospital" id="hospital"
+                        [ngClass]="{ 'is-invalid': submitted && f.hospital.errors }">
+                        <option value="" hidden> - Select the Hospital - </option>
+                        <option value="null"> - Select the Hospital - </option>
+                        <option *ngFor="let hospital of Doctormaster" [value]="hospital.hospitalname">
+                            {{hospital.hospitalname}}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted && f.hospital.errors" class="invalid-feedback">
+                        <div *ngIf="f.hospital.errors.required">Hospital is Required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label path="staff" for="staff" cssClass="required">Staff
+                    </label>
+                    <input formControlName="staff" class="form-control" path="staff" name="staff"
+                        [ngClass]="{ 'is-invalid': submitted && f.staff.errors }" />
+                    <div *ngIf="submitted && f.staff.errors" class="invalid-feedback">
+                        <div *ngIf="f.staff.errors.required">Staff is Required</div>
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <div class="p-fluid p-grid p-formgrid">
+                            <div class="p-field p-col-12 p-md-5">
+                                <label path="date" for="date" cssClass="required">Date
+                                </label>
+                                <p-calendar [monthNavigator]="true" [yearNavigator]="true" formControlName="date"
+                                    name="date" yearRange="2000:2030" inputId="navigators" [showIcon]="true"
+                                    inputId="icon">
+                                </p-calendar>
+                                <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                                    <div *ngIf="f.date.errors.required"> Date is Required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-3 form-group">
+                    <label path="starttime" for="starttime" cssClass="required">
+                        Start Time</label>
+                    <!-- <input class="form-control" path="starttime" id="starttime" name="starttime"
+                        formControlName="starttime" [ngClass]="{ 'is-invalid': submitted && f.starttime.errors }" /> -->
+                    <app-time (timeChanged)="
+                        checkStartAndEndTimeCValidations($event,'starttime')
+                      " formControlName="starttime"></app-time>
+                    <div *ngIf="submitted && f.starttime.errors" class="invalid-feedback">
+                        <div *ngIf="f.starttime.errors.required"> Start Time is Required
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label path="endtime" for="endtime" cssClass="required">
+                        End Time</label>
+                    <!-- <input class="form-control" path="endtime" id="endtime" name="endtime" formControlName="endtime"
+                        [ngClass]="{ 'is-invalid': submitted && f.endtime.errors }" /> -->
+                    <app-time (timeChanged)="
+                        checkStartAndEndTimeCValidations($event,'endtime')
+                      " formControlName="endtime"></app-time>
+                    <div *ngIf="submitted && f.endtime.errors" class="invalid-feedback">
+                        <div *ngIf="f.endtime.errors.required"> End Time is Required
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="title!=='Entry'">
+                <div class="col-sm-12 ">
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-primary mr-2">
+                            Submit
+                        </button>
+                        <button type="button" class="btn btn-warning mr-2" (click)="onReset()">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</fieldset>
+<!-- <fieldset class="scheduler-border">
+    <legend class="scheduler-border">Machine Master</legend>
+    <ag-grid-angular #agGrid class="ag-theme-balham" [gridOptions]="gridOptions" style="width: 100%; height: 350px;"
+        [pagination]="true" [frameworkComponents]="frameworkComponents">
+    </ag-grid-angular>
+</fieldset> -->

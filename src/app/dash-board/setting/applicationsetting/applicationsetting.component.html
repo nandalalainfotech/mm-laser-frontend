@@ -1,0 +1,964 @@
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Application Setting</legend>
+    <div class="formData">
+        <form [formGroup]="appForm" (ngSubmit)="onSubmitClick($event, 'appForm')">
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Manufacturing</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li> <span>Production Order</span></li>
+                                        <li><input type="checkbox" formControlName="ProductionOrder"
+                                                name="ProductionOrder" (click)="onClick($event, 'ProductionOrder')"
+                                                value="./app-manufacturing/app-product-order-details/app-prod-order">Production
+                                            Order</li>
+                                        <li><input type="checkbox" formControlName="ProductionPlanningTool"
+                                                name="ProductionPlanningTool"
+                                                (click)="onClick($event, 'ProductionPlanningTool')"
+                                                value="./app-manufacturing/app-product-order-details/app-product-plan">
+                                            Production Planning Tool </li>
+                                        <li><input type="checkbox" formControlName="ProductStockEntry"
+                                                name="ProductStockEntry" (click)="onClick($event, 'ProductStockEntry')"
+                                                value="./app-manufacturing/app-product-order-details/app-product-stock">Product
+                                            Stock Entry</li>
+                                        <li><input type="checkbox" formControlName="ProductTimeSheet"
+                                                name="ProductTimeSheet" (click)="onClick($event, 'ProductTimeSheet')"
+                                                value="./app-manufacturing/app-product-order-details/app-product-timest">
+                                            Product TimeSheet</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Bill Of Materials</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Bill Of Materials</span></li>
+                                        <li><input type="checkbox" formControlName="BillOfMaterials"
+                                                name="BillOfMaterials" (click)="onClick($event, 'BillOfMaterials')"
+                                                value="./app-manufacturing/app-bom-details/app-material"> Bill Of
+                                            Materials</li>
+                                        <li><input type="checkbox" formControlName="ItemStatus" name="ItemStatus"
+                                                (click)="onClick($event, 'ItemStatus')"
+                                                value="./app-manufacturing/app-bom-details/app-item-status"> Item Status
+                                        </li>
+                                        <li><input type="checkbox" formControlName="WorkStation" name="WorkStation"
+                                                (click)="onClick($event, 'WorkStation')"
+                                                value="./app-manufacturing/app-bom-details/app-work-station"> Work
+                                            Station</li>
+                                        <li><input type="checkbox" formControlName="BOMOperation" name="BOMOperation"
+                                                (click)="onClick($event, 'BOMOperation')"
+                                                value="./app-manufacturing/app-bom-details/app-operation"> BOM Operation
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Tools</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Tools</span></li>
+
+                                        <li><input type="checkbox" formControlName="Tools" name="Tools"
+                                                (click)="onClick($event, 'Tools')"
+                                                value="./app-manufacturing/app-manu-tools/app-tools">Tools</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>SetUp</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>SetUp</span></li>
+
+                                        <li><input type="checkbox" formControlName="ManufactureSettings"
+                                                name="ManufactureSettings"
+                                                (click)="onClick($event, 'ManufactureSettings')"
+                                                value="./app-manufacturing/app-manu-setup/app-setup"> Manufacture
+                                            Settings</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Reports</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Reports</span></li>
+                                        <li><input type="checkbox" formControlName="OpenProductionOrder"
+                                                name="OpenProductionOrder"
+                                                (click)="onClick($event, 'OpenProductionOrder')"
+                                                value="./app-manufacturing/app-product-reportdetails/app-open-order">
+                                            Open Production Order</li>
+                                        <li><input type="checkbox" formControlName="ProductionOrderinProgress"
+                                                name="ProductionOrderinProgress"
+                                                (click)="onClick($event, 'ProductionOrderinProgress')"
+                                                value="./app-manufacturing/app-product-reportdetails/app-progress-order">
+                                        <li><input type="checkbox" formControlName="CompletedProductionOrder"
+                                                name="CompletedProductionOrder"
+                                                (click)="onClick($event, 'CompletedProductionOrder')"
+                                                value="./app-manufacturing/app-product-reportdetails/app-complete-order">Completed
+                                            Production Order</li>
+                                        <li><input type="checkbox" formControlName="BOMType" name="BOMType"
+                                                (click)="onClick($event, 'BOMType')"
+                                                value="./app-manufacturing/app-product-reportdetails/app-bom-type"> BOM
+                                            Type </li>
+                                        <li><input type="checkbox" formControlName="IssueItem" name="IssueItem"
+                                                (click)="onClick($event, 'IssueItem')"
+                                                value="./app-manufacturing/app-product-reportdetails/app-issue-item">
+                                            Issue Item
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+
+
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Sales Invoice</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Sales Invoice</span></li>
+
+                                        <li><input type="checkbox" formControlName="AccountsReceivable"
+                                                name="AccountsReceivable"
+                                                (click)="onClick($event, 'AccountsReceivable')"
+                                                value="./app-accounts/app-billing/app-accounts-receivable"> Accounts
+                                            Receivable</li>
+                                        <li><input type="checkbox" formControlName="AccountsReceivableSummary"
+                                                name="AccountsReceivableSummary"
+                                                (click)="onClick($event, 'AccountsReceivableSummary')"
+                                                value="./app-accounts/app-billing/app-accountsrec-summary"> Accounts
+                                            Receivable Summary</li>
+                                        <li><input type="checkbox" formControlName="DeliveredItemsToBeBilled"
+                                                name="DeliveredItemsToBeBilled"
+                                                (click)="onClick($event, 'DeliveredItemsToBeBilled')"
+                                                value="./app-accounts/app-billing/app-delivered-items"> Delivered Items
+                                            to be Billed</li>
+                                        <li><input type="checkbox" formControlName="GrossProfit" name="GrossProfit"
+                                                (click)="onClick($event, 'GrossProfit')"
+                                                value="./app-accounts/app-billing/app-gross-profit"> Gross Profit</li>
+                                        <li><input type="checkbox" formControlName="OrderedItemsToBeBilled"
+                                                name="OrderedItemsToBeBilled"
+                                                (click)="onClick($event, 'OrderedItemsToBeBilled')"
+                                                value="./app-accounts/app-billing/app-order-bill"> Ordered Items to be
+                                            Billed</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Purchase</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Purchase Invoice</span></li>
+
+                                        <li><input type="checkbox" formControlName="AccountsPayable"
+                                                name="AccountsPayable" (click)="onClick($event, 'AccountsPayable')"
+                                                value="./app-accounts/app-billing/app-accounts-payable"> Accounts
+                                            Payable
+                                        </li>
+                                        <li><input type="checkbox" formControlName="AccountsPayableSummary"
+                                                name="AccountsPayableSummary"
+                                                (click)="onClick($event, 'AccountsPayableSummary')"
+                                                value="./app-accounts/app-billing/app-accountspay-summary"> Accounts
+                                            Payable
+                                            Summary</li>
+                                        <li><input type="checkbox" formControlName="ReceivedItemsToBeBilled"
+                                                name="ReceivedItemsToBeBilled"
+                                                (click)="onClick($event, 'ReceivedItemsToBeBilled')"
+                                                value="./app-accounts/app-billing/app-received-items"> Received Items to
+                                            be
+                                            Billed</li>
+                                        <li><input type="checkbox" formControlName="ItemWisePurchaseRegister"
+                                                name="ItemWisePurchaseRegister"
+                                                (click)="onClick($event, 'ItemWisePurchaseRegister')"
+                                                value="./app-accounts/app-billing/app-itemwise-purchase"> Item-Wise
+                                            Purchase
+                                            Register</li>
+                                        <li><input type="checkbox" formControlName="PurchaseOrderItemsToBeBilled"
+                                                name="PurchaseOrderItemsToBeBilled"
+                                                (click)="onClick($event, 'PurchaseOrderItemsToBeBilled')"
+                                                value="./app-accounts/app-billing/app-purchase-order"> Purchase Order
+                                            Items
+                                            to be Billed</li>
+
+
+                                        <li><input type="checkbox" formControlName="PaymentRequest"
+                                                name="PaymentRequest" (click)="onClick($event, 'PaymentRequest')"
+                                                value="./app-accounts/app-billing/app-payment-request"> Payment Request
+                                        </li>
+                                        <li><input type="checkbox" formControlName="PaymentRequest"
+                                                name="PaymentRequest" (click)="onClick($event, 'c')"
+                                                value="./app-accounts/app-billing/app-payment-entry"> Payment Entry</li>
+                                        <li><input type="checkbox" formControlName="WisePurchaseRegister"
+                                                name="WisePurchaseRegister"
+                                                (click)="onClick($event, 'Item-WisePurchaseRegister')"
+                                                value="./app-accounts/app-billing/app-itemwisepurchase"> Item-Wise
+                                            Purchase
+                                            Register
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Company and Accounts</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Company and Accounts</span></li>
+
+                                        <li><input type="checkbox" formControlName="GeneralLedger" name="GeneralLedger"
+                                                (click)="onClick($event, 'GeneralLedger')"
+                                                value="./app-accounts/app-company-accounts/app-general-ledger"> General
+                                            Ledger
+                                        </li>
+                                        <li><input type="checkbox" formControlName="JournalEntery" name="JournalEntery"
+                                                (click)="onClick($event, 'JournalEntery')"
+                                                value="./app-accounts/app-company-accounts/app-journal-entry"> Journal
+                                            Entery
+                                        </li>
+                                        <li><input type="checkbox" formControlName="ChartOfAccounts"
+                                                name="ChartOfAccounts" (click)="onClick($event, 'ChartOfAccounts')"
+                                                value="./app-accounts/app-company-accounts/app-account-chart"> Chart of
+                                            Accounts
+                                        </li>
+                                        <li><input type="checkbox" formControlName="CompanyAndAccounts"
+                                                name="CompanyAndAccounts"
+                                                (click)="onClick($event, 'CompanyAndAccounts')"
+                                                value="./app-accounts/app-company-accounts/app-com-account"> Company and
+                                            Accounts
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Masters</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Masters</span></li>
+
+                                        <li><input type="checkbox" formControlName="Asset" name="Asset"
+                                                (click)="onClick($event, 'Asset')"
+                                                value="./app-accounts/app-master/app-asset"> Asset</li>
+                                        <li><input type="checkbox" formControlName="Customer" name="Customer"
+                                                (click)="onClick($event, 'Customer')"
+                                                value="./app-accounts/app-master/app-customer"> Customer</li>
+                                        <li><input type="checkbox" formControlName="Supplier" name="Supplier"
+                                                (click)="onClick($event, 'Supplier')"
+                                                value="./app-accounts/app-master/app-supplier"> Supplier</li>
+                                        <li><input type="checkbox" formControlName="Item" name="Item"
+                                                (click)="onClick($event, 'Item')"
+                                                value="./app-accounts/app-master/app-item"> Item</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Accounting Statements</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Accounting Statements</span></li>
+
+                                        <li><input type="checkbox" formControlName="TrialBalance" name="TrialBalance"
+                                                (click)="onClick($event, 'TrialBalance')"
+                                                value="./app-accounts/app-accounting-stmts/app-trial-balance"> Trial
+                                            Balance
+                                        </li>
+                                        <li><input type="checkbox" formControlName="BalanceSheet" name="BalanceSheet"
+                                                (click)="onClick($event, 'BalanceSheet')"
+                                                value="./app-accounts/app-accounting-stmts/app-balance-sheet"> Balance
+                                            Sheet
+                                        </li>
+                                        <li><input type="checkbox" formControlName="CashFlow" name="CashFlow"
+                                                (click)="onClick($event, 'CashFlow')"
+                                                value="./app-accounts/app-accounting-stmts/app-cash-flow"> Cash Flow
+                                        </li>
+                                        <li><input type="checkbox" formControlName="ProfitAndLossStatement"
+                                                name="ProfitAndLossStatement"
+                                                (click)="onClick($event, 'ProfitAndLossStatement')"
+                                                value="./app-accounts/app-accounting-stmts/app-profit-loss"> Profit and
+                                            Loss
+                                            Statement</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Banking Payments</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Banking Payments</span></li>
+
+                                        <li><input type="checkbox" formControlName="UpdateBankTransactionDates"
+                                                name="UpdateBankTransactionDates"
+                                                (click)="onClick($event, 'UpdateBankTransactionDates')"
+                                                value="./app-accounts/app-banking-payments/app-update-bank"> Update Bank
+                                            Transaction
+                                            Dates</li>
+                                        <li><input type="checkbox" formControlName="MatchPaymentsWithInvoices"
+                                                name="MatchPaymentsWithInvoices"
+                                                (click)="onClick($event, 'MatchPaymentsWithInvoices')"
+                                                value="./app-accounts/app-banking-payments/app-match-payments"> Match
+                                            Payments
+                                            with
+                                            Invoices</li>
+                                        <li><input type="checkbox" formControlName="BankReconciliationStatment"
+                                                name="BankReconciliationStatment"
+                                                (click)="onClick($event, 'BankReconciliationStatment')"
+                                                value="./app-accounts/app-banking-payments/app-bank-reconciliation">
+                                            Bank
+                                            Reconciliation Statment</li>
+                                        <li><input type="checkbox" formControlName="BankClearenceSummary"
+                                                name="BankClearenceSummary"
+                                                (click)="onClick($event, 'BankClearenceSummary')"
+                                                value="./app-accounts/app-banking-payments/app-bank-clearance"> Bank
+                                            Clearence
+                                            Summary</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Taxes</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Taxes</span></li>
+
+                                        <li><input type="checkbox" formControlName="SalesTaxesAndCharges"
+                                                name="SalesTaxesAndCharges"
+                                                (click)="onClick($event, 'SalesTaxesAndCharges')"
+                                                value="./app-accounts/app-taxes/app-sales-taxes"> Sales Taxes and
+                                            Charges</li>
+                                        <li><input type="checkbox" formControlName="PurchaseTaxesAndCharges"
+                                                name="PurchaseTaxesAndCharges"
+                                                (click)="onClick($event, 'PurchaseTaxesAndCharges')"
+                                                value="./app-accounts/app-taxes/app-purtax-changes"> Purchase Taxes and
+                                            Charges
+                                        </li>
+                                        <li><input type="checkbox" formControlName="TaxRule" name="TaxRule"
+                                                (click)="onClick($event, 'TaxRule')"
+                                                value="./app-accounts/app-taxes/app-tax-rule"> Tax Rule</li>
+                                        <li><input type="checkbox" formControlName="SalesRegister" name="SalesRegister"
+                                                (click)="onClick($event, ' SalesRegister')"
+                                                value="./app-accounts/app-taxes/app-sale-register"> Sales Register</li>
+                                        <li><input type="checkbox" formControlName="PurchaseRegister"
+                                                name="PurchaseRegister" (click)="onClick($event, 'PurchaseRegister')"
+                                                value="./app-accounts/app-taxes/app-purchase-register"> Purchase
+                                            Register</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Budget</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Budget and Cost Center</span></li>
+
+                                        <li><input type="checkbox" formControlName="CostCenterChart"
+                                                name="ProductionOrder" (click)="onClick($event, 'CostCenterChart')"
+                                                value="./app-accounts/app-budget-costcenter/app-costcenter"> CostCenter
+                                            chart
+                                        </li>
+                                        <li><input type="checkbox" formControlName="BudgetAccountType"
+                                                name="BudgetAccountType" (click)="onClick($event, 'BudgetAccountType')"
+                                                value="./app-accounts/app-budget-costcenter/app-budget-account"> Budget
+                                            Account
+                                            Type
+                                        </li>
+                                        <li><input type="checkbox" formControlName="Budget" name="Budget"
+                                                (click)="onClick($event, 'Budget')"
+                                                value="./app-accounts/app-budget-costcenter/app-budget"> Budget</li>
+                                        <li><input type="checkbox" formControlName="BudgetMonthlyDistribution"
+                                                name="BudgetMonthlyDistribution"
+                                                (click)="onClick($event, 'BudgetMonthlyDistribution')"
+                                                value="./app-accounts/app-budget-costcenter/app-budget-monthdist">
+                                            Budget
+                                            Monthly
+                                            Distribution</li>
+                                        <li><input type="checkbox" formControlName="BudgetVarianceReport"
+                                                name="BudgetVarianceReport"
+                                                (click)="onClick($event, 'BudgetVarianceReport')"
+                                                value="./app-accounts/app-budget-costcenter/app-budget-variancerep">
+                                            Budget
+                                            Variance
+                                            Report</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Tools</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Tools</span></li>
+
+                                        <li><input type="checkbox" formControlName="PeriodClosingVoucher"
+                                                name="PeriodClosingVoucher"
+                                                (click)="onClick($event, 'PeriodClosingVoucher')"
+                                                value="./app-accounts/app-acc-tools/app-periodclosing-voucher"> Period
+                                            Closing
+                                            Voucher</li>
+                                        <li><input type="checkbox" formControlName="AssetMovement" name="AssetMovement"
+                                                (click)="onClick($event, 'AssetMovement')"
+                                                value="./app-accounts/app-acc-tools/app-asset-movement"> Asset Movement
+                                        </li>
+                                        <li><input type="checkbox" formControlName="ChequePrintTemplate"
+                                                name="ChequePrintTemplate"
+                                                (click)="onClick($event, 'ChequePrintTemplate')"
+                                                value="./app-accounts/app-acc-tools/app-chequeprint-template"> Cheque
+                                            Print
+                                            Template
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Setup</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Setup</span></li>
+
+                                        <li><input type="checkbox" formControlName="AccountsSettings"
+                                                name="AccountsSettings" (click)="onClick($event, 'AccountsSettings')"
+                                                value="">
+                                            Accounts Settings</li>
+                                        <li><input type="checkbox" formControlName="FiscalYear" name="FiscalYear"
+                                                (click)="onClick($event, 'FiscalYear')" value=""> Fiscal
+                                            Year</li>
+                                        <li><input type="checkbox" formControlName="Currency" name="Currency"
+                                                (click)="onClick($event, 'Currency')" value=""> Currency</li>
+                                        <li><input type="checkbox" formControlName="CurrencyExchange"
+                                                name="CurrencyExchange" (click)="onClick($event, 'CurrencyExchange')"
+                                                value="">
+                                            Currency Exchange</li>
+                                        <li><input type="checkbox" formControlName="PaymentGatewayAccount"
+                                                name="PaymentGatewayAccount"
+                                                (click)="onClick($event, 'PaymentGatewayAccount')" value="">
+                                            Payment Gateway Account
+                                        </li>
+                                        <li><input type="checkbox" formControlName="PointOfSaleProfile"
+                                                name="PointOfSaleProfile"
+                                                (click)="onClick($event, 'PointOfSaleProfile')" value="">
+                                            Point-of-Sale Profile
+                                        </li>
+                                        <li><input type="checkbox" formControlName="TermsAndConditions"
+                                                name="TermsAndConditions"
+                                                (click)="onClick($event, 'TermsAndConditions')" value="">
+                                            Terms and Conditions
+                                            Template
+                                        </li>
+                                        <li><input type="checkbox" formControlName="ModeOfPayment" name="ModeOfPayment"
+                                                (click)="onClick($event, 'ModeOfPayment')" value=""> Mode
+                                            of Payment</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Analytics</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Analytics</span></li>
+
+                                        <li><input type="checkbox" formControlName="GrossProfit" name="GrossProfit"
+                                                (click)="onClick($event, 'GrossProfit')"
+                                                value="./app-accounts/app-analytics/app-gross-profit"> Gross Profit</li>
+                                        <li><input type="checkbox" formControlName="PurchaseInvoice"
+                                                name="PurchaseInvoice" (click)="onClick($event, 'PurchaseInvoice')"
+                                                value="./app-accounts/app-analytics/app-purchase-invoice"> Purchase
+                                            Invoice</li>
+                                        <li><input type="checkbox" formControlName="SalesInvoice" name="SalesInvoice"
+                                                (click)="onClick($event, 'SalesInvoice')"
+                                                value="./app-accounts/app-analytics/app-sales-invoice"> Sales Invoice
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Purchasing</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Purchasing</span></li>
+
+                                        <li><input type="checkbox" formControlName="PurchaseMaterialRequest"
+                                                name="PurchaseMaterialRequest"
+                                                (click)="onClick($event, 'PurchaseMaterialRequest')"
+                                                value="./app-buying/app-purchase-details/app-prmat-req"> Purchase
+                                            Material
+                                            Request
+                                        </li>
+                                        <li><input type="checkbox" formControlName="PurchaseQuotationRequest"
+                                                name="PurchaseQuotationRequest"
+                                                (click)="onClick($event, 'PurchaseQuotationRequest')"
+                                                value="./app-buying/app-purchase-details/app-prreq-quot"> Purchase
+                                            Quotation
+                                            Request
+                                        </li>
+                                        <li><input type="checkbox" formControlName="PurchaseOrder" name="PurchaseOrder"
+                                                (click)="onClick($event, 'PurchaseOrder')"
+                                                value="./app-buying/app-purchase-details/app-purchase-order"> Purchase
+                                            Order
+                                        </li>
+                                        <li><input type="checkbox" formControlName="SupplierQuotation"
+                                                name="SupplierQuotation" (click)="onClick($event, 'SupplierQuotation')"
+                                                value="./app-buying/app-purchase-details/app-supplier-quot"> Supplier
+                                            Quotation
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Supplier</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Supplier</span></li>
+
+                                        <li><input type="checkbox" formControlName="Supplier" name="Supplier"
+                                                (click)="onClick($event, 'Supplier')"
+                                                value="./app-buying/app-supplier-details/app-buying-supplier"> Supplier
+                                        </li>
+                                        <li><input type="checkbox" formControlName="Type" name="Type"
+                                                (click)="onClick($event, 'Type')"
+                                                value="./app-buying/app-supplier-details/app-supplier-type"> Type</li>
+                                        <li><input type="checkbox" formControlName="Status" name="Status"
+                                                (click)="onClick($event, 'Status')"
+                                                value="./app-buying/app-supplier-details/app-supplier-status"> Status
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Item and Pricing</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Item and Pricing</span></li>
+
+                                        <li><input type="checkbox" formControlName="ItemGroup" name="ItemGroup"
+                                                (click)="onClick($event, 'ItemGroup')"
+                                                value="./app-buying/app-item-price-details/app-item-group"> Item Group
+                                        </li>
+                                        <li><input type="checkbox" formControlName="ItemPrice" name="ItemPrice"
+                                                (click)="onClick($event, 'ItemPrice')"
+                                                value="./app-buying/app-item-price-details/app-item-price"> Item Price
+                                        </li>
+                                        <li><input type="checkbox" formControlName="ProductBundle" name="ProductBundle"
+                                                (click)="onClick($event, 'ProductBundle')"
+                                                value="./app-buying/app-item-price-details/app-product-bundle"> Product
+                                            Bundle
+                                        </li>
+                                        <li><input type="checkbox" formControlName="PricingRule" name="PricingRule"
+                                                (click)="onClick($event, 'PricingRule')"
+                                                value="./app-buying/app-item-price-details/app-pricing-rule"> Pricing
+                                            Rule</li>
+                                        <li><input type="checkbox" formControlName="ShippingRule" name="ShippingRule"
+                                                (click)="onClick($event, 'ShippingRule')"
+                                                value="./app-buying/app-item-price-details/app-shipping-rule"> Shipping
+                                            Rule
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Analytics</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Analytics</span></li>
+
+                                        <li><input type="checkbox" formControlName="PUAnalytics" name="PUAnalytics"
+                                                (click)="onClick($event, 'PUAnalytics')"
+                                                value="./app-buying/app-analytics/app-pu-analytics"> PU Analytics</li>
+                                        <li><input type="checkbox" formControlName="SupplierWiseAnalytics"
+                                                name="SupplierWiseAnalytics"
+                                                (click)="onClick($event, 'SupplierWiseAnalytics')"
+                                                value="./app-buying/app-analytics/app-supplier-wise-analytics"> Supplier
+                                            Wise
+                                            Analytics</li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Other Reports</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Other Reports</span></li>
+
+                                        <li><input type="checkbox" formControlName="ItemRequest" name="ItemRequest"
+                                                (click)="onClick($event, 'ItemRequest')"
+                                                value="./app-buying/app-buying-report-details/app-item-request"> Item
+                                            Request
+                                        </li>
+                                        <li><input type="checkbox" formControlName="ItemOrdered" name="ItemOrdered"
+                                                (click)="onClick($event, 'ItemOrdered')"
+                                                value="./app-buying/app-buying-report-details/app-item-ordered"> Item
+                                            Ordered
+                                        </li>
+                                        <li><input type="checkbox" formControlName="MaterialRequestSupplyWise"
+                                                name="MaterialRequestSupplyWise"
+                                                (click)="onClick($event, 'MaterialRequestSupplyWise')"
+                                                value="./app-buying/app-buying-report-details/app-matreq-supwise">
+                                            Material
+                                            Request
+                                            Supply Wise</li>
+                                        <li><input type="checkbox" formControlName="ItemPUHistory" name="ItemPUHistory"
+                                                (click)="onClick($event, 'ItemPUHistory')"
+                                                value="./app-buying/app-buying-report-details/app-item-puhistory">
+                                            Item-PUHistory
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Sales</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Sales</span></li>
+
+                                        <li><input type="checkbox" formControlName="QuotationTrends"
+                                                name="QuotationTrends" (click)="onClick($event, 'QuotationTrends')"
+                                                value="./app-selling/app-salse/app-quot-trends"> Quotation Trends</li>
+                                        <li><input type="checkbox" formControlName="SalesOrder" name="SalesOrder"
+                                                (click)="onClick($event, 'SalesOrder')"
+                                                value="./app-selling/app-salse/app-salse-order"> Sales Order</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Customers</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Customers</span></li>
+
+                                        <li><input type="checkbox" formControlName="CustomerGroup" name="CustomerGroup"
+                                                (click)="onClick($event, 'CustomerGroup')"
+                                                value="./app-selling/app-customers/app-customer-group"> Customer Group
+                                        </li>
+                                        <li><input type="checkbox" formControlName="Customer" name="Customer"
+                                                (click)="onClick($event, 'Customer')"
+                                                value="./app-selling/app-customers/app-customerr"> Customer</li>
+                                        <li><input type="checkbox" formControlName="Contact" name="Contact"
+                                                (click)="onClick($event, 'Contact')"
+                                                value="./app-selling/app-customers/app-contact"> Contact</li>
+                                        <li><input type="checkbox" formControlName="Address" name="Address"
+                                                (click)="onClick($event, 'Address')"
+                                                value="./app-selling/app-customers/app-address"> Address</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Analytics</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Analytics</span></li>
+
+                                        <li><input type="checkbox" formControlName="SalesAnalytics"
+                                                name="SalesAnalytics" (click)="onClick($event, 'SalesAnalytics')"
+                                                value="./app-selling/app-analytics/app-sales-analytics"> Sales Analytics
+                                        </li>
+                                        <li><input type="checkbox" formControlName="SalesFunnel" name="SalesFunnel"
+                                                (click)="onClick($event, 'SalesFunnel')"
+                                                value="./app-selling/app-analytics/app-sales-funnel"> Sales Funnel</li>
+                                        <li><input type="checkbox" formControlName="CustomerAcqustionAndLoyalty"
+                                                name="CustomerAcqustionAndLoyalty"
+                                                (click)="onClick($event, 'CustomerAcqustionAndLoyalty')"
+                                                value="./app-selling/app-analytics/app-customer-acqustion-loyalty">
+                                            Customer
+                                            Acqustion and Loyalty</li>
+                                        <li><input type="checkbox" formControlName="QuotationTrends"
+                                                name="QuotationTrends" (click)="onClick($event, 'QuotationTrends')"
+                                                value="./app-selling/app-analytics/app-quotation-trends"> Quotation
+                                            Trends</li>
+                                        <li><input type="checkbox" formControlName="SalesOrderTrends"
+                                                name="SalesOrderTrends" (click)="onClick($event, 'SalesOrderTrends')"
+                                                value="./app-selling/app-analytics/app-sales-order-trends"> Sales Order
+                                            Trends
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">
+                            <h3>Sales Partners and Territory</h3>
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><span>Sales Partners and Territory</span></li>
+
+                                        <li><input type="checkbox" formControlName="Territory" name="Territory"
+                                                (click)="onClick($event, 'Territory')"
+                                                value="./app-selling/app-salse-pat-terr/app-territory"> Territory</li>
+                                        <li><input type="checkbox" formControlName="SalesPartner" name="SalesPartner"
+                                                (click)="onClick($event, 'SalesPartner')"
+                                                value="./app-selling/app-salse-pat-terr/app-salse-partner"> Sales
+                                            Partner</li>
+                                        <li><input type="checkbox" formControlName="SalesPerson" name="SalesPerson"
+                                                (click)="onClick($event, 'SalesPerson')"
+                                                value="./app-selling/app-salse-pat-terr/app-salse-person"> Sales Person
+                                        </li>
+                                        <li><input type="checkbox" formControlName="TerritoryTargetVarianceItem"
+                                                name="TerritoryTargetVarianceItem"
+                                                (click)="onClick($event, 'TerritoryTargetVarianceItem')"
+                                                value="./app-selling/app-salse-pat-terr/app-territory-tar-var-itm-grp">
+                                            Territory Target Variance Item (Group Wise)</li>
+                                        <li><input type="checkbox" formControlName="SalesPersonTargetVarianceItem"
+                                                name="SalesPersonTargetVarianceItem"
+                                                (click)="onClick($event, 'SalesPersonTargetVarianceItem')"
+                                                value="./app-selling/app-salse-pat-terr/app-salse-per-tar-var-itm-grp">
+                                            Sales
+                                            Person
+                                            Target Variance Item (Group Wise)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ul>
+            </div>
+
+            <button type="submit" class="btn btn-primary submit" style="float: right;">Submit</button>
+        </form>
+    </div>
+
+</fieldset>

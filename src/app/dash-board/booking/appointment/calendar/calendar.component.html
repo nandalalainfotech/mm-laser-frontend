@@ -1,0 +1,71 @@
+<!-- <div *ngFor='let day of dayList'class='day-list'>
+  <h1>{{day.day}}</h1>
+</div> -->
+<div style="width:100%;overflow:scroll;">
+  <table>
+    <!-- <th *ngFor='let day of dayList' class='day-list' [ngClass]='{"active": day.active}' (click)='setActive(day)'>
+    {{day.day}}
+  </th> -->
+    <!-- <div style="padding-top: 30px">
+      <th style="width: 10%;">
+        <span>Machinename</span>
+        <tr class='day-list' *ngFor='let machine of machiness; let i=index'>
+          <td style="height: 130px; padding: 57px 0px 0px 0px;">
+            <span>{{machine.machinename}}</span>
+          </td>
+        </tr>
+      </th>
+    </div> -->
+    <th *ngFor="let day of dayas">
+      <sapn> {{day.day}}</sapn><br>
+      <sapn> {{day.date}}-</sapn>
+      <sapn> {{day.mon}}</sapn>
+      <!-- <sapn> {{day.getFullYear}}</sapn><br>
+      <sapn> {{day.getMonth}}/</sapn>
+      <sapn> {{day.getDate}}</sapn> -->
+
+      <tr class='day-list' *ngFor='let machine of machiness; let i=index'>
+        <!-- <td>
+        <span>{{machine.machinename}}</span>
+      </td> -->
+        <td>
+          <!-- <div class="dateclr"> -->
+          <!-- <span (click)="editclick(day, i)">{{day.date | date: "dd/MM" }}</span> -->
+
+          <!-- </div> -->
+          <div>
+            <div>
+              <button type="click" (click)="onClick(machine,day,i)" class="w3-button w3-xlarge w3-circle w3-black">
+                +
+              </button>
+              <!-- <div *ngIf="point.length > 0"> -->
+              <div *ngFor="let item of point; let j = index">
+
+                <div class="fieldd"
+                  *ngIf="item.days == day.day && machine.machinename == item.mslno2.machinename">
+              
+                  <div style="margin-top: 2px; padding: 5px 5px 5px 5px;">
+                    <span (click)="editClick(item, j)" class="w3-button w3-xlarge w3-circle w3-teal">
+                      {{item.hospital.charAt(0)}}</span>
+                    <span (click)="editClick(item, j)" class="start"> {{item.starttime}}-</span>
+                    <span (click)="editClick(item, j)"> {{item.endtime}} &nbsp;</span>
+                    <!-- <span> -->
+                    <span class="fas fa-ellipsis-v" type="button" data-toggle="dropdown" style="color:#2b468d;">
+                    </span>
+                    <ul class="dropdown-menu">
+                      <li (click)="editClickks(item, j)"><a>View</a></li>
+                      <li (click)="editClickk(item, j)"><a>Edit</a></li>
+                      <li (click)="onDeleteButtonClick(item, j)"><a>Delete</a></li>
+                    </ul>
+                    <!-- </span> -->
+                  </div>
+                </div>
+              
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </th>
+  </table>
+</div>

@@ -1,0 +1,78 @@
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">{{'Make Leave Block List' | translate }}</legend>
+    <div class="formData">
+        <form [formGroup]="leBlockForm" (ngSubmit)="onOrderClick($event,leBlockForm)">
+            <div class="row">
+                <div class="col-xs-3 col-sm-3">
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" path="lvblockId" />
+                        <label path="blockName" for="series" cssClass="required">{{'Block Name' | translate }}</label>
+                        <input formControlName="blockName" class="form-control" path="blockName"
+                            [ngClass]="{ 'is-invalid': submitted && f.blockName.errors }" name="blockName" />
+                        <div *ngIf="submitted && f.blockName.errors" class="invalid-feedback">
+                            <div *ngIf="f.blockName.errors.required">{{'Block Name is Required' | translate }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 ">
+                    <div class="form-group">
+                        <label path="company" for="company" cssClass="required">{{'Company' | translate }}</label>
+                        <input class="form-control" type="hidden" path="company" />
+                        <select formControlName="company" class="form-control" id="empCompany"
+                            [ngClass]="{ 'is-invalid': submitted && f.company.errors }" name="company">
+                            <option value="" hidden> - {{'Select Company' | translate }} - </option>
+                            <option value="null"> - {{'Select Company' | translate }} - </option>
+                            <option *ngFor="let system of cmysystemproperties" [value]="system.description">
+                                {{system.description}}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted && f.company.errors" class="invalid-feedback">
+                            <div *ngIf="f.company.errors.required">{{'Company is Required' | translate }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 ">
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-primary mr-2">
+                            {{'Submit' | translate }}
+                        </button>
+                        <button type="button" class="btn btn-warning mr-2" (click)="onReset()">
+                            {{'Clear' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</fieldset>
+
+<div class="scrollbar">
+    <div class="sample">
+        <fieldset class="scheduler-border">
+
+            <div class="row" style="margin-bottom: 20px;">
+                <div class="col-sm-12">
+                    <div class="form-group text-right">
+                        <button type="button" class="btn btn-primary mr-2" style="margin-right: 45px;"
+                            (click)="onGeneratePdfReport()">
+                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>{{'Export Pdf' | translate }}
+                        </button>
+                        <button type="button" class="btn btn-warning mr-2" (click)="onGenerateExcelReport()">
+                            <i class="fa fa-file-excel-o" aria-hidden="true"></i>{{'Export Excel' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <legend class="scheduler-border">{{'Leave Block List' | translate }}</legend>
+            <div class="boxData">
+                <ag-grid-angular #agGrid class="ag-theme-balham" [gridOptions]="gridOptions"
+                    style="width: 100%; height: 350px;" [enableFilter]="true" [enableSorting]="true" [pagination]="true"
+                    [showToolPanel]="true" [frameworkComponents]="frameworkComponents">
+                </ag-grid-angular>
+            </div>
+        </fieldset>
+    </div>
+</div>

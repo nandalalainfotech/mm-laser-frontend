@@ -1,0 +1,165 @@
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">{{'Add Employee' | translate }}</legend>
+    <div class="formData">
+        <form [formGroup]="infosForm" (ngSubmit)="onOrderClick($event, infosForm)">
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 ">
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" path="sNo" />
+                        <label path="empNumber" for="employeeName" cssClass="required">{{'Employee Code' | translate }}</label>
+                        <input formControlName="empNumber" class="form-control" path="empNumber" [ngClass]="{ 'is-invalid': submitted && f.empNumber.errors }" name="empNumber" />
+                        <div *ngIf="submitted && f.empNumber.errors" class="invalid-feedback">
+                            <div *ngIf="f.empNumber.errors.required">{{'Employee Code is Required' | translate }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 ">
+                    <div class="form-group">
+                        <label path="empName" for="employeeName" cssClass="required">{{'Employee Name' | translate }}</label>
+                        <input formControlName="empName" class="form-control" path="empName" [ngClass]="{ 'is-invalid': submitted && f.empName.errors }" name="empName" />
+                        <div *ngIf="submitted && f.empName.errors" class="invalid-feedback">
+                            <div *ngIf="f.empName.errors.required">{{'Employee Name is Required' | translate }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <div class="form-group">
+                        <div class="p-fluid p-grid p-formgrid">
+                            <div class="p-field p-col-12 p-md-5">
+                                <label path="empDob" for="empDob" cssClass="required">{{'Employee DOB' | translate }}</label>
+                                <p-calendar [monthNavigator]="true" [yearNavigator]="true" formControlName="empDob" name="empDob" yearRange="2000:2030" inputId="navigators" [showIcon]="true" inputId="icon"></p-calendar>
+                                <div *ngIf="submitted && f.empDob.errors" class="invalid-feedback">
+                                    <div *ngIf="f.empDob.errors.required">{{'Employee DOB is Required' | translate }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <div class="form-group">
+                        <div class="p-fluid p-grid p-formgrid">
+                            <div class="p-field p-col-12 p-md-5">
+                                <label path="empDoj" for="empDoj" cssClass="required">{{'Employee DOJ' | translate }}</label>
+                                <p-calendar [monthNavigator]="true" [yearNavigator]="true" formControlName="empDoj" name="empDoj" yearRange="2000:2030" inputId="navigators" [showIcon]="true" inputId="icon"></p-calendar>
+                                <div *ngIf="submitted && f.empDoj.errors" class="invalid-feedback">
+                                    <div *ngIf="f.empDoj.errors.required">{{'Employee DOJ is Required' | translate }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 col-sm-3">
+                    <div class="form-group">
+                        <label path="empDesign" for="employeeAddress" cssClass="required">{{'Designation' | translate }}</label>
+                        <input formControlName="empDesign" class="form-control" path="empDesign" [ngClass]="{ 'is-invalid': submitted && f.empDesign.errors }" name="empDesign" />
+                        <div *ngIf="submitted && f.empDesign.errors" class="invalid-feedback">
+                            <div *ngIf="f.empDesign.errors.required">{{'Designation is Required' | translate }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 ">
+                    <div class="form-group">
+                        <label path="empGender" for="employeeSalary" cssClass="required">{{'Employee Gender' | translate }}</label>
+                        <input type="hidden" class="form-control" path="empGender" />
+                        <select formControlName="empGender" class="form-control" name="empgender" id="empgender" [ngClass]="{ 'is-invalid': submitted && f.empGender.errors }" name="empGender">
+                            <option value="" hidden > - {{'Select the Status' | translate }} - </option>
+                            <option value="null" > - {{'Select the Status' | translate }} - </option>
+                            <option *ngFor="let system of gendersystemproperties" [value]="system.description">
+                                {{system.description}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.empGender.errors" class="invalid-feedback">
+                            <div *ngIf="f.empGender.errors.required">{{'Employee Gender is Required' | translate }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <div class="form-group">
+                        <label path="empCompany" for="employeeAddress" cssClass="required">{{'Employee Company' | translate }}</label>
+                        <input formControlName="empCompany" class="form-control" path="empCompany" [ngClass]="{ 'is-invalid': submitted && f.empCompany.errors }" name="empCompany" />
+                        <div *ngIf="submitted && f.empCompany.errors" class="invalid-feedback">
+                            <div *ngIf="f.empCompany.errors.required">{{'Employee Company is Required' | translate }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 ">
+                    <div class="form-group">
+                        <label path="empStatus" for="employeeSalary" cssClass="required">{{'Employee Status' | translate }}</label>
+                        <input type="hidden" class="form-control" path="empStatus" />
+                        <select formControlName="empStatus" class="form-control" name="empstatus" id="empstatus" [ngClass]="{ 'is-invalid': submitted && f.empStatus.errors }" name="empStatus">
+                            <option value="" hidden> - {{'Select the Status' | translate }} - </option>
+                            <option value="null"> - {{'Select the Status' | translate }} - </option>
+                            <option *ngFor="let system of statussystemproperties" [value]="system.description">
+                                {{system.description}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.empStatus.errors" class="invalid-feedback">
+                            <div *ngIf="f.empStatus.errors.required">{{'Employee Status is Required' | translate }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 col-sm-3">
+                    <div class="form-group">
+                        <input class="form-control" type="hidden" path="deptId" />
+                        <label path="deptName" for="deptName" cssClass="required">{{'Department' | translate }}</label>
+                        <input class="form-control" type="hidden" path="deptName" />
+                        <select formControlName="deptName" class="form-control" name="departments" id="departments" [ngClass]="{ 'is-invalid': submitted && f.deptName.errors }" name="deptName">
+                            <option value="" hidden> - {{'Select the Department' | translate }} - </option>
+                            <option value="null"> - {{'Select the Department' | translate }} - </option>
+                            <option *ngFor="let dept of department" [value]="dept.deptName">{{dept.deptName}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.deptName.errors" class="invalid-feedback">
+                            <div *ngIf="f.deptName.errors.required">{{'Department is Required' | translate }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 ">
+                    <div class="form-group">
+                        <label path="branch" for="branch" cssClass="required">{{'Branch' | translate }}</label>
+                        <input formControlName="branch" class="form-control" path="branch" [ngClass]="{ 'is-invalid': submitted && f.branch.errors }" name="branch" />
+                        <div *ngIf="submitted && f.branch.errors" class="invalid-feedback">
+                            <div *ngIf="f.branch.errors.required">{{'Branch is Required' | translate }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 ">
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-primary mr-2">
+                            {{'Submit' | translate }}
+                        </button>
+                        <button type="button" class="btn btn-warning mr-2" (click)="onReset()">
+                            {{'Clear' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="menulink" value="${menulink}">
+        </form>
+    </div>
+</fieldset>
+<div class="scrollbar">
+    <fieldset class="scheduler-border">
+
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="col-sm-12">
+                <div class="form-group text-right">
+                    <button type="button" class="btn btn-primary mr-2" style="margin-right: 45px;"
+                        (click)="onGeneratePdfReport()">
+                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>{{'Export Pdf' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-warning mr-2" (click)="onGenerateExcelReport()">
+                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>{{'Export Excel' | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <legend class="scheduler-border">{{'List Of Employees' | translate }}</legend>
+        <ag-grid-angular #agGrid class="ag-theme-balham" [gridOptions]="gridOptions" style="width: 100%; height: 350px;" [enableFilter]="true" [enableSorting]="true" [pagination]="true" [showToolPanel]="true" [frameworkComponents]="frameworkComponents">
+        </ag-grid-angular>
+    </fieldset>
+</div>

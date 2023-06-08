@@ -1,0 +1,132 @@
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Doctors Master</legend>
+    <div class="formData">
+        <form [formGroup]="doctorForm" (ngSubmit)="onOrderClick($event, doctorForm)">
+            <div class="row">
+                <input class="form-control" path="slNo" type="hidden" readonly="true" />
+                <div class="col-xs-3 form-group">
+                    <label path="doctorname" for="doctorname" cssClass="required">Doctor Name
+                    </label>
+                    <input formControlName="doctorname" class="form-control" path="doctorname" name="doctorname"
+                        [ngClass]="{ 'is-invalid': submitted && f.doctorname.errors }" />
+                    <div *ngIf="submitted && f.doctorname.errors" class="invalid-feedback">
+                        <div *ngIf="f.doctorname.errors.required">Doctor Name is Required</div>
+                    </div>
+                </div>
+                <div class="col-xs-3 form-group">
+                    <label path="contactnumber" for="contactnumber" cssClass="required">Contact
+                        Number</label>
+                    <input formControlName="contactnumber" class="form-control" path="contactnumber"
+                        name="contactnumber" [ngClass]="{ 'is-invalid': submitted && f.contactnumber.errors }"
+                        prefix="+91" mask="(000) 000 0000" />
+                    <div *ngIf="submitted && f.contactnumber.errors" class="invalid-feedback">
+                        <div *ngIf="f.contactnumber.errors.required">Contact Number is Required</div>
+                    </div>
+                </div>
+                <div class="col-xs-3 form-group">
+                    <label path="emailid" for="emailid" cssClass="required">Email ID</label>
+                    <input formControlName="emailid" class="form-control" path="emailid" name="emailid"
+                        [ngClass]="{ 'is-invalid': submitted && f.emailid.errors }" />
+                    <div *ngIf="submitted && f.emailid.errors" class="invalid-feedback">
+                        <div *ngIf="f.emailid.errors.required">Email Id is Required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label path="hospitalname" for="hospitalname" cssClass="required">Hospital Name
+                    </label>
+                    <input formControlName="hospitalname" class="form-control" path="hospitalname" name="hospitalname"
+                        [ngClass]="{ 'is-invalid': submitted && f.hospitalname.errors }" />
+                    <div *ngIf="submitted && f.hospitalname.errors" class="invalid-feedback">
+                        <div *ngIf="f.hospitalname.errors.required">Hospital Name is Required</div>
+                    </div>
+                </div>
+                <div class="col-xs-3 form-group">
+                    <label path="addressline1" for="addressline1" cssClass="required">Address Line 1
+                    </label>
+                    <input formControlName="addressline1" class="form-control" path="addressline1" name="addressline1"
+                        rows="5" cols="30" [ngClass]="{ 'is-invalid': submitted && f.addressline1.errors }" />
+                    <div *ngIf="submitted && f.addressline1.errors" class="invalid-feedback">
+                        <div *ngIf="f.addressline1.errors.required">Address Line 1 is Required</div>
+                    </div>
+                </div>
+                <div class="col-xs-3 form-group">
+                    <label path="addressline2" for="addressline2" cssClass="required">Address Line
+                        2</label>
+                    <input formControlName="addressline2" class="form-control" path="addressline2" name="addressline2"
+                        rows="5" cols="30" [ngClass]="{ 'is-invalid': submitted && f.addressline2.errors }" />
+                    <div *ngIf="submitted && f.addressline2.errors" class="invalid-feedback">
+                        <div *ngIf="f.addressline2.errors.required">Address Line 2 is Required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label path="city" for="city" cssClass="required">City</label>
+                    <input formControlName="city" class="form-control" path="city" name="city"
+                        [ngClass]="{ 'is-invalid': submitted && f.city.errors }" />
+                    <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+                        <div *ngIf="f.city.errors.required">City is Required</div>
+                    </div>
+                </div>
+                <div class="col-xs-3 form-group">
+                    <label path="state" for="state" cssClass="required">State</label>
+                    <input formControlName="state" class="form-control" path="state" name="state"
+                        [ngClass]="{ 'is-invalid': submitted && f.state.errors }" />
+                    <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+                        <div *ngIf="f.state.errors.required">State is Required</div>
+                    </div>
+                </div>
+                <div class="col-xs-3 form-group">
+                    <label path="pincode" for="pincode" cssClass="required">
+                        PinCode</label>
+                    <input class="form-control" path="pincode" id="pincode" name="pincode" formControlName="pincode"
+                        type="number" [ngClass]="{ 'is-invalid': submitted && f.pincode.errors }" mask="0*.00" />
+                    <div *ngIf="submitted && f.pincode.errors" class="invalid-feedback">
+                        <div *ngIf="f.pincode.errors.required"> PinCode is Required
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <h4>Status</h4>
+                        <label class="switch">
+                            <input type="checkbox" formControlName="status" checked>
+                            <span class="slider round"></span>
+                        </label>
+                        <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+                            <div *ngIf="f.status.errors.required">Status is required</div>
+                        </div>
+
+                    </div>
+                </div>
+               
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 ">
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-primary mr-2">
+                            Submit
+                        </button>
+                        <button type="button" class="btn btn-warning mr-2" (click)="onReset()">
+                            Clear
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</fieldset>
+
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Doctors Master</legend>
+    <ag-grid-angular #agGrid class="ag-theme-balham" [gridOptions]="gridOptions" style="width: 100%; height: 350px;"
+        [enableFilter]="true" [enableSorting]="true" [pagination]="true" [showToolPanel]="true"
+        [frameworkComponents]="frameworkComponents">
+    </ag-grid-angular>
+</fieldset>

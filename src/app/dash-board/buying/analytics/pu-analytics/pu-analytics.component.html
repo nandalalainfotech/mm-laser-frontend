@@ -1,0 +1,160 @@
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">{{'Make New Analytics' | translate }}</legend>
+    <div class="formData">
+        <form [formGroup]="puAnalysticForm" (ngSubmit)="onOrderClick($event, puAnalysticForm)">
+            <div class="row">
+                <div class="col-xs-3 col-sm-3">
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" path="puansId" />
+                        <label path="treeType" for="series" cssClass="required">{{'Tree Type' | translate }}</label>
+                        <input class="form-control" type="hidden" path="treeType" />
+                        <select formControlName="treeType" class="form-control" name="treelist" id="treelist"
+                            [ngClass]="{ 'is-invalid': submitted && f.treeType.errors }" name="treeType">
+                            <option value="" hidden> - {{'Select Tree Type' | translate }} - </option>
+                            <option value="null"> - {{'Select Tree Type' | translate }} - </option>
+                            <option *ngFor="let system of systemproperties" [value]="system.description">
+                                {{system.description}}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted && f.treeType.errors" class="invalid-feedback">
+                            <div *ngIf="f.treeType.errors.required">{{'Tree Type is Required' | translate }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 ">
+                    <div class="form-group">
+                        <label path="basedOn" for="leaveType" cssClass="required">{{'Based on' | translate }}</label>
+                        <input class="form-control" type="hidden" path="basedOn" />
+                        <select formControlName="basedOn" class="form-control" name="basedonList" id="basedonList"
+                            [ngClass]="{ 'is-invalid': submitted && f.basedOn.errors }" name="basedOn">
+                            <option value="" hidden> - {{'Select Base' | translate }} - </option>
+                            <option value="null"> - {{'Select Base' | translate }} - </option>
+                            <option *ngFor="let system of bsystemproperties " [value]="system.description">
+                                {{system.description}}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted && f.basedOn.errors" class="invalid-feedback">
+                            <div *ngIf="f.basedOn.errors.required">{{'Based on is Required' | translate }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <div class="form-group">
+                        <div class="p-fluid p-grid p-formgrid">
+                            <div class="p-field p-col-12 p-md-5">
+                                <label path="fromDate" for="fromDate" cssClass="required">{{'From Date' | translate
+                                    }}</label>
+                                <p-calendar [monthNavigator]="true" [yearNavigator]="true" formControlName="fromDate"
+                                    name="fromDate" yearRange="2000:2030" inputId="navigators" [showIcon]="true"
+                                    inputId="icon">
+                                </p-calendar>
+                                <div *ngIf="submitted && f.fromDate.errors" class="invalid-feedback">
+                                    <div *ngIf="f.fromDate.errors.required">{{'From Date is Required' | translate }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <div class="form-group">
+                        <div class="p-fluid p-grid p-formgrid">
+                            <div class="p-field p-col-12 p-md-5">
+                                <label path="toDate" for="toDate" cssClass="required">{{'To Date' | translate }}</label>
+                                <p-calendar [monthNavigator]="true" [yearNavigator]="true" formControlName="toDate"
+                                    name="toDate" yearRange="2000:2030" inputId="navigators" [showIcon]="true"
+                                    inputId="icon">
+                                </p-calendar>
+                                <div *ngIf="submitted && f.toDate.errors" class="invalid-feedback">
+                                    <div *ngIf="f.toDate.errors.required">{{'To Date is Required' | translate }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 col-sm-3">
+                    <div class="form-group">
+                        <label path="company" for="toProduce" cssClass="required">{{'Company' | translate }}</label>
+                        <input formControlName="company" class="form-control" path="company"
+                            [ngClass]="{ 'is-invalid': submitted && f.company.errors }" name="company" />
+                        <div *ngIf="submitted && f.company.errors" class="invalid-feedback">
+                            <div *ngIf="f.company.errors.required">{{'Company is Required' | translate }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 ">
+                    <div class="form-group">
+                        <label path="anRange" for="leaveType" cssClass="required">{{'Range' | translate }}</label>
+                        <input class="form-control" type="hidden" path="anRange" />
+                        <select formControlName="anRange" class="form-control" name="rangelist" id="rangelist"
+                            [ngClass]="{ 'is-invalid': submitted && f.anRange.errors }" name="anRange">
+                            <option value="" hidden> - {{'Select Range' | translate }} - </option>
+                            <option value="null"> - {{'Select Range' | translate }} - </option>
+                            <option *ngFor="let system of rsystemproperties " [value]="system.description">
+                                {{system.description}}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted && f.anRange.errors" class="invalid-feedback">
+                            <div *ngIf="f.anRange.errors.required">{{'Range is Required' | translate }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 ">
+                    <div class="form-group">
+                        <label path="valueorqty" for="leaveType" cssClass="required">{{'Value or Quantity' | translate
+                            }}</label>
+                        <input class="form-control" type="hidden" path="valueorqty" />
+                        <select formControlName="valueorqty" class="form-control" name="vqList" id="vqList"
+                            [ngClass]="{ 'is-invalid': submitted && f.valueorqty.errors }" name="valueorqty">
+                            <option value="" hidden> - {{'Select Value or Quantity' | translate }} - </option>
+                            <option value="null"> - {{'Select Value or Quantity' | translate }} - </option>
+                            <option *ngFor="let system of vsystemproperties " [value]="system.description">
+                                {{system.description}}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted && f.valueorqty.errors" class="invalid-feedback">
+                            <div *ngIf="f.valueorqty.errors.required">{{'Value or Quantity is Required' | translate }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 ">
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-primary mr-2">
+                            {{'Submit' | translate }}
+                        </button>
+                        <button type="button" class="btn btn-warning mr-2" (click)="onReset()">
+                            {{'Clear' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</fieldset>
+<fieldset class="scheduler-border">
+
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-sm-12">
+            <div class="form-group text-right">
+                <button type="button" class="btn btn-primary mr-2" style="margin-right: 45px;"
+                    (click)="onGeneratePdfReport()">
+                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>{{'Export Pdf' | translate }}
+                </button>
+                <button type="button" class="btn btn-warning mr-2" (click)="onGenerateExcelReport()">
+                    <i class="fa fa-file-excel-o" aria-hidden="true"></i>{{'Export Excel' | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <legend class="scheduler-border">{{'Analytics List' | translate }}</legend>
+    <ag-grid-angular #agGrid class="ag-theme-balham" [gridOptions]="gridOptions" style="width: 100%; height: 350px;"
+        [enableFilter]="true" [enableSorting]="true" [pagination]="true" [showToolPanel]="true"
+        [frameworkComponents]="frameworkComponents">
+    </ag-grid-angular>
+</fieldset>

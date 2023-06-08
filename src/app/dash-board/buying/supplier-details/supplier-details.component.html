@@ -1,0 +1,14 @@
+<div class="manu-breadcrumb">
+    <app-breadcrumb></app-breadcrumb>
+</div>
+
+<nav mat-tab-nav-bar>
+    <a mat-tab-link routerLink="./app-buying-supplier" routerLinkActive #supplierTab="routerLinkActive"
+        [active]="supplierTab.isActive">{{'Supplier' | translate }}</a>
+    <a mat-tab-link routerLink="./app-supplier-type" routerLinkActive #typeTab="routerLinkActive"
+        [active]="typeTab.isActive">{{'Type' | translate }}</a>
+    <a mat-tab-link routerLink="./app-supplier-status" routerLinkActive #statusTab="routerLinkActive"
+        [active]="statusTab.isActive">{{'Status' | translate }}</a>
+</nav>
+
+<router-outlet></router-outlet>
