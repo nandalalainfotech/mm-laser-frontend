@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
     loginForm: FormGroup | any;
     username: string = "";
     password: string = "";
-    domain: string = "";
+    // domain: string = "";
     user001mb?: User001mb;
     toggle1: boolean = false;
     submitted = false;
@@ -41,10 +41,10 @@ export class LoginComponent implements OnInit {
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required],
-            domain: [null, Validators.required],
+            // domain: [null, Validators.required],
         });
 
-            this.translateService.setDefaultLang("English");
+        this.translateService.setDefaultLang("English");
     }
     get f() { return this.loginForm.controls; }
     private markFormGroupTouched(formGroup: FormGroup) {
@@ -58,19 +58,25 @@ export class LoginComponent implements OnInit {
 
 
     onLoginClick(event: any, loginForm: any) {
-        // console.log("event", event);
+        console.log("event", event);
         this.markFormGroupTouched(this.loginForm);
         this.submitted = true;
         if (this.loginForm.invalid) {
             return;
         }
 
-        this.authManager.login(this.f.username.value, this.f.password.value, this.f.domain.value).subscribe(response => {
+        this.authManager.login(this.f.username.value, this.f.password.value).subscribe(response => {
+            console.log("response", response);
+
             this.user001mb = this.authManager.getcurrentUser;
             if (this.user001mb.status == "R") {
+                console.log("this.user001mb",this.user001mb);
+                
                 const modalRef = this.modalService.open(ResetPasswordComponent);
                 modalRef.componentInstance.user001mb = this.user001mb;
                 modalRef.result.then((data) => {
+                    console.log("data",data);
+                    
                     if (data == "Yes") {
                         this.router.navigate(['/app-dash-board']);
                     }

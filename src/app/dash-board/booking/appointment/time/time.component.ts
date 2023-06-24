@@ -40,6 +40,7 @@ export class TimeComponent implements ControlValueAccessor, MatFormFieldControl<
   id = `app-time-${TimeComponent.nextId++}`;
   describedBy = '';
   onChange = (_: any) => { };
+  time = {hour: 13, minute: 30};
   onTouched = () => { };
   @Input() sTime: boolean = false;
   @Output() timeChanged = new EventEmitter();

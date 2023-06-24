@@ -19,11 +19,10 @@ import { AppointmentRoutingModule } from './appointment-routing.module';
 import { AppointmentComponent } from './appointment.component';
 import { BookingentryComponent } from './bookingentry/bookingentry.component';
 import { BookingmanagementComponent } from './bookingmanagement/bookingmanagement.component';
-import { CalendarComponent } from './calendar/calendar.component';
 import { TimeComponent } from './time/time.component';
 
 @NgModule({
-  declarations: [AppointmentComponent, BookingentryComponent, CalendarComponent, BookingmanagementComponent,TimeComponent],
+  declarations: [AppointmentComponent, BookingentryComponent, BookingmanagementComponent,TimeComponent],
   imports: [
     CommonModule,
     AppointmentRoutingModule,

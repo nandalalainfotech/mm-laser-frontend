@@ -348,7 +348,7 @@ export class RegistrationComponent implements OnInit {
         let user001mb = new User001mb();
         user001mb.firstname = this.f.firstname.value ? this.f.firstname.value : "";
         user001mb.lastname = this.f.lastname.value ? this.f.lastname.value : "";
-        user001mb.domain = this.f.domain.value ? this.f.domain.value : "";
+        // user001mb.domain = this.f.domain.value ? this.f.domain.value : "";
         user001mb.username = this.f.username.value ? this.f.username.value : "";
         user001mb.status = this.f.status.value ? this.f.status.value : "";
         user001mb.language = this.f.language.value ? this.f.language.value : "";

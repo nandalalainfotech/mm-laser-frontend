@@ -1,29 +1,32 @@
-<fieldset lass="scheduler-border">
-    <legend class="scheduler-border">Booking Management</legend>
-    <form [formGroup]="bngmanagementForm">
-        <div class="col-xs-3">
-            <div class="form-group">
-                <div class="p-fluid p-grid p-formgrid">
-                    <div class="p-field p-col-12 p-md-5">
-                        <label path="previewWeek" for="previewWeek" cssClass="required">Date
-                        </label>
-                        <p-calendar [monthNavigator]="true" [yearNavigator]="true" formControlName="previewWeek"
-                            name="previewWeek" yearRange="2000:2040" inputId="navigators" [showIcon]="true"
-                            inputId="icon" (onSelect)="onSelect($event)">
-                        </p-calendar>
-                        <!-- <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
-                        <div *ngIf="f.date.errors.required"> Date is Required
-                        </div>
-                    </div> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-</fieldset>
-<fieldset class="scheduler-border">
-    <legend class="scheduler-border">Booking Management</legend>
-    <ag-grid-angular #agGrid class="ag-theme-balham" [gridOptions]="gridOptions" style="width: 100%; height: 350px;"
-        [pagination]="true" [frameworkComponents]="frameworkComponents">
-    </ag-grid-angular>
-</fieldset>
+<button type="button" value="close" class="closed col-sm-1" (click)="onCrossClick($event)">
+    <span aria-hidden="true">&times;</span>
+</button>
+<ng-container *ngFor="let item of details">
+    <div class="date-list">
+        <span>Date:{{item.payload.date | date: "dd-MM-yyyy"}}</span>
+    </div>
+    &nbsp;
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Machine Name</th>
+                <th>Doctor Name</th>
+                <th>Hospital</th>
+                <th>Staff</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{item.payload.mslno2.machinename}}</td>
+                <td>{{item.payload.dslno2.doctorname}}</td>
+                <td>{{item.payload.hospital}}</td>
+                <td>{{item.payload.staff}}</td>
+                <td>{{item.payload.starttime}}</td>
+                <td>{{item.payload.endtime}} </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- &nbsp; -->
+</ng-container>

@@ -35,15 +35,16 @@
             <div class="row">
                 <div class="col-xs-3">
                     <div class="form-group">
-                        <h4>Status</h4>
+                        <label path="status" for="status">Status</label>
+                        <br>
                         <label class="switch">
-                            <input type="checkbox" formControlName="status" checked>
+                            <input type="checkbox" formControlName="status" name="status">
                             <span class="slider round"></span>
                         </label>
                         <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
-                            <div *ngIf="f.status.errors.required">Status is required</div>
+                            <div *ngIf="f.status.errors.required">status is required
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>

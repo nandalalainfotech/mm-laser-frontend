@@ -14,7 +14,12 @@ const routes: Routes = [
       {
         path: "app-caseentry",
         loadChildren: () => import("./caseentry/caseentry.module").then(m => m.CaseentryModule)
+      },
+      {
+        path: "app-calendar-table",
+        loadChildren: () => import("./calendar-table/calendar-table.module").then(m => m.CalendarTableModule)
       }
+      
     ]
   }
 ];
