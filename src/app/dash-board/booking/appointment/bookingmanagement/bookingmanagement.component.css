@@ -1,0 +1,17 @@
+.date-list {
+    background-color: #1c4365 !important;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    color: #fff !important;
+}
+
+::ng-deep .closed {
+    top: -1px;
+    font-size: 29px;
+    left: 3px;
+    background-color: transparent;
+    border: 0px solid;
+    color: #fff !important;
+    font-weight: 900;
+    float: right;
+}

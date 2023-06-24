@@ -1,0 +1,21 @@
+::ng-deep .cal-month-view .cal-day-badge {
+  background-color: green;
+  color: #fff;
+}
+
+::ng-deep .cal-month-view .cal-event {
+  background-color: transparent !important;
+  border-color: #d1e8ff;
+  color: #fff;
+}
+
+::ng-deep .cal-month-view .cal-day-number {
+  font-size: 1.2em;
+  font-weight: 400;
+  opacity: 0.5;
+  margin-top: 15px;
+  margin-right: 15px;
+  float: right;
+  margin-bottom: 10px;
+  font-family: 'Courier New', Courier, monospace!important;
+}

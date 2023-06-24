@@ -7,8 +7,8 @@ export class Bookingentry001mb extends BaseEntity {
     hospital?: string;
     staff?: string;
     date?: Date;
-    days?: string;
+    // days?: string;
     starttime?: string;
     endtime?: string;
-    previewWeek?: Date;
+    // previewWeek?: Date;
 }

@@ -21,7 +21,10 @@ export class LinkRendererComponent implements ICellRendererAngularComp {
     }
 
     onClick($event: any) {
+        console.log("$event", $event);
+
         if (this.params.onClick instanceof Function) {
+          
             const params = {
                 event: $event,
                 rowData: this.params.node.data

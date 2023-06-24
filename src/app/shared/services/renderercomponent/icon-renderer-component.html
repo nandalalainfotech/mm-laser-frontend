@@ -11,6 +11,14 @@
         </span>
     </div>
 </a>
+<a [ngStyle]="{'color':colorthemes_1}" *ngIf="this.label == 'Status' ? true : false"
+    (click)="onClick($event)">
+    <div class="iconalign" style="font-size: 16px;" (click)="changeType(toggle)">
+        <span>
+            <!-- <i [ngClass]="toggle? 'fa fa-toggle-on' : 'fa fa-toggle-off'"></i> -->
+        </span>
+    </div>
+</a>
 <a [ngStyle]="{'color':colorthemes_1}" *ngIf="this.label == 'Delete' ? true : false" href="javascript:void(0)"
     (click)="onClick($event)">
     <i class="fa fa-trash"></i>

@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
-import { Component, HostBinding, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbModal, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { GridOptions } from 'ag-grid-community';
 import { deserialize } from 'serializer.ts/Serializer';
@@ -17,7 +18,7 @@ import { Machinemaster001mb } from 'src/app/shared/services/restcontroller/entit
 import { CalloutService } from 'src/app/shared/services/services/callout.service';
 import { DataSharedService } from 'src/app/shared/services/services/datashared.service';
 import { Utils } from 'src/app/shared/utils/utils';
-
+import { NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-bookingentry',
@@ -27,14 +28,6 @@ import { Utils } from 'src/app/shared/utils/utils';
 export class BookingentryComponent implements OnInit {
 
   @Input() lang: any;
-  @Input() details: any;
-  @Input() daydetails: any;
-  @Input() detailslist: any;
-  @Input() editmethod: any;
-  @Input() deletemethod: any;
-  @Input() title: any;
-  @Input() daydetailss: any;
-  // @Input() viewmethod: any;
   frameworkComponents: any;
   bookingId: number | any;
   insertUser: string = "";
@@ -48,8 +41,6 @@ export class BookingentryComponent implements OnInit {
   starttime: string = "";
   endtime: string = "";
   Doctormaster: Doctormaster001mb[] = [];
-  doctormaster001mb?: Doctormaster001mb;
-
   machiness: Machinemaster001mb[] = [];
   booking: Bookingentry001mb[] = [];
   public gridOptions: GridOptions | any;
@@ -58,23 +49,6 @@ export class BookingentryComponent implements OnInit {
   parentMenuString: string = '';
   childMenuString: string = '';
   dayList: Array<any> = [];
-  public newTime: string = '13:30';
-  time1!: NgbTimeStruct;
-  time2!: NgbTimeStruct;
-  meridian = true;
-  other = false;
-  // viewmethod = false;
-  addNewBreaksByAdmin: any = {
-    startTime: '',
-    endTime: '',
-    start_Time: '',
-    end_Time: '',
-    breakType: '',
-    totalTime: '',
-    selectedBreakType: ''
-  }
-  // sTime: boolean = false
-  // sTime: boolean = false
 
   @HostBinding('style.--color_l1') colorthemes_1: any;
   @HostBinding('style.--color_l2') colorthemes_2: any;
@@ -88,6 +62,7 @@ export class BookingentryComponent implements OnInit {
     private machinemasterManager: MachinemasterManager,
     private bookingentryManager: BookingentryManager,
     private datePipe: DatePipe,
+    private router: Router,
     private calloutService: CalloutService,
     private authManager: AuthManager,
     private dataSharedService: DataSharedService,
@@ -131,16 +106,6 @@ export class BookingentryComponent implements OnInit {
       this.Doctormaster = deserialize<Doctormaster001mb[]>(Doctormaster001mb, response);
     });
 
-    if (this.details) {
-      console.log("this.details", this.details);
-
-      this.onGetBook(this.details, this.daydetails, this.daydetailss)
-    }
-
-    if (this.editmethod.bookingId) {
-      this.onGetBookingentry(this.editmethod)
-    } else {
-    }
   }
 
 
@@ -149,22 +114,6 @@ export class BookingentryComponent implements OnInit {
 
   }
 
-
-  NewConvertTime(time?: any, type?: any) {
-
-    if (time) {
-      if (type == 's') {
-        this.addNewBreaksByAdmin.start_Time = time.hour + ':' + time.minute + ':' + '00';
-
-      } else {
-        this.addNewBreaksByAdmin.end_Time = time.hour + ':' + time.minute + ':' + '00';
-
-      }
-    }
-  }
-  onTimeChange(value: { hour: string, minute: string }) {
-    this.newTime = `${value.hour}:${value.minute}`;
-  }
   loaddata() {
 
     this.bookingentryManager.allbooking().subscribe((response) => {
@@ -337,34 +286,8 @@ export class BookingentryComponent implements OnInit {
       'hospital': params.data.hospital,
       'staff': params.data.staff,
       'date': this.datePipe.transform(params.data.date, 'MM/dd/yyyy'),
-      'days': params.data.days,
       'starttime': params.data.starttime,
       'endtime': params.data.endtime
-    });
-  }
-
-  onGetBook(value1: any, value2: any, value3: any) {
-    // const formattedDate = new Date();
-    this.bookingForm.patchValue({
-      'mslno': value1.slNo,
-      'date': this.datePipe.transform(value3, 'MM/dd/yyyy'),
-      'days': value2.day,
-    });
-  }
-
-  onGetBookingentry(params: any) {
-    this.bookingId = params.bookingId;
-    this.insertUser = params.insertUser;
-    this.insertDatetime = params.insertDatetime;
-    this.bookingForm.patchValue({
-      'mslno': params.mslno,
-      'dslno': params.dslno,
-      'hospital': params.hospital,
-      'staff': params.staff,
-      'date': this.datePipe.transform(params.date, 'MM/dd/yyyy'),
-      'days': params.days,
-      'starttime': params.starttime,
-      'endtime': params.endtime
     });
   }
 
@@ -378,6 +301,7 @@ export class BookingentryComponent implements OnInit {
       }
       const selectedRows = params.api.getSelectedRows();
       params.api.applyTransaction({ remove: selectedRows });
+      this.gridOptions.api.deselectAll();
       this.calloutService.showSuccess("Order Removed Successfully");
     });
   }
@@ -415,7 +339,6 @@ export class BookingentryComponent implements OnInit {
     bookingentry001mb.hospital = this.f.hospital.value ? this.f.hospital.value : "";
     bookingentry001mb.staff = this.f.staff.value ? this.f.staff.value : "";
     bookingentry001mb.date = new Date(this.f.date.value);
-    bookingentry001mb.days = this.daydetails?.day ? this.daydetails?.day : this.detailslist.days;
     bookingentry001mb.starttime = this.f.starttime.value ? this.f.starttime.value : "";
     bookingentry001mb.endtime = this.f.endtime.value ? this.f.endtime.value : "";
     if (this.bookingId) {
@@ -439,6 +362,10 @@ export class BookingentryComponent implements OnInit {
         console.log("response", response);
 
         this.calloutService.showSuccess("Order Saved Successfully");
+        if (this.bookingForm.valid) {
+          this.router.navigate(['/app-dash-board/app-booking/app-calendar-table']);
+          return;
+        }
         this.loaddata();
         this.bookingForm.reset();
         this.submitted = false;
@@ -446,21 +373,6 @@ export class BookingentryComponent implements OnInit {
     }
 
   }
-
-  // onChange(event: any) {
-  //   this.doctormasterManager.findOne(event.target.value).subscribe(response => {
-  //     console.log('respnse', response);
-
-  //     this.doctormaster001mb = deserialize<Doctormaster001mb>(Doctormaster001mb, response)
-
-  //     this.bookingForm.patchValue({
-  //       'hospital': this.doctormaster001mb.hospitalname,
-  //     });
-
-  //   })
-  //   console.log("event", event.target.value);
-
-  // }
   onReset() {
     this.bookingForm.reset();
     this.submitted = false;

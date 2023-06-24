@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -9,7 +8,6 @@ import { AuditComponent } from 'src/app/shared/audit/audit.component';
 import { IconRendererComponent } from 'src/app/shared/services/renderercomponent/icon-renderer-component';
 import { AuthManager } from 'src/app/shared/services/restcontroller/bizservice/auth-manager.service';
 import { EmployeemasterManager } from 'src/app/shared/services/restcontroller/bizservice/employeemaster.service';
-import { SystemPropertiesService } from 'src/app/shared/services/restcontroller/bizservice/system-properties.service';
 import { Employeemaster001mb } from 'src/app/shared/services/restcontroller/entities/Employeemaster001mb';
 import { CalloutService } from 'src/app/shared/services/services/callout.service';
 import { DataSharedService } from 'src/app/shared/services/services/datashared.service';
@@ -76,7 +74,7 @@ export class EmployeemasterComponent implements OnInit {
 
     this.employeeForm = this.formBuilder.group({
       employeename: ['', Validators.required],
-      mobilenumber: ['', Validators.required],
+      mobilenumber: ['', [Validators.pattern("^[0-9_-]{10,15}")]],
       emailid: ['', Validators.required],
       status: [''],
     })
@@ -150,13 +148,21 @@ export class EmployeemasterComponent implements OnInit {
         field: 'status',
         width: 200,
         flex: 1,
-        sortable: true,
-        filter: true,
-        resizable: true,
         suppressSizeToFit: true,
-        valueGetter: (param: any) => {
-          return param.data.status == 1 ? true : false;
+        cellStyle: { textAlign: 'center', color: 'rgb(28, 67, 101)', font: 'bold' },
+        cellRenderer: (params: any) => {
+          console.log("params", params);
+          if (params.data.status == 1) {
+            // console.log("params-------->", par ams.data.status);
+
+            return '<i class="fa fa-toggle-on">';
+
+          } else {
+            // console.log("params-------->", params.data.status);
+            return '<i class="fa fa-toggle-off">';
+          }
         },
+        label: 'Status'
       },
       {
         headerName: 'Edit',

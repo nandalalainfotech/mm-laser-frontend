@@ -10,7 +10,7 @@
                             <li id="dropdown" title="Masters">
                                 <a data-toggle="collapse" href="#Masters"
                                     [ngClass]="parentMenuString == 'Masters' ? 'is-active' : ''">
-                                    <i class="fa fa-book"
+                                    <i class="fa fa-industry"
                                         [ngClass]="parentMenuString == 'Masters' ? 'is-active' : ''"></i>
                                     <span [ngClass]="parentMenuString == 'Masters' ? 'is-active' : ''">Masters
                                     </span>
@@ -22,7 +22,7 @@
                                             <li title="Machinemaster" routerLink="./app-masters/app-machinemaster"
                                                 [ngClass]="childMenuString == 'Machinemaster' ? 'is-active' : ''"
                                                 (click)="onMenuChildClick('Masters', 'Machinemaster')">
-                                                <span><i class="fa fa-joomla"
+                                                <span><i class="fa fa-cogs"
                                                         [ngClass]="childMenuString == 'Machinemaster' ? 'is-active' : ''"></i></span>
                                                 <a><span
                                                         [ngClass]="childMenuString == 'Machinemaster' ? 'is-active' : ''">Machine
@@ -37,7 +37,7 @@
                                             <li title="Doctorsmaster" routerLink="./app-masters/app-doctorsmaster"
                                                 [ngClass]="childMenuString == 'Doctorsmaster' ? 'is-active' : ''"
                                                 (click)="onMenuChildClick('Masters', 'Doctorsmaster')">
-                                                <span><i class="fa fa-joomla"
+                                                <span><i class="fas fa-user-md"
                                                         [ngClass]="childMenuString == 'Doctorsmaster' ? 'is-active' : ''"></i></span>
                                                 <a><span
                                                         [ngClass]="childMenuString == 'Doctorsmaster' ? 'is-active' : ''">Doctors
@@ -94,9 +94,6 @@
                                                     routerLink="./app-booking/app-appointment/app-bookingentry">
                                                     Booking Entry</li>
                                                 <li mat-menu-item
-                                                    routerLink="./app-booking/app-appointment/app-calendar">
-                                                    Calendar</li>
-                                                <li mat-menu-item
                                                     routerLink="./app-booking/app-appointment/app-bookingmanagement">
                                                     Bookingmanagement</li>
                                             </mat-menu>
@@ -118,6 +115,15 @@
                                                     routerLink="./app-booking/app-caseentry/app-caseentryy">
                                                     CaseEntryy</li>
                                             </mat-menu>
+											 <li title="CalendarTable" routerLink="./app-booking/app-calendar-table"
+                                                [ngClass]="childMenuString == 'CalendarTable' ? 'is-active' : ''"
+                                                (click)="onMenuChildClick('Booking', 'CalendarTable')">
+                                                <span><i class="fa fa-joomla"
+                                                        [ngClass]="childMenuString == 'CalendarTable' ? 'is-active' : ''"></i></span>
+                                                <a><span
+                                                        [ngClass]="childMenuString == 'CalendarTable' ? 'is-active' : ''">Calendar
+                                                    </span></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>

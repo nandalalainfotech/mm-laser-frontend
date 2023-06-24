@@ -7,10 +7,7 @@ import { deserialize } from 'serializer.ts/Serializer';
 import { AuditComponent } from 'src/app/shared/audit/audit.component';
 import { IconRendererComponent } from 'src/app/shared/services/renderercomponent/icon-renderer-component';
 import { AuthManager } from 'src/app/shared/services/restcontroller/bizservice/auth-manager.service';
-import { BrandmasterManager } from 'src/app/shared/services/restcontroller/bizservice/brandmaster-service';
 import { MachinemasterManager } from 'src/app/shared/services/restcontroller/bizservice/machinemaster.service';
-import { SystemPropertiesService } from 'src/app/shared/services/restcontroller/bizservice/system-properties.service';
-import { Brandmaster001mb } from 'src/app/shared/services/restcontroller/entities/Brandmaster001mb';
 import { Machinemaster001mb } from 'src/app/shared/services/restcontroller/entities/Machinemaster001mb';
 import { CalloutService } from 'src/app/shared/services/services/callout.service';
 import { DataSharedService } from 'src/app/shared/services/services/datashared.service';
@@ -30,15 +27,13 @@ export class MachinemasterComponent implements OnInit {
   insertUser: string = "";
   insertDatetime: Date | any;
   machinename: string = "";
-  status: boolean = false;
+  status: string = "";
   machiness: Machinemaster001mb[] = [];
   public gridOptions: GridOptions | any;
   machineForm: FormGroup | any;
   submitted = false;
   parentMenuString: string = '';
   childMenuString: string = '';
-
-
 
   @HostBinding('style.--color_l1') colorthemes_1: any;
   @HostBinding('style.--color_l2') colorthemes_2: any;
@@ -78,10 +73,9 @@ export class MachinemasterComponent implements OnInit {
       this.colorthemes_4 = Utils.rgbToHex(rgb, 0.8);
     });
 
-
     this.machineForm = this.formBuilder.group({
       machinename: ['', Validators.required],
-      status: [''],
+      status: ['', Validators.required],
     });
 
     this.machinemasterManager.allmachinemaster().subscribe((response) => {
@@ -94,7 +88,6 @@ export class MachinemasterComponent implements OnInit {
     })
   }
   get f() { return this.machineForm.controls; }
-
 
   createDataGrid001(): void {
     this.gridOptions = {
@@ -134,15 +127,16 @@ export class MachinemasterComponent implements OnInit {
         field: 'status',
         width: 200,
         flex: 1,
-        sortable: true,
-        filter: true,
-        resizable: true,
         suppressSizeToFit: true,
-        valueGetter: (param: any) => {
-          return param.data.status == 1 ? true : false;
+        cellStyle: { textAlign: 'center', color: 'rgb(28, 67, 101)', font: 'bold' },
+        cellRenderer: (params: any) => {
+          if (params.data.status == 1) {
+            return '<i class="fa fa-toggle-on">';
+          } else {
+            return '<i class="fa fa-toggle-off">';
+          }
         },
       },
-      
       {
         headerName: 'Edit',
         cellRenderer: 'iconRenderer',
@@ -155,6 +149,7 @@ export class MachinemasterComponent implements OnInit {
           label: 'Edit'
         }
       },
+
       {
         headerName: 'Delete',
         cellRenderer: 'iconRenderer',
@@ -181,7 +176,9 @@ export class MachinemasterComponent implements OnInit {
       },
     ];
   }
+
   onEditButtonClick(params: any) {
+    console.log("params", params);
     this.slNo = params.data.slNo;
     this.insertUser = params.data.insertUser;
     this.insertDatetime = params.data.insertDatetime;
@@ -190,7 +187,6 @@ export class MachinemasterComponent implements OnInit {
       'status': params.data.status
     });
   }
-
   onDeleteButtonClick(params: any) {
     this.machinemasterManager.machinemasterdelete(params.data.slNo).subscribe((response: any) => {
       for (let i = 0; i < this.machiness.length; i++) {
@@ -204,7 +200,6 @@ export class MachinemasterComponent implements OnInit {
       this.calloutService.showSuccess("Order Removed Successfully");
     });
   }
-
 
   onAuditButtonClick(params: any) {
     console.log("params", params)
@@ -235,7 +230,7 @@ export class MachinemasterComponent implements OnInit {
     }
     let machinemaster001mb = new Machinemaster001mb();
     machinemaster001mb.machinename = this.f.machinename.value ? this.f.machinename.value : "";
-    machinemaster001mb.status = this.f.status.value ? this.f.status.value : false;
+    machinemaster001mb.status = this.f.status.value ? this.f.status.value : "";
 
     if (this.slNo) {
       machinemaster001mb.slNo = this.slNo;
@@ -245,6 +240,17 @@ export class MachinemasterComponent implements OnInit {
       machinemaster001mb.updatedDatetime = new Date();
       this.machinemasterManager.updatemachinemaster(machinemaster001mb).subscribe((response: any) => {
         this.calloutService.showSuccess("Order Updated Successfully");
+        let machinemaster001mb = deserialize<Machinemaster001mb>(Machinemaster001mb, response);
+        for (let machineemasters of this.machiness) {
+          if (machineemasters.slNo == machinemaster001mb.slNo) {
+            machineemasters.machinename = machinemaster001mb.machinename;
+            machineemasters.status = machinemaster001mb.status;
+            machineemasters.insertUser = this.insertUser;
+            machineemasters.insertDatetime = this.insertDatetime;
+            machineemasters.updatedUser = this.authManager.getcurrentUser.username;
+            machineemasters.updatedDatetime = new Date();
+          }
+        }
         this.machineForm.reset();
         this.submitted = false;
         this.slNo = null;
@@ -256,11 +262,14 @@ export class MachinemasterComponent implements OnInit {
       this.machinemasterManager.savemachinemaster(machinemaster001mb).subscribe((response) => {
         console.log("response", response)
         this.calloutService.showSuccess("Order Saved Successfully");
+        let machinemaster001mb = deserialize<Machinemaster001mb>(Machinemaster001mb, response);
+        this.machiness?.push(machinemaster001mb);
+        const newItems = [JSON.parse(JSON.stringify(machinemaster001mb))];
+        this.gridOptions.api.applyTransaction({ add: newItems });
         this.machineForm.reset();
         this.submitted = false;
       })
     }
-
   }
 
   onReset() {

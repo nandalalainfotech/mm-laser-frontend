@@ -79,7 +79,7 @@ export class DoctorsmasterComponent implements OnInit {
     this.createDataGrid001();
     this.doctorForm = this.formBuilder.group({
       doctorname: ['', Validators.required],
-      contactnumber: ['', Validators.required],
+      contactnumber: ['', [Validators.pattern("^[0-9_-]{10,15}")]],
       emailid: ['', Validators.required],
       hospitalname: ['', Validators.required],
       addressline1: ['', Validators.required],
@@ -222,13 +222,21 @@ export class DoctorsmasterComponent implements OnInit {
         field: 'status',
         width: 200,
         flex: 1,
-        sortable: true,
-        filter: true,
-        resizable: true,
         suppressSizeToFit: true,
-        valueGetter: (param: any) => {
-          return param.data.status == 1 ? true : false;
+        cellStyle: { textAlign: 'center', color: 'rgb(28, 67, 101)', font: 'bold' },
+        cellRenderer: (params: any) => {
+          console.log("params", params);
+          if (params.data.status == 1) {
+            // console.log("params-------->", par ams.data.status);
+
+            return '<i class="fa fa-toggle-on">';
+
+          } else {
+            // console.log("params-------->", params.data.status);
+            return '<i class="fa fa-toggle-off">';
+          }
         },
+        label: 'Status'
       },
       {
         headerName: 'Edit',
@@ -289,6 +297,8 @@ export class DoctorsmasterComponent implements OnInit {
   }
 
   onDeleteButtonClick(params: any) {
+    console.log("params", params);
+
     this.doctormasterManager.deletedoctormaster(params.data.slNo).subscribe((response) => {
       for (let i = 0; i < this.Doctormaster.length; i++) {
         if (this.Doctormaster[i].slNo == params.data.slNo) {

@@ -3,7 +3,7 @@ import { BaseEntity } from "./BaseEntity";
 
 export class User001mb extends BaseEntity {
     personId?: number;
-    domain?: string;
+    // domain?: string;
     username?: string;
     firstname?: string;
     lastname?: string;

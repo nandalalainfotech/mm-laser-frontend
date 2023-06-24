@@ -1,4 +1,4 @@
-<div [formGroup]="parts" class="date-time-container">
+<!-- <div [formGroup]="parts" class="date-time-container">
     <select matInput class="hours-element" formControlName="hour" placeholder="Hours" (change)="_handleInput()"
         style="border-right-style: none;">
         <option *ngFor="let singleHour of hoursRange()" [value]="singleHour">{{
@@ -15,6 +15,7 @@
         <option value="AM" selected="">AM</option>
         <option value="PM">PM</option>
     </select>
-</div>
+</div> -->
+<ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
 
 
