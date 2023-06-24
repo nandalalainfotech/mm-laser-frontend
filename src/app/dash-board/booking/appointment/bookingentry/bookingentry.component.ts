@@ -48,6 +48,8 @@ export class BookingentryComponent implements OnInit {
   starttime: string = "";
   endtime: string = "";
   Doctormaster: Doctormaster001mb[] = [];
+  doctormaster001mb?: Doctormaster001mb;
+
   machiness: Machinemaster001mb[] = [];
   booking: Bookingentry001mb[] = [];
   public gridOptions: GridOptions | any;
@@ -130,8 +132,8 @@ export class BookingentryComponent implements OnInit {
     });
 
     if (this.details) {
-      console.log("this.details",this.details);
-      
+      console.log("this.details", this.details);
+
       this.onGetBook(this.details, this.daydetails, this.daydetailss)
     }
 
@@ -143,7 +145,7 @@ export class BookingentryComponent implements OnInit {
 
 
   checkStartAndEndTimeCValidations(event: any, name: string) {
-console.log(this.bookingForm.value);
+    console.log(this.bookingForm.value);
 
   }
 
@@ -434,8 +436,8 @@ console.log(this.bookingForm.value);
       bookingentry001mb.insertUser = this.authManager.getcurrentUser.username;
       bookingentry001mb.insertDatetime = new Date();
       this.bookingentryManager.savebooking(bookingentry001mb).subscribe((response) => {
-        console.log("response",response);
-        
+        console.log("response", response);
+
         this.calloutService.showSuccess("Order Saved Successfully");
         this.loaddata();
         this.bookingForm.reset();
@@ -444,6 +446,21 @@ console.log(this.bookingForm.value);
     }
 
   }
+
+  // onChange(event: any) {
+  //   this.doctormasterManager.findOne(event.target.value).subscribe(response => {
+  //     console.log('respnse', response);
+
+  //     this.doctormaster001mb = deserialize<Doctormaster001mb>(Doctormaster001mb, response)
+
+  //     this.bookingForm.patchValue({
+  //       'hospital': this.doctormaster001mb.hospitalname,
+  //     });
+
+  //   })
+  //   console.log("event", event.target.value);
+
+  // }
   onReset() {
     this.bookingForm.reset();
     this.submitted = false;

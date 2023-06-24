@@ -110,7 +110,7 @@
         "@types/datatables.net": "1.10.19",
         "@types/jasmine": "3.6.0",
         "@types/jquery": "3.5.5",
-        "@types/lodash": "^4.14.112",
+        "@types/lodash": "^4.14.74",
         "@types/node": "12.11.1",
         "babel-loader": "8.2.2",
         "codelyzer": "6.0.0",
