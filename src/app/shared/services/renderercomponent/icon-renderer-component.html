@@ -19,8 +19,12 @@
     (click)="onClick($event)">
     <i class="fa fa-history"></i>
 </a>
+<a [ngStyle]="{'color':colorthemes_1}" *ngIf="this.label == 'Pdf' ? true : false" href="javascript:void(0)"
+    (click)="onClick($event)">
+    <i class="fa fa-file-pdf-o" style="color:red"></i>
+</a>
 
-
-<a [ngStyle]="{'color':colorthemes_1}" *ngIf="this.label == 'File' ? true : false" href="{{downloadUrl}}" target="_blank">
+<a [ngStyle]="{'color':colorthemes_1}" *ngIf="this.label == 'File' ? true : false" href="{{downloadUrl}}"
+    target="_blank">
     <i class="fa fa-download"></i>
 </a>

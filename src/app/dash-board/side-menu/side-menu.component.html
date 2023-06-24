@@ -96,12 +96,27 @@
                                                 <li mat-menu-item
                                                     routerLink="./app-booking/app-appointment/app-calendar">
                                                     Calendar</li>
-                                                    <li mat-menu-item
+                                                <li mat-menu-item
                                                     routerLink="./app-booking/app-appointment/app-bookingmanagement">
                                                     Bookingmanagement</li>
-                                                    <!-- <li mat-menu-item
-                                                    routerLink="./app-booking/app-appointment/app-time">
-                                                    Time</li> -->
+                                            </mat-menu>
+                                            <li title="CaseEntry"
+                                                routerLink="./app-booking/app-caseentry/app-caseentryy"
+                                                [ngClass]="childMenuString == 'CaseEntry' ? 'is-active' : ''"
+                                                (click)="onMenuChildClick('Booking', 'CaseEntry')">
+                                                <span><i class="fa fa-joomla"
+                                                        [ngClass]="childMenuString == 'CaseEntry' ? 'is-active' : ''"></i></span>
+                                                <a><span [ngClass]="childMenuString == 'CaseEntry' ? 'is-active' : ''">Case
+                                                        Entry
+                                                    </span></a>
+                                            </li>
+                                            <!-- <li title="CaseEntry" class="mobile" [matMenuTriggerFor]="CaseEntry">
+                                                <span><i class="fa fa-filter"></i></span>
+                                            </li> -->
+                                            <mat-menu #CaseEntry="matMenu" #menu="matMenu" backdropClass="CaseEntry">
+                                                <li mat-menu-item
+                                                    routerLink="./app-booking/app-caseentry/app-caseentryy">
+                                                    CaseEntryy</li>
                                             </mat-menu>
                                         </ul>
                                     </div>

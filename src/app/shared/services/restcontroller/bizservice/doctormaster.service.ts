@@ -21,6 +21,16 @@ export class DoctormasterManager extends BaseService {
         return this.putCallService(`${this.doctormasterUrl}` + "/update", {}, doctormaster001mb);
     }
 
+    findOne(id: any) {
+        console.log('id', id);
+
+        let data: any = {};
+        data['id'] = id;
+        console.log('data', data);
+
+        return this.getCallService(`${this.doctormasterUrl}`, data);
+    }
+
     deletedoctormaster(id: any) {
         let data: any = {};
         data['id'] = id;

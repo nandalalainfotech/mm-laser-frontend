@@ -1,0 +1,111 @@
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Case Entry</legend>
+    <div class="formData">
+        <form [formGroup]="caseentryForm" (ngSubmit)="onOrderClick($event, caseentryForm)">
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 ">
+                    <div class="form-group">
+                        <label for="doctorname">Doctor Name</label>
+                        <select formControlName="doctorname" class="form-control" name="doctorname" id="doctorname"
+                            [ngClass]="{ 'is-invalid': submitted && f.doctorname.errors }">
+                            <option value="" hidden> - Select the Doctor - </option>
+                            <option value="null"> - Select the Doctor - </option>
+                            <option *ngFor="let doctorname of Doctormaster" [value]="doctorname.slNo">
+                                {{doctorname.doctorname}}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted && f.doctorname.errors" class="invalid-feedback">
+                            <div *ngIf="f.doctorname.errors.required">Doctor Name is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label for="hospname">Hospital Name</label>
+                        <select formControlName="hospname" class="form-control" name="hospname" id="hospname"
+                            [ngClass]="{ 'is-invalid': submitted && f.hospname.errors }">
+                            <option value="" hidden> - Select the Doctor - </option>
+                            <option value="null"> - Select the Doctor - </option>
+                            <option *ngFor="let hospname of Doctormaster" [value]="hospname.slNo">
+                                {{hospname.hospitalname}}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted && f.hospname.errors" class="invalid-feedback">
+                            <div *ngIf="f.hospname.errors.required">Hospital Name is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-6 ">
+                    <form [formGroup]="myForm">
+                        <div fxLayout="row">
+                            <label>Machine</label>
+                            <label style="margin-left: 43%;">Number of Cases</label>
+                        </div>
+                        <div formArrayName='times' fxLayout="column" fxLayoutGap="10px">
+                            <div *ngFor="let time of this.fa?.value; let i = index;  trackBy:trackByFn" fxLayout="row">
+                                <div [formGroupName]="i" fxLayout="row">
+                                    <!-- <input formControlName="addmach" class="form-control" path="addmach" name="addmach"
+                                        [ngClass]="{ 'is-invalid': submitted && f.addmach.errors }" /> -->
+                                    <select formControlName="mname" class="form-control" name="mname" id="mname">
+                                        <option value="" hidden> - Select the Machine - </option>
+                                        <option value="null"> - Select the Machine - </option>
+                                        <option *ngFor="let mslno of machiness" [value]="mslno.machinename">
+                                            {{mslno.machinename}}
+                                        </option>
+                                    </select>
+                                    <input formControlName="numofcase" class="form-control" path="numofcase"
+                                        name="numofcase" style="margin-left: 25%;" />
+                                </div>
+                                <button (click)="addGroup()" class="btn btn-primary btn-sm"><i class="fa fa-plus"
+                                        aria-hidden="true"></i></button>
+                                <button (click)="removeGroup(i)" class="btn btn-primary btn-sm"><i class="fa fa-minus"
+                                        aria-hidden="true"></i></button>
+                            </div>
+                        </div><br>
+                    </form>
+                </div>
+                <div class="col-xs-3 form-group">
+                    <label path="charge" for="charge" cssClass="required">Charges
+                    </label>
+                    <input formControlName="charge" class="form-control" path="charge" name="charge"
+                        [ngClass]="{ 'is-invalid': submitted && f.charge.errors }" />
+                    <div *ngIf="submitted && f.charge.errors" class="invalid-feedback">
+                        <div *ngIf="f.charge.errors.required">Charges is Required</div>
+                    </div>
+                </div>
+                <div class="col-xs-3 form-group">
+                    <div class="form-group">
+                        <label>Send Bill</label>
+                        <div class="switch">
+                            <input type="checkbox" formControlName="status" checked>
+                        </div>
+                        <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+                            <div *ngIf="f.status.errors.required">Status is required</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="title!=='Entry'">
+                <div class="col-sm-12 ">
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-primary mr-2">
+                            Submit
+                        </button>
+                        <button type="button" class="btn btn-warning mr-2" (click)="onReset()">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</fieldset>
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Case Entry</legend>
+    <ag-grid-angular #agGrid class="ag-theme-balham" [gridOptions]="gridOptions" style="width: 100%; height: 350px;"
+        [pagination]="true" [frameworkComponents]="frameworkComponents">
+    </ag-grid-angular>
+</fieldset>

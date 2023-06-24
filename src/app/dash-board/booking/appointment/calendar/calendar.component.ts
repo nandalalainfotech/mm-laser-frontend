@@ -63,6 +63,8 @@ export class CalendarComponent implements OnInit {
   }
 
   editClick(day: any, i: any) {
+    console.log('day', day);
+
     const modalRef = this.modalService.open(BookingentryComponent, { windowClass: 'my-class' });
     modalRef.componentInstance.title = "Booking Entry";
     modalRef.componentInstance.detailslist = day;
