@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbModal, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GridOptions } from 'ag-grid-community';
 import { deserialize } from 'serializer.ts/Serializer';
 import { AuditComponent } from 'src/app/shared/audit/audit.component';
@@ -10,15 +10,16 @@ import { IconRendererComponent } from 'src/app/shared/services/renderercomponent
 import { AuthManager } from 'src/app/shared/services/restcontroller/bizservice/auth-manager.service';
 import { BookingentryManager } from 'src/app/shared/services/restcontroller/bizservice/bookingentry.service';
 import { DoctormasterManager } from 'src/app/shared/services/restcontroller/bizservice/doctormaster.service';
+import { EmployeemasterManager } from 'src/app/shared/services/restcontroller/bizservice/employeemaster.service';
 import { MachinemasterManager } from 'src/app/shared/services/restcontroller/bizservice/machinemaster.service';
 import { SystemPropertiesService } from 'src/app/shared/services/restcontroller/bizservice/system-properties.service';
 import { Bookingentry001mb } from 'src/app/shared/services/restcontroller/entities/Bookingentry001mb';
 import { Doctormaster001mb } from 'src/app/shared/services/restcontroller/entities/Doctormaster001mb';
+import { Employeemaster001mb } from 'src/app/shared/services/restcontroller/entities/Employeemaster001mb';
 import { Machinemaster001mb } from 'src/app/shared/services/restcontroller/entities/Machinemaster001mb';
 import { CalloutService } from 'src/app/shared/services/services/callout.service';
 import { DataSharedService } from 'src/app/shared/services/services/datashared.service';
 import { Utils } from 'src/app/shared/utils/utils';
-import { NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-bookingentry',
@@ -38,17 +39,20 @@ export class BookingentryComponent implements OnInit {
   staff: string = "";
   days: string = "";
   date: Date | any;
-  starttime: string = "";
-  endtime: string = "";
+  time: string = "";
   Doctormaster: Doctormaster001mb[] = [];
   machiness: Machinemaster001mb[] = [];
   booking: Bookingentry001mb[] = [];
+  employee: Employeemaster001mb[] = [];
   public gridOptions: GridOptions | any;
   bookingForm: FormGroup | any;
   submitted = false;
   parentMenuString: string = '';
   childMenuString: string = '';
   dayList: Array<any> = [];
+  value: string = "";
+  timeValue: string = "";
+
 
   @HostBinding('style.--color_l1') colorthemes_1: any;
   @HostBinding('style.--color_l2') colorthemes_2: any;
@@ -65,6 +69,7 @@ export class BookingentryComponent implements OnInit {
     private router: Router,
     private calloutService: CalloutService,
     private authManager: AuthManager,
+    private employeemasterManager: EmployeemasterManager,
     private dataSharedService: DataSharedService,
     private modalService: NgbModal) {
     this.frameworkComponents = {
@@ -93,8 +98,7 @@ export class BookingentryComponent implements OnInit {
       hospital: ['', Validators.required],
       staff: ['', Validators.required],
       date: ['', Validators.required],
-      starttime: ['', Validators.required],
-      endtime: ['', Validators.required]
+      time: ['', Validators.required]
     });
 
     this.loaddata();
@@ -105,12 +109,9 @@ export class BookingentryComponent implements OnInit {
     this.doctormasterManager.alldoctormaster().subscribe((response: any) => {
       this.Doctormaster = deserialize<Doctormaster001mb[]>(Doctormaster001mb, response);
     });
-
-  }
-
-
-  checkStartAndEndTimeCValidations(event: any, name: string) {
-    console.log(this.bookingForm.value);
+    this.employeemasterManager.allemployee().subscribe((response: any) => {
+      this.employee = deserialize<Employeemaster001mb[]>(Employeemaster001mb, response);
+    });
 
   }
 
@@ -154,7 +155,6 @@ export class BookingentryComponent implements OnInit {
       },
       {
         headerName: 'Machine',
-        //   field: 'domain',
         width: 200,
         flex: 1,
         sortable: true,
@@ -165,7 +165,6 @@ export class BookingentryComponent implements OnInit {
       },
       {
         headerName: 'Doctor',
-        //   field: 'domain',
         width: 200,
         flex: 1,
         sortable: true,
@@ -185,7 +184,7 @@ export class BookingentryComponent implements OnInit {
         suppressSizeToFit: true,
       },
       {
-        headerName: 'Staff',
+        headerName: 'Employee',
         field: 'staff',
         width: 200,
         flex: 1,
@@ -213,18 +212,8 @@ export class BookingentryComponent implements OnInit {
         },
       },
       {
-        headerName: 'StartTime',
-        field: 'starttime',
-        width: 200,
-        flex: 1,
-        sortable: true,
-        filter: true,
-        resizable: true,
-        suppressSizeToFit: true,
-      },
-      {
-        headerName: 'EndTime',
-        field: 'endtime',
+        headerName: 'Time',
+        field: 'time',
         width: 200,
         flex: 1,
         sortable: true,
@@ -286,13 +275,12 @@ export class BookingentryComponent implements OnInit {
       'hospital': params.data.hospital,
       'staff': params.data.staff,
       'date': this.datePipe.transform(params.data.date, 'MM/dd/yyyy'),
-      'starttime': params.data.starttime,
-      'endtime': params.data.endtime
+      'time': params.data.time
     });
   }
 
   onDeleteButtonClick(params: any) {
-    this.bookingentryManager.bookingdelete(params.data.bookingId).subscribe((response: any) => {
+    this.bookingentryManager.bookingdelete(params.data.bookingId).subscribe((response) => {
       for (let i = 0; i < this.booking.length; i++) {
         if (this.booking[i].bookingId == params.data.bookingId) {
           this.booking?.splice(i, 1);
@@ -301,11 +289,9 @@ export class BookingentryComponent implements OnInit {
       }
       const selectedRows = params.api.getSelectedRows();
       params.api.applyTransaction({ remove: selectedRows });
-      this.gridOptions.api.deselectAll();
       this.calloutService.showSuccess("Order Removed Successfully");
     });
   }
-
 
   onAuditButtonClick(params: any) {
     const modalRef = this.modalService.open(AuditComponent);
@@ -339,8 +325,7 @@ export class BookingentryComponent implements OnInit {
     bookingentry001mb.hospital = this.f.hospital.value ? this.f.hospital.value : "";
     bookingentry001mb.staff = this.f.staff.value ? this.f.staff.value : "";
     bookingentry001mb.date = new Date(this.f.date.value);
-    bookingentry001mb.starttime = this.f.starttime.value ? this.f.starttime.value : "";
-    bookingentry001mb.endtime = this.f.endtime.value ? this.f.endtime.value : "";
+    bookingentry001mb.time = this.f.time.value ? this.f.time.value : "";
     if (this.bookingId) {
       bookingentry001mb.bookingId = this.bookingId;
       bookingentry001mb.insertUser = this.insertUser;
@@ -371,10 +356,12 @@ export class BookingentryComponent implements OnInit {
         this.submitted = false;
       })
     }
-
   }
+
   onReset() {
     this.bookingForm.reset();
     this.submitted = false;
   }
 }
+
+

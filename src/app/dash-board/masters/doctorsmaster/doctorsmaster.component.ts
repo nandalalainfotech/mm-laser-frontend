@@ -223,16 +223,13 @@ export class DoctorsmasterComponent implements OnInit {
         width: 200,
         flex: 1,
         suppressSizeToFit: true,
-        cellStyle: { textAlign: 'center', color: 'rgb(28, 67, 101)', font: 'bold' },
+        cellStyle: { textAlign: 'center', color: 'rgb(28, 67, 101)' },
         cellRenderer: (params: any) => {
           console.log("params", params);
           if (params.data.status == 1) {
-            // console.log("params-------->", par ams.data.status);
-
             return '<i class="fa fa-toggle-on">';
 
           } else {
-            // console.log("params-------->", params.data.status);
             return '<i class="fa fa-toggle-off">';
           }
         },

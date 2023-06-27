@@ -20,6 +20,7 @@ import { AppointmentComponent } from './appointment.component';
 import { BookingentryComponent } from './bookingentry/bookingentry.component';
 import { BookingmanagementComponent } from './bookingmanagement/bookingmanagement.component';
 import { TimeComponent } from './time/time.component';
+import { EmployeemasterManager } from 'src/app/shared/services/restcontroller/bizservice/employeemaster.service';
 
 @NgModule({
   declarations: [AppointmentComponent, BookingentryComponent, BookingmanagementComponent,TimeComponent],
@@ -44,7 +45,8 @@ import { TimeComponent } from './time/time.component';
     DatePipe,
     DoctormasterManager,
     MachinemasterManager,
-    BookingentryManager
+    BookingentryManager,
+    EmployeemasterManager
   ],
   exports: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]

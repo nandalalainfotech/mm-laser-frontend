@@ -13,18 +13,17 @@
                 <th>Doctor Name</th>
                 <th>Hospital</th>
                 <th>Staff</th>
-                <th>Start Time</th>
-                <th>End Time</th>
+                <th>Time</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr
+                style="font-family: -apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif !important;">
                 <td>{{item.payload.mslno2.machinename}}</td>
                 <td>{{item.payload.dslno2.doctorname}}</td>
                 <td>{{item.payload.hospital}}</td>
                 <td>{{item.payload.staff}}</td>
-                <td>{{item.payload.starttime}}</td>
-                <td>{{item.payload.endtime}} </td>
+                <td>{{item.payload.time}}</td>
             </tr>
         </tbody>
     </table>

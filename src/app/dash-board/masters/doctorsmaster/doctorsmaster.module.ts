@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { DoctorsmasterRoutingModule } from './doctorsmaster-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BreadcrumbModule } from '../../breadcrumb/breadcrumb.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgGridModule } from 'ag-grid-angular';
 import { DoctormasterManager } from 'src/app/shared/services/restcontroller/bizservice/doctormaster.service';
+import { BreadcrumbModule } from '../../breadcrumb/breadcrumb.module';
+import { DoctorsmasterRoutingModule } from './doctorsmaster-routing.module';
 import { DoctorsmasterComponent } from './doctorsmaster.component';
 
 

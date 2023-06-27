@@ -27,13 +27,17 @@ export class MachinemasterComponent implements OnInit {
   insertUser: string = "";
   insertDatetime: Date | any;
   machinename: string = "";
-  status: string = "";
+  status: boolean = false;
   machiness: Machinemaster001mb[] = [];
   public gridOptions: GridOptions | any;
   machineForm: FormGroup | any;
   submitted = false;
   parentMenuString: string = '';
   childMenuString: string = '';
+  params: any;
+  @Input() toogle: any;
+  toggle: boolean = false;
+  label: string = "";
 
   @HostBinding('style.--color_l1') colorthemes_1: any;
   @HostBinding('style.--color_l2') colorthemes_2: any;
@@ -51,15 +55,10 @@ export class MachinemasterComponent implements OnInit {
     this.frameworkComponents = {
       iconRenderer: IconRendererComponent
     }
-    translateService.setDefaultLang(this.translateService.store.currentLang);
   }
 
   ngOnInit() {
-
-    this.authManager.currentUserSubject.subscribe((object: any) => {
-      let lang = (object.language2?.name);
-      this.translateService.setDefaultLang(lang);
-    })
+    this.params;
     this.createDataGrid001();
     this.authManager.currentUserSubject.subscribe((object: any) => {
       let rgb = Utils.hexToRgb(object.theme);
@@ -75,7 +74,7 @@ export class MachinemasterComponent implements OnInit {
 
     this.machineForm = this.formBuilder.group({
       machinename: ['', Validators.required],
-      status: ['', Validators.required],
+      status: [''],
     });
 
     this.machinemasterManager.allmachinemaster().subscribe((response) => {
@@ -113,7 +112,7 @@ export class MachinemasterComponent implements OnInit {
         suppressSizeToFit: true,
       },
       {
-        headerName: 'Machine Name ',
+        headerName: 'Executive',
         field: 'machinename',
         width: 200,
         flex: 1,
@@ -127,15 +126,21 @@ export class MachinemasterComponent implements OnInit {
         field: 'status',
         width: 200,
         flex: 1,
+        sortable: true,
+        filter: true,
+        resizable: true,
         suppressSizeToFit: true,
-        cellStyle: { textAlign: 'center', color: 'rgb(28, 67, 101)', font: 'bold' },
+        cellStyle: { textAlign: 'center', color: 'rgb(28, 67, 101)' },
         cellRenderer: (params: any) => {
+          console.log("params", params);
           if (params.data.status == 1) {
             return '<i class="fa fa-toggle-on">';
+
           } else {
             return '<i class="fa fa-toggle-off">';
           }
         },
+        label: 'Status'
       },
       {
         headerName: 'Edit',
@@ -222,7 +227,6 @@ export class MachinemasterComponent implements OnInit {
   }
 
   onUserClick(event: any, machineForm: any) {
-    // console.log("event,machineForm--->", event, machineForm);
     this.markFormGroupTouched(this.machineForm);
     this.submitted = true;
     if (this.machineForm.invalid) {
@@ -230,8 +234,7 @@ export class MachinemasterComponent implements OnInit {
     }
     let machinemaster001mb = new Machinemaster001mb();
     machinemaster001mb.machinename = this.f.machinename.value ? this.f.machinename.value : "";
-    machinemaster001mb.status = this.f.status.value ? this.f.status.value : "";
-
+    machinemaster001mb.status = this.f.status.value ? this.f.status.value : false;
     if (this.slNo) {
       machinemaster001mb.slNo = this.slNo;
       machinemaster001mb.insertUser = this.insertUser;
@@ -239,6 +242,8 @@ export class MachinemasterComponent implements OnInit {
       machinemaster001mb.updatedUser = this.authManager.getcurrentUser.username;
       machinemaster001mb.updatedDatetime = new Date();
       this.machinemasterManager.updatemachinemaster(machinemaster001mb).subscribe((response: any) => {
+        console.log("response", response);
+
         this.calloutService.showSuccess("Order Updated Successfully");
         let machinemaster001mb = deserialize<Machinemaster001mb>(Machinemaster001mb, response);
         for (let machineemasters of this.machiness) {
@@ -271,7 +276,6 @@ export class MachinemasterComponent implements OnInit {
       })
     }
   }
-
   onReset() {
     this.machineForm.reset();
     this.submitted = false;

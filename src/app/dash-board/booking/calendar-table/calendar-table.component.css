@@ -17,5 +17,16 @@
   margin-right: 15px;
   float: right;
   margin-bottom: 10px;
-  font-family: 'Courier New', Courier, monospace!important;
+  font-family: 'Courier New', Courier, monospace !important;
+}
+
+::ng-deep .cal-month-view .cal-day-cell {
+  min-height: 75px !important;
+}
+
+::ng-deep .cal-month-view .cal-cell-top {
+  min-height: 10px;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
 }
