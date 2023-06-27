@@ -4,11 +4,11 @@
         <form [formGroup]="bookingForm" (ngSubmit)="onUserClick($event, bookingForm)">
             <div class="row">
                 <div class="col-xs-3 col-sm-3 form-group">
-                    <label for="mslno">Machine</label>
+                    <label for="mslno">Executive</label>
                     <select formControlName="mslno" class="form-control" name="mslno" id="mslno"
                         [ngClass]="{ 'is-invalid': submitted && f.mslno.errors }">
-                        <option value="" hidden> - Select the Machine - </option>
-                        <option value="null"> - Select the Machine - </option>
+                        <option value="" hidden> - Select the Executive - </option>
+                        <option value="null"> - Select the Executive - </option>
                         <option *ngFor="let mslno of machiness" [value]="mslno.slNo">
                             {{mslno.machinename}}
                         </option>
@@ -49,10 +49,16 @@
             </div>
             <div class="row">
                 <div class="col-xs-3 col-sm-3 form-group">
-                    <label path="staff" for="staff" cssClass="required">Staff
+                    <label path="staff" for="staff" cssClass="required">Employee
                     </label>
-                    <input formControlName="staff" class="form-control" path="staff" name="staff"
-                        [ngClass]="{ 'is-invalid': submitted && f.staff.errors }" />
+                    <select formControlName="staff" class="form-control" name="staff" id="staff"
+                        [ngClass]="{ 'is-invalid': submitted && f.staff.errors }">
+                        <option value="" hidden> - Select the Employee - </option>
+                        <option value="" hidden> - Select the Employee - </option>
+                        <option *ngFor="let staff of employee" [value]="staff.employeename">
+                            {{staff.employeename}}
+                        </option>
+                    </select>
                     <div *ngIf="submitted && f.staff.errors" class="invalid-feedback">
                         <div *ngIf="f.staff.errors.required">Staff is Required</div>
                     </div>
@@ -61,46 +67,35 @@
                     <div class="form-group">
                         <div class="p-fluid p-grid p-formgrid">
                             <div class="p-field p-col-12 p-md-5">
-                                <label path="date" for="date" cssClass="required">Date
-                                </label>
+                                <label path="date" for="date" cssClass="required">Date</label>
                                 <p-calendar [monthNavigator]="true" [yearNavigator]="true" formControlName="date"
-                                    name="date" yearRange="2000:2030" inputId="navigators" [showIcon]="true"
+                                    name="date"  inputId="navigators" [showIcon]="true"
                                     inputId="icon">
                                 </p-calendar>
                                 <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
-                                    <div *ngIf="f.date.errors.required"> Date is Required
+                                    <div *ngIf="f.date.errors.required">Date is Required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <div class="form-group">
+                        <div class="p-fluid p-grid p-formgrid">
+                            <div class="p-field p-col-12 p-md-5">
+                                <label path="time" for="time" cssClass="required">
+                                    Time</label>
+                                <p-calendar [timeOnly]="true" hourFormat="24" [showSeconds]="true" inputId="timeonly"
+                                    formControlName="time">
+                                </p-calendar>
+                                <div *ngIf="submitted && f.time.errors" class="invalid-feedback">
+                                    <div *ngIf="f.time.errors.required">Time Duration is Required
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-xs-3 form-group">
-                    <label path="starttime" for="starttime" cssClass="required">
-                        Start Time</label>
-                    <p-calendar [timeOnly]="true" hourFormat="24" [showSeconds]="true" inputId="timeonly"
-                        formControlName="starttime"></p-calendar>
-                    <div *ngIf="submitted && f.starttime.errors" class="invalid-feedback">
-                        <div *ngIf="f.starttime.errors.required"> Start Time is Required
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-3 form-group">
-                    <label path="endtime" for="endtime" cssClass="required">
-                        End Time</label>
-                    <p-calendar [timeOnly]="true" hourFormat="24" [showSeconds]="true" inputId="timeonly"
-                        formControlName="endtime">
-                    </p-calendar>
-                    <div *ngIf="submitted && f.endtime.errors" class="invalid-feedback">
-                        <div *ngIf="f.endtime.errors.required"> End Time is Required
-                        </div>
-                    </div>
-                </div>
-
             </div>
             <div class="row">
                 <div class="col-sm-12 ">
@@ -118,7 +113,7 @@
     </div>
 </fieldset>
 <fieldset class="scheduler-border">
-    <legend class="scheduler-border">Machine Master</legend>
+    <legend class="scheduler-border">Booking Entry</legend>
     <ag-grid-angular #agGrid class="ag-theme-balham" [gridOptions]="gridOptions" style="width: 100%; height: 350px;"
         [pagination]="true" [frameworkComponents]="frameworkComponents">
     </ag-grid-angular>

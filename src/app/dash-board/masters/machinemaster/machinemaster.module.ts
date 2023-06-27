@@ -3,7 +3,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/cor
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgGridModule } from 'ag-grid-angular';
-import { BrandmasterManager } from 'src/app/shared/services/restcontroller/bizservice/brandmaster-service';
 import { MachinemasterManager } from 'src/app/shared/services/restcontroller/bizservice/machinemaster.service';
 import { BreadcrumbModule } from '../../breadcrumb/breadcrumb.module';
 import { MachinemasterRoutingModule } from './machinemaster-routing.module';
@@ -20,7 +19,7 @@ import { MachinemasterComponent } from './machinemaster.component';
     AgGridModule.withComponents([])
   ],
   providers: [
-    MachinemasterManager ],
+    MachinemasterManager],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class MachinemasterModule { }
