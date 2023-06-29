@@ -9,6 +9,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { DoctormasterManager } from 'src/app/shared/services/restcontroller/bizservice/doctormaster.service';
 import { MachinemasterManager } from 'src/app/shared/services/restcontroller/bizservice/machinemaster.service';
 import { BookingentryManager } from 'src/app/shared/services/restcontroller/bizservice/bookingentry.service';
+import { EmployeemasterManager } from 'src/app/shared/services/restcontroller/bizservice/employeemaster.service';
 
 @NgModule({
   declarations: [CalendarTableComponent],
@@ -24,6 +25,10 @@ import { BookingentryManager } from 'src/app/shared/services/restcontroller/bizs
     })
   ],
   providers: [
+    EmployeemasterManager ,
+    BookingentryManager,
+    DoctormasterManager,
+    MachinemasterManager
   ],
   exports: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]

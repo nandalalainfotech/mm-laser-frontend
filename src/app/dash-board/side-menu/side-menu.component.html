@@ -19,21 +19,6 @@
                                 <div id="Masters" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <ul class="nav navbar-nav">
-                                            <li title="Machinemaster" routerLink="./app-masters/app-machinemaster"
-                                                [ngClass]="childMenuString == 'Machinemaster' ? 'is-active' : ''"
-                                                (click)="onMenuChildClick('Masters', 'Machinemaster')">
-                                                <span><i class="fa fa-cogs"
-                                                        [ngClass]="childMenuString == 'Machinemaster' ? 'is-active' : ''"></i></span>
-                                                <a><span
-                                                        [ngClass]="childMenuString == 'Machinemaster' ? 'is-active' : ''">Executive
-                                                    </span></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div id="Masters" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <ul class="nav navbar-nav">
                                             <li title="Doctorsmaster" routerLink="./app-masters/app-doctorsmaster"
                                                 [ngClass]="childMenuString == 'Doctorsmaster' ? 'is-active' : ''"
                                                 (click)="onMenuChildClick('Masters', 'Doctorsmaster')">
@@ -61,6 +46,38 @@
                                         </ul>
                                     </div>
                                 </div>
+                                <div id="Masters" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <ul class="nav navbar-nav">
+                                            <li title="Machinemaster" routerLink="./app-masters/app-machinemaster"
+                                                [ngClass]="childMenuString == 'Machinemaster' ? 'is-active' : ''"
+                                                (click)="onMenuChildClick('Masters', 'Machinemaster')">
+                                                <span><i class="fa fa-cogs"
+                                                        [ngClass]="childMenuString == 'Machinemaster' ? 'is-active' : ''"></i></span>
+                                                <a><span
+                                                        [ngClass]="childMenuString == 'Machinemaster' ? 'is-active' : ''">Executive
+                                                    </span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div id="Masters" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <ul class="nav navbar-nav">
+                                            <li title="Regionmaster" routerLink="./app-masters/app-regionmaster"
+                                                [ngClass]="childMenuString == 'Regionmaster' ? 'is-active' : ''"
+                                                (click)="onMenuChildClick('Masters', 'Regionmaster')">
+                                                <span><i class="fa fa-cogs"
+                                                        [ngClass]="childMenuString == 'Regionmaster' ? 'is-active' : ''"></i></span>
+                                                <a><span
+                                                        [ngClass]="childMenuString == 'Regionmaster' ? 'is-active' : ''">Region
+                                                    </span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+
                             </li>
 
 
@@ -115,7 +132,7 @@
                                                     routerLink="./app-booking/app-caseentry/app-caseentryy">
                                                     CaseEntryy</li>
                                             </mat-menu>
-											 <li title="CalendarTable" routerLink="./app-booking/app-calendar-table"
+                                            <li title="CalendarTable" routerLink="./app-booking/app-calendar-table"
                                                 [ngClass]="childMenuString == 'CalendarTable' ? 'is-active' : ''"
                                                 (click)="onMenuChildClick('Booking', 'CalendarTable')">
                                                 <span><i class="fa fa-joomla"

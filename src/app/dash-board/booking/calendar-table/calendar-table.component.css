@@ -30,3 +30,31 @@
   -ms-flex: 1;
   flex: 1;
 }
+
+::ng-deep .w3-black,
+.w3-hover-black:hover {
+  color: #fff !important;
+  background-color: #2b468d !important;
+  margin: 0px 0px 0px 99px;
+}
+
+::ng-deep .w3-teal,
+.w3-hover-teal:hover {
+  color: #fff !important;
+  background-color: #009688 !important;
+  font-size: 14px !important;
+}
+
+::ng-deep .btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show>.btn-primary.dropdown-toggle {
+  color: #fff !important;
+  background-color: #3f51b5 !important;
+  border-color: #3f51b5 !important;
+}
+
+::ng-deep .btn {
+  position: absolute;
+  background-color: #3f51b5;
+  color: white;
+}

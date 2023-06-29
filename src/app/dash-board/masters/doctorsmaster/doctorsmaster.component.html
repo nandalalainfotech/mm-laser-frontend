@@ -79,6 +79,19 @@
                     </div>
                 </div>
                 <div class="col-xs-3 form-group">
+                    <label path="region" for="region" cssClass="required">region</label>
+                    <select formControlName="region" class="form-control" name="region" id="region"
+                        [ngClass]="{ 'is-invalid': submitted && f.region.errors }">
+                        <option value="" hidden> - Select the Region - </option>
+                        <option value="null"> - Select the Region - </option>
+                        <option *ngFor="let region of regionmaster" [value]="region.region">
+                            {{region.region}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 form-group">
                     <label path="pincode" for="pincode" cssClass="required">
                         PinCode</label>
                     <input class="form-control" path="pincode" id="pincode" name="pincode" formControlName="pincode"
@@ -88,8 +101,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-xs-3">
                     <div class="form-group">
                         <label path="status" for="status">Status</label>

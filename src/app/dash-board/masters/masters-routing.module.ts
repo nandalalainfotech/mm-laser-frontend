@@ -18,6 +18,10 @@ const routes: Routes = [
       {
         path: 'app-employeemaster',
         loadChildren: () => import("./employeemaster/employeemaster.module").then(m => m.EmployeemasterModule)
+      },
+      {
+        path: 'app-regionmaster',
+        loadChildren: () => import("./regionmaster/regionmaster.module").then(m => m.RegionmasterModule)
       }
     ]
   }

@@ -29,6 +29,7 @@ import { Utils } from 'src/app/shared/utils/utils';
 export class BookingentryComponent implements OnInit {
 
   @Input() lang: any;
+  @Input() details: any
   frameworkComponents: any;
   bookingId: number | any;
   insertUser: string = "";
@@ -357,7 +358,6 @@ export class BookingentryComponent implements OnInit {
       })
     }
   }
-
   onReset() {
     this.bookingForm.reset();
     this.submitted = false;
