@@ -31,7 +31,23 @@ import { Doctormaster001mb } from 'src/app/shared/services/restcontroller/entiti
 import { Machinemaster001mb } from 'src/app/shared/services/restcontroller/entities/Machinemaster001mb';
 import { Utils } from 'src/app/shared/utils/utils';
 import { BookingmanagementComponent } from '../appointment/bookingmanagement/bookingmanagement.component';
+import { BookingentryComponent } from '../appointment/bookingentry/bookingentry.component';
 
+
+const colors: any = {
+  red: {
+    primary: '#ad2121',
+    secondary: '#FAE3E3'
+  },
+  blue: {
+    primary: '#1e90ff',
+    secondary: '#D1E8FF'
+  },
+  yellow: {
+    primary: '#e3bc08',
+    secondary: '#FDF1BA'
+  }
+};
 @Component({
   selector: 'app-calendar-table',
   templateUrl: './calendar-table.component.html',
@@ -144,8 +160,19 @@ export class CalendarTableComponent implements OnInit {
   activeDayIsOpen: boolean = true;
 
 
-
+//   onClick(){
+//     {
+//       label: '<i class="fa fa-fw fa-pencil"></i>',
+//       onClick: ({ event }: { event: CalendarEvent }): void => {
+//         this.handleEvent('Edited', event);
+//       }
+//   }
+// }
+ 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+
+    console.log("events", events);
+
 
     const modalRef = this.modalService.open(BookingmanagementComponent, { windowClass: 'my-class' });
     modalRef.componentInstance.details = events;
@@ -190,6 +217,24 @@ export class CalendarTableComponent implements OnInit {
 
   setView(view: CalendarView) {
     this.view = view;
+  }
+  onClick({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+
+    console.log("events", events);
+    const modalRef = this.modalService.open(BookingentryComponent);
+    modalRef.componentInstance.title = "Booking Entry";
+    modalRef.componentInstance.details = events;
+    if (isSameMonth(date, this.viewDate)) {
+      this.viewDate = date;
+      if (
+        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+        events.length === 0
+      ) {
+        this.activeDayIsOpen = false;
+      } else {
+        this.activeDayIsOpen = true;
+      }
+    }
   }
 
   closeOpenMonthViewDay() {

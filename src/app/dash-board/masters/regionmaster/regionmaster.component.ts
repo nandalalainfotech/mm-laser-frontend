@@ -1,43 +1,38 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
 import { GridOptions } from 'ag-grid-community';
 import { deserialize } from 'serializer.ts/Serializer';
 import { AuditComponent } from 'src/app/shared/audit/audit.component';
 import { IconRendererComponent } from 'src/app/shared/services/renderercomponent/icon-renderer-component';
 import { AuthManager } from 'src/app/shared/services/restcontroller/bizservice/auth-manager.service';
-import { MachinemasterManager } from 'src/app/shared/services/restcontroller/bizservice/machinemaster.service';
-import { Machinemaster001mb } from 'src/app/shared/services/restcontroller/entities/Machinemaster001mb';
+import { RegionmasterManager } from 'src/app/shared/services/restcontroller/bizservice/regionmaster.service';
+import { Regionmaster001mb } from 'src/app/shared/services/restcontroller/entities/Regionmaster001mb';
 import { CalloutService } from 'src/app/shared/services/services/callout.service';
 import { DataSharedService } from 'src/app/shared/services/services/datashared.service';
 import { Utils } from 'src/app/shared/utils/utils';
 
-
 @Component({
-  selector: 'app-machinemaster',
-  templateUrl: './machinemaster.component.html',
-  styleUrls: ['./machinemaster.component.css']
+  selector: 'app-regionmaster',
+  templateUrl: './regionmaster.component.html',
+  styleUrls: ['./regionmaster.component.css']
 })
-export class MachinemasterComponent implements OnInit {
+export class RegionmasterComponent implements OnInit {
 
   @Input() lang: any;
   frameworkComponents: any;
   slNo: number | any;
   insertUser: string = "";
   insertDatetime: Date | any;
-  machinename: string = "";
-  status: boolean = false;
-  machiness: Machinemaster001mb[] = [];
+  region: string = "";
   public gridOptions: GridOptions | any;
-  machineForm: FormGroup | any;
+  regionmaster: Regionmaster001mb[] = [];
+  regionForm: FormGroup | any;
   submitted = false;
   parentMenuString: string = '';
+  status: boolean = false;
   childMenuString: string = '';
-  params: any;
-  @Input() toogle: any;
-  toggle: boolean = false;
-  label: string = "";
+
 
   @HostBinding('style.--color_l1') colorthemes_1: any;
   @HostBinding('style.--color_l2') colorthemes_2: any;
@@ -46,11 +41,10 @@ export class MachinemasterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private machinemasterManager: MachinemasterManager,
     private calloutService: CalloutService,
-    private translateService: TranslateService,
     private authManager: AuthManager,
     private dataSharedService: DataSharedService,
+    private regionmasterManager: RegionmasterManager,
     private modalService: NgbModal) {
     this.frameworkComponents = {
       iconRenderer: IconRendererComponent
@@ -58,7 +52,6 @@ export class MachinemasterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.params;
     this.createDataGrid001();
     this.authManager.currentUserSubject.subscribe((object: any) => {
       let rgb = Utils.hexToRgb(object.theme);
@@ -72,8 +65,8 @@ export class MachinemasterComponent implements OnInit {
       this.colorthemes_4 = Utils.rgbToHex(rgb, 0.8);
     });
 
-    this.machineForm = this.formBuilder.group({
-      machinename: ['', Validators.required],
+    this.regionForm = this.formBuilder.group({
+      region: ['', Validators.required],
       status: [''],
     });
     this.loaddata();
@@ -81,17 +74,17 @@ export class MachinemasterComponent implements OnInit {
   }
 
   loaddata() {
-    this.machinemasterManager.allmachinemaster().subscribe((response) => {
-      this.machiness = deserialize<Machinemaster001mb[]>(Machinemaster001mb, response);
-      if (this.machiness.length > 0) {
-        this.gridOptions?.api?.setRowData(this.machiness);
+    this.regionmasterManager.allregion().subscribe((response) => {
+      this.regionmaster = deserialize<Regionmaster001mb[]>(Regionmaster001mb, response);
+      if (this.regionmaster.length > 0) {
+        this.gridOptions?.api?.setRowData(this.regionmaster);
       } else {
         this.gridOptions?.api?.setRowData([]);
       }
     })
   }
 
-  get f() { return this.machineForm.controls; }
+  get f() { return this.regionForm.controls; }
 
   createDataGrid001(): void {
     this.gridOptions = {
@@ -117,8 +110,8 @@ export class MachinemasterComponent implements OnInit {
         suppressSizeToFit: true,
       },
       {
-        headerName: 'Executive',
-        field: 'machinename',
+        headerName: 'Region',
+        field: 'region',
         width: 200,
         flex: 1,
         sortable: true,
@@ -158,7 +151,6 @@ export class MachinemasterComponent implements OnInit {
           label: 'Edit'
         }
       },
-
       {
         headerName: 'Delete',
         cellRenderer: 'iconRenderer',
@@ -191,16 +183,16 @@ export class MachinemasterComponent implements OnInit {
     this.slNo = params.data.slNo;
     this.insertUser = params.data.insertUser;
     this.insertDatetime = params.data.insertDatetime;
-    this.machineForm.patchValue({
-      'machinename': params.data.machinename,
+    this.regionForm.patchValue({
+      'region': params.data.region,
       'status': params.data.status
     });
   }
   onDeleteButtonClick(params: any) {
-    this.machinemasterManager.machinemasterdelete(params.data.slNo).subscribe((response: any) => {
-      for (let i = 0; i < this.machiness.length; i++) {
-        if (this.machiness[i].slNo == params.data.slNo) {
-          this.machiness?.splice(i, 1);
+    this.regionmasterManager.regiondelete(params.data.slNo).subscribe((response: any) => {
+      for (let i = 0; i < this.regionmaster.length; i++) {
+        if (this.regionmaster[i].slNo == params.data.slNo) {
+          this.regionmaster?.splice(i, 1);
           break;
         }
       }
@@ -213,7 +205,7 @@ export class MachinemasterComponent implements OnInit {
   onAuditButtonClick(params: any) {
     console.log("params", params)
     const modalRef = this.modalService.open(AuditComponent);
-    modalRef.componentInstance.title = "Machine Master";
+    modalRef.componentInstance.title = "Region Master";
     modalRef.componentInstance.details = params.data;
   }
 
@@ -230,60 +222,60 @@ export class MachinemasterComponent implements OnInit {
     });
   }
 
-  onUserClick(event: any, machineForm: any) {
-    this.markFormGroupTouched(this.machineForm);
+  onUserClick(event: any, regionForm: any) {
+    this.markFormGroupTouched(this.regionForm);
     this.submitted = true;
-    if (this.machineForm.invalid) {
+    if (this.regionForm.invalid) {
       return;
     }
-    let machinemaster001mb = new Machinemaster001mb();
-    machinemaster001mb.machinename = this.f.machinename.value ? this.f.machinename.value : "";
-    machinemaster001mb.status = this.f.status.value ? this.f.status.value : false;
+    let regionmaster001mb = new Regionmaster001mb();
+    regionmaster001mb.region = this.f.region.value ? this.f.region.value : "";
+    regionmaster001mb.status = this.f.status.value ? this.f.status.value : false;
     if (this.slNo) {
-      machinemaster001mb.slNo = this.slNo;
-      machinemaster001mb.insertUser = this.insertUser;
-      machinemaster001mb.insertDatetime = this.insertDatetime;
-      machinemaster001mb.updatedUser = this.authManager.getcurrentUser.username;
-      machinemaster001mb.updatedDatetime = new Date();
-      this.machinemasterManager.updatemachinemaster(machinemaster001mb).subscribe((response: any) => {
+      regionmaster001mb.slNo = this.slNo;
+      regionmaster001mb.insertUser = this.insertUser;
+      regionmaster001mb.insertDatetime = this.insertDatetime;
+      regionmaster001mb.updatedUser = this.authManager.getcurrentUser.username;
+      regionmaster001mb.updatedDatetime = new Date();
+      this.regionmasterManager.updateregion(regionmaster001mb).subscribe((response: any) => {
         console.log("response", response);
 
         this.calloutService.showSuccess("Order Updated Successfully");
-        let machinemaster001mb = deserialize<Machinemaster001mb>(Machinemaster001mb, response);
-        for (let machineemasters of this.machiness) {
-          if (machineemasters.slNo == machinemaster001mb.slNo) {
-            machineemasters.machinename = machinemaster001mb.machinename;
-            machineemasters.status = machinemaster001mb.status;
-            machineemasters.insertUser = this.insertUser;
-            machineemasters.insertDatetime = this.insertDatetime;
-            machineemasters.updatedUser = this.authManager.getcurrentUser.username;
-            machineemasters.updatedDatetime = new Date();
+        let regionmaster001mb = deserialize<Regionmaster001mb>(Regionmaster001mb, response);
+        for (let regionmasters of this.regionmaster) {
+          if (regionmasters.slNo == regionmaster001mb.slNo) {
+            regionmasters.region = regionmaster001mb.region;
+            regionmasters.status = regionmaster001mb.status;
+            regionmasters.insertUser = this.insertUser;
+            regionmasters.insertDatetime = this.insertDatetime;
+            regionmasters.updatedUser = this.authManager.getcurrentUser.username;
+            regionmasters.updatedDatetime = new Date();
           }
         }
-        this.machineForm.reset();
+        this.regionForm.reset();
         this.submitted = false;
         this.loaddata();
         this.slNo = null;
       })
     }
     else {
-      machinemaster001mb.insertUser = this.authManager.getcurrentUser.username;
-      machinemaster001mb.insertDatetime = new Date();
-      this.machinemasterManager.savemachinemaster(machinemaster001mb).subscribe((response) => {
+      regionmaster001mb.insertUser = this.authManager.getcurrentUser.username;
+      regionmaster001mb.insertDatetime = new Date();
+      this.regionmasterManager.saveregion(regionmaster001mb).subscribe((response) => {
         console.log("response", response)
         this.calloutService.showSuccess("Order Saved Successfully");
-        let machinemaster001mb = deserialize<Machinemaster001mb>(Machinemaster001mb, response);
-        this.machiness?.push(machinemaster001mb);
-        const newItems = [JSON.parse(JSON.stringify(machinemaster001mb))];
+        let regionmaster001mb = deserialize<Regionmaster001mb>(Regionmaster001mb, response);
+        this.regionmaster?.push(regionmaster001mb);
+        const newItems = [JSON.parse(JSON.stringify(regionmaster001mb))];
         this.gridOptions.api.applyTransaction({ add: newItems });
-        this.machineForm.reset();
-        this.loaddata();
+        this.regionForm.reset();
         this.submitted = false;
+        this.loaddata();
       })
     }
   }
   onReset() {
-    this.machineForm.reset();
+    this.regionForm.reset();
     this.submitted = false;
   }
 }

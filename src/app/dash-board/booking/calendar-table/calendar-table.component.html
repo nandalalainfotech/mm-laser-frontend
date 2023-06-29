@@ -34,12 +34,17 @@
 <br />
 <div [ngSwitch]="view">
   <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
-    [refresh]="refresh" (dayClicked)="dayClicked($event.day)" >
+    [refresh]="refresh" (dayClicked)="dayClicked($event.day)">
+    <!-- <span *ngIf="!checkForFutureDate(day)"> -->
+      <!-- <button type="click"  class="w3-button w3-xlarge w3-circle w3-black"> -->
+        +
+      <!-- </button> -->
+    <!-- </span> -->
   </mwl-calendar-month-view>
   <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
-  (eventClicked)="handleEvent($event.event)">
+    (eventClicked)="handleEvent($event.event)">
   </mwl-calendar-week-view>
   <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
-  (eventClicked)="handleEvent($event.event)">
+    (eventClicked)="handleEvent($event.event)">
   </mwl-calendar-day-view>
 </div>

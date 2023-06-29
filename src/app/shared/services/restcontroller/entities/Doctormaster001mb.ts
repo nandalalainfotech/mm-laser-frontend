@@ -13,4 +13,5 @@ export class Doctormaster001mb extends BaseEntity {
     contactnumber?: number;
     emailid?: string;
     status?: boolean;
+    region?: string;
 }

@@ -78,7 +78,10 @@ export class EmployeemasterComponent implements OnInit {
       emailid: ['', Validators.required],
       status: [''],
     })
+    this.loaddata();
     this.createDataGrid001();
+  }
+  loaddata() {
     this.employeemasterManager.allemployee().subscribe((response) => {
       this.employee = deserialize<Employeemaster001mb[]>(Employeemaster001mb, response);
       if (this.employee.length > 0) {
@@ -88,7 +91,6 @@ export class EmployeemasterComponent implements OnInit {
       }
     })
   }
-
   get f() { return this.employeeForm.controls; }
 
   createDataGrid001(): void {
@@ -283,6 +285,7 @@ export class EmployeemasterComponent implements OnInit {
         this.gridOptions.api.deselectAll();
         this.employeeForm.reset();
         this.submitted = false;
+        this.loaddata();
         this.employeeId = null;
       });
     }
@@ -296,6 +299,7 @@ export class EmployeemasterComponent implements OnInit {
         const newItems = [JSON.parse(JSON.stringify(doctormaster001mb))];
         this.gridOptions.api.applyTransaction({ add: newItems });
         this.employeeForm.reset();
+        this.loaddata();
         this.submitted = false;
       })
     }

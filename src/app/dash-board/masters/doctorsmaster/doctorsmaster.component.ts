@@ -8,7 +8,9 @@ import { AuditComponent } from 'src/app/shared/audit/audit.component';
 import { IconRendererComponent } from 'src/app/shared/services/renderercomponent/icon-renderer-component';
 import { AuthManager } from 'src/app/shared/services/restcontroller/bizservice/auth-manager.service';
 import { DoctormasterManager } from 'src/app/shared/services/restcontroller/bizservice/doctormaster.service';
+import { RegionmasterManager } from 'src/app/shared/services/restcontroller/bizservice/regionmaster.service';
 import { Doctormaster001mb } from 'src/app/shared/services/restcontroller/entities/Doctormaster001mb';
+import { Regionmaster001mb } from 'src/app/shared/services/restcontroller/entities/Regionmaster001mb';
 import { CalloutService } from 'src/app/shared/services/services/callout.service';
 import { Utils } from 'src/app/shared/utils/utils';
 
@@ -31,6 +33,8 @@ export class DoctorsmasterComponent implements OnInit {
   hospitalname: string = "";
   addressline1: string = "";
   addressline2: string = "";
+  region: string = "";
+  regionmaster: Regionmaster001mb[] = [];
   city: string = "";
   state: string = "";
   pincode: number | any;
@@ -49,20 +53,15 @@ export class DoctorsmasterComponent implements OnInit {
   constructor(private doctormasterManager: DoctormasterManager,
     private calloutService: CalloutService,
     private formBuilder: FormBuilder,
-    private translateService: TranslateService,
+    private regionmasterManager: RegionmasterManager,
     private authManager: AuthManager,
     private modalService: NgbModal) {
     this.frameworkComponents = {
       iconRenderer: IconRendererComponent
     }
-    translateService.setDefaultLang(this.translateService.store.currentLang);
   }
 
   ngOnInit() {
-    this.authManager.currentUserSubject.subscribe((object: any) => {
-      let lang = (object.language2?.name);
-      this.translateService.setDefaultLang(lang);
-    })
 
     this.authManager.currentUserSubject.subscribe((object: any) => {
       let rgb = Utils.hexToRgb(object.theme);
@@ -76,7 +75,6 @@ export class DoctorsmasterComponent implements OnInit {
       this.colorthemes_4 = Utils.rgbToHex(rgb, 0.8);
     });
 
-    this.createDataGrid001();
     this.doctorForm = this.formBuilder.group({
       doctorname: ['', Validators.required],
       contactnumber: ['', [Validators.pattern("^[0-9_-]{10,15}")]],
@@ -87,9 +85,18 @@ export class DoctorsmasterComponent implements OnInit {
       city: ['', Validators.required],
       state: ['', Validators.required],
       pincode: ['', Validators.required],
+      region: ['', Validators.required],
       status: [''],
     })
 
+    this.loaddata();
+    this.createDataGrid001();
+    this.regionmasterManager.allregion().subscribe((response: any) => {
+      this.regionmaster = deserialize<Regionmaster001mb[]>(Regionmaster001mb, response);
+    });
+
+  }
+  loaddata() {
     this.doctormasterManager.alldoctormaster().subscribe((response) => {
       this.Doctormaster = deserialize<Doctormaster001mb[]>(Doctormaster001mb, response);
       if (this.Doctormaster.length > 0) {
@@ -208,6 +215,16 @@ export class DoctorsmasterComponent implements OnInit {
         suppressSizeToFit: true,
       },
       {
+        headerName: 'Region',
+        field: 'region',
+        width: 200,
+        flex: 1,
+        sortable: true,
+        filter: true,
+        resizable: true,
+        suppressSizeToFit: true,
+      },
+      {
         headerName: 'Pin Code',
         field: 'pincode',
         width: 200,
@@ -274,7 +291,6 @@ export class DoctorsmasterComponent implements OnInit {
     ];
   }
 
-
   onEditButtonClick(params: any) {
     this.slNo = params.data.slNo;
     this.insertUser = params.data.insertUser;
@@ -288,6 +304,7 @@ export class DoctorsmasterComponent implements OnInit {
       'addressline2': params.data.addressline2,
       'city': params.data.city,
       'state': params.data.state,
+      'region': params.data.region,
       'pincode': params.data.pincode,
       'status': params.data.status
     });
@@ -340,6 +357,7 @@ export class DoctorsmasterComponent implements OnInit {
     doctormaster001mb.city = this.f.city.value ? this.f.city.value : "";
     doctormaster001mb.doctorname = this.f.doctorname.value ? this.f.doctorname.value : "";
     doctormaster001mb.emailid = this.f.emailid.value ? this.f.emailid.value : "";
+    doctormaster001mb.region = this.f.region.value ? this.f.region.value : "";
     doctormaster001mb.hospitalname = this.f.hospitalname.value ? this.f.hospitalname.value : "";
     doctormaster001mb.contactnumber = this.f.contactnumber.value ? this.f.contactnumber.value : 0;
     doctormaster001mb.pincode = this.f.pincode.value ? this.f.pincode.value : 0;
@@ -361,6 +379,7 @@ export class DoctorsmasterComponent implements OnInit {
             Doctormasters.city = doctormaster001mb.city;
             Doctormasters.doctorname = doctormaster001mb.doctorname;
             Doctormasters.emailid = doctormaster001mb.emailid;
+            Doctormasters.region = doctormaster001mb.region;
             Doctormasters.hospitalname = doctormaster001mb.hospitalname;
             Doctormasters.contactnumber = doctormaster001mb.contactnumber;
             Doctormasters.pincode = doctormaster001mb.pincode;
@@ -376,6 +395,7 @@ export class DoctorsmasterComponent implements OnInit {
         this.gridOptions.api.refreshView();
         this.gridOptions.api.deselectAll();
         this.doctorForm.reset();
+        this.loaddata();
         this.submitted = false;
         this.slNo = null;
       });
@@ -384,12 +404,15 @@ export class DoctorsmasterComponent implements OnInit {
       doctormaster001mb.insertUser = this.authManager.getcurrentUser.username;
       doctormaster001mb.insertDatetime = new Date();
       this.doctormasterManager.savedoctormaster(doctormaster001mb).subscribe((response) => {
+        console.log("response----------->", response);
+
         this.calloutService.showSuccess("Order Saved Successfully");
         let doctormaster001mb = deserialize<Doctormaster001mb>(Doctormaster001mb, response);
         this.Doctormaster?.push(doctormaster001mb);
         const newItems = [JSON.parse(JSON.stringify(doctormaster001mb))];
         this.gridOptions.api.applyTransaction({ add: newItems });
         this.doctorForm.reset();
+        this.loaddata();
         this.submitted = false;
       })
     }
