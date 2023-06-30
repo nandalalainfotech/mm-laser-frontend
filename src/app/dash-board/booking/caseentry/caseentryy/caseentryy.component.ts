@@ -29,6 +29,7 @@ export class CaseentryyComponent implements OnInit {
   myForm: FormArray | any;
   @Input() title: any;
   @Input() lang: any;
+  params: any;
   caseentryForm: FormGroup | any;
   submitted = false;
   caseentryId: number | any;
@@ -39,8 +40,7 @@ export class CaseentryyComponent implements OnInit {
   frameworkComponents: any;
   hospname: string = "";
   doctorname: string = "";
-  charge: string = "";
-  status: string = "";
+  status: boolean = false;
   add: any = [];
   numberofcase: Caseentry001mb[] = [];
   Casemachine001wbs: Casemachine001wb[] = [];
@@ -49,6 +49,7 @@ export class CaseentryyComponent implements OnInit {
   cslNo: any[] = []
   mname?: string;
   numofcase?: string;
+  charge?: string;
   caseentry001mb?: Caseentry001mb;
   machiness: Machinemaster001mb[] = [];
   Doctormaster: Doctormaster001mb[] = [];
@@ -99,8 +100,7 @@ export class CaseentryyComponent implements OnInit {
     this.caseentryForm = this.formBuilder.group({
       hospname: ['', Validators.required],
       doctorname: ['', Validators.required],
-      charge: ['', Validators.required],
-      status: ['', Validators.required],
+      status: ['',],
     })
 
     this.loaddata();
@@ -141,7 +141,8 @@ export class CaseentryyComponent implements OnInit {
   initTimes() {
     return this.fb.group({
       mname: this.fb.control('', Validators.required),
-      numofcase: this.fb.control("", Validators.required)
+      numofcase: this.fb.control("", Validators.required),
+      charge: this.fb.control("", Validators.required)
     });
   }
 
@@ -155,7 +156,6 @@ export class CaseentryyComponent implements OnInit {
 
   removeGroup(i: number) {
     this.fa.removeAt(i);
-    console.log("this-------------", this.fa);
   }
 
   loaddata() {
@@ -252,7 +252,8 @@ export class CaseentryyComponent implements OnInit {
         sortable: true,
         filter: true,
         resizable: true,
-        suppressSizeToFit: true
+        suppressSizeToFit: true,
+        valueGetter: this.setCharge.bind(this)
       },
       {
         headerName: 'Status',
@@ -271,12 +272,21 @@ export class CaseentryyComponent implements OnInit {
         headerName: 'Pdf',
         cellRenderer: 'iconRenderer',
         width: 60,
+        flex: 1,
         suppressSizeToFit: true,
         cellStyle: { textAlign: 'center' },
         cellRendererParams: {
           onClick: this.onPdfButtonClick.bind(this),
           label: 'Pdf',
         },
+        // cellRenderer: (params: any, event: any) => {
+        //   // console.log("params----------", params);
+        //   if (params.data.status == 1) {
+        //     return `<i class="fa fa-file-pdf-o" (click)="onPdfButtonClick("${this.params}")"></i>`;
+        //   } else {
+        //     return '';
+        //   }
+        // },
       },
       {
         headerName: 'Edit',
@@ -327,6 +337,14 @@ export class CaseentryyComponent implements OnInit {
     return array.toString();
   }
 
+  setCharge(params: any): string {
+    let array = 0;
+    for (let i = 0; i < params.data.casemachine001wbs.length; i++) {
+      array += parseInt(params.data.casemachine001wbs[i].charge)
+    }
+    return array.toString();
+  }
+
   setMachine(params: any): string {
     let array = []
     for (let i = 0; i < params.data.casemachine001wbs.length; i++) {
@@ -334,6 +352,7 @@ export class CaseentryyComponent implements OnInit {
     }
     return array.toString();
   }
+
   setDoctor(params: any): string {
     return params.data.doctorname2 ? params.data.doctorname2.doctorname : null;
   }
@@ -342,7 +361,10 @@ export class CaseentryyComponent implements OnInit {
   }
 
   onEditButtonClick(params: any) {
-
+    console.log('params-------------edit----->>>>', this.myForm.controls.times.controls.length);
+    // this.myForm.controls.times.controls = [];
+    this.myForm.reset()
+    // this.fa.push(this.initTimes());
     this.caseentryId = params.data.caseentryId;
     // this.caseentryadd = params.data.Casemachine001wbs;
     this.insertUser = params.data.insertUser;
@@ -350,22 +372,29 @@ export class CaseentryyComponent implements OnInit {
     this.caseentryForm.patchValue({
       'hospname': params.data.hospname,
       'doctorname': params.data.doctorname,
-      'charge': params.data.charge,
       'status': params.data.status
     });
+
+    // this.myForm.get('times') as FormArray;
+
+    // this.fa.push(this.initTimes());
+
     for (let i = 0; i < params.data.casemachine001wbs.length; i++) {
       this.myForm.get('times') as FormArray;
+
       // this.fa.push(this.initTimes());
       if (i < (params.data.casemachine001wbs.length) - 1) {
         this.fa.push(this.initTimes());
-        // this.purchasereqFormArry.push(this.createItem());
       }
       this.slNo.push(params.data.casemachine001wbs[i].slno)
       this.cslNo.push(params.data.casemachine001wbs[i].cslno)
       this.myForm.controls.times.controls[i].controls['mname'].setValue(params.data.casemachine001wbs[i].mname);
       this.myForm.controls.times.controls[i].controls['numofcase'].setValue(params.data.casemachine001wbs[i].numofcase);
+      this.myForm.controls.times.controls[i].controls['charge'].setValue(params.data.casemachine001wbs[i].charge);
     }
+
   }
+
 
   onDeleteButtonClick(params: any) {
     params.isActive = false;
@@ -421,9 +450,11 @@ export class CaseentryyComponent implements OnInit {
         casemachine001wb.cslno = this.cslNo.length ? this.cslNo[i] : ""
         casemachine001wb.mname = this.myForm.value.times[i].mname
         casemachine001wb.numofcase = this.myForm.value.times[i].numofcase
+        casemachine001wb.charge = this.myForm.value.times[i].charge
       } else {
         casemachine001wb.mname = this.myForm.value.times[i].mname
         casemachine001wb.numofcase = this.myForm.value.times[i].numofcase
+        casemachine001wb.charge = this.myForm.value.times[i].charge
       }
       casemachine001wbs.push(casemachine001wb)
 
@@ -431,8 +462,7 @@ export class CaseentryyComponent implements OnInit {
     let caseentry001mb = new Caseentry001mb();
     caseentry001mb.hospname = this.f.hospname.value ? this.f.hospname.value : "";
     caseentry001mb.doctorname = this.f.doctorname.value ? this.f.doctorname.value : "";
-    caseentry001mb.charge = this.f.charge.value ? this.f.charge.value : "";
-    caseentry001mb.status = this.f.status.value ? this.f.status.value : "";
+    caseentry001mb.status = this.f.status.value ? this.f.status.value : false;
     // console.log("caseentryadd-----------------", this.caseentryadd);
     caseentry001mb.Casemachine001wbs = casemachine001wbs ? casemachine001wbs : 0;
     if (this.caseentryId) {
@@ -450,7 +480,6 @@ export class CaseentryyComponent implements OnInit {
           if (caseEntry.caseentryId == caseentry001mbResp.caseentryId) {
             caseEntry.hospname = caseentry001mbResp.hospname;
             caseEntry.doctorname = caseentry001mbResp.doctorname;
-            caseEntry.charge = caseentry001mbResp.charge;
             caseEntry.insertUser = this.insertUser;
             caseEntry.insertDatetime = this.insertDatetime;
             caseEntry.updatedUser = this.authManager.getcurrentUser.username;
@@ -460,9 +489,9 @@ export class CaseentryyComponent implements OnInit {
         this.gridOptions.api.setRowData(this.numberofcase);
         this.gridOptions.api.refreshView();
         this.gridOptions.api.deselectAll();
+        this.loaddata();
         this.caseentryForm.reset();
         this.myForm.reset();
-        // this.caseentryadd = [];
         this.caseentryId = null;
         this.submitted = false;
       });
@@ -480,9 +509,9 @@ export class CaseentryyComponent implements OnInit {
         const newItems = [JSON.parse(JSON.stringify(caseentry001mb))];
         this.gridOptions.api.applyTransaction({ add: newItems });
         this.gridOptions.api.deselectAll();
+        this.loaddata();
         this.caseentryForm.reset();
         this.myForm.reset();
-        // this.caseentryadd = [];
         this.submitted = false;
       });
     }
@@ -493,18 +522,16 @@ export class CaseentryyComponent implements OnInit {
     this.myForm.reset();
   }
 
-  // onGeneratePdfReport() {
-  //   this.caseEntryManager.caseEntryPdf().subscribe((response) => {
-  //     saveAs(response, 'CaseEntryList');
-  //   });
-  // }
   onPdfButtonClick(params: any) {
-
-    this.caseEntryManager.pdfId(params.data.caseentryId).subscribe((response) => {
-      let date = new Date();
-      let newDate = this.datepipe.transform(date, 'dd-MM-yyyy');
-      saveAs(response, " CaseEntryList " + newDate);
-    })
+    if (params.data.status == true) {
+      this.caseEntryManager.pdfId(params.data.caseentryId).subscribe((response) => {
+        let date = new Date();
+        let newDate = this.datepipe.transform(date, 'dd-MM-yyyy');
+        saveAs(response, " CaseEntryList " + newDate);
+      })
+    } else {
+      `<i class="fa fa-file-pdf-o" disable></i>`;
+    }
 
   }
 }

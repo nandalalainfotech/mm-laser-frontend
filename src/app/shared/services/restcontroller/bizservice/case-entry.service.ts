@@ -13,7 +13,7 @@ export class CaseEntryManager extends BaseService {
     }
 
     casesave(caseentry001mb: Caseentry001mb) {
-        // console.log('caseentry001mb-------saa--', caseentry001mb);
+        console.log('caseentry001mb-------save-->>>', caseentry001mb);
         return this.postCallService(`${this.caseEntryUrl}` + "/save", {}, caseentry001mb);
     }
 
