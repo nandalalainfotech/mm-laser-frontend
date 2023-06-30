@@ -5,7 +5,8 @@
             <div class="col-md-5 col-lg-7 logo">
                 <h2 class="h2">
                     <!-- <label for="menu" class="menu-bar is-active"> -->
-                    <i class="fa fa-bars" [ngClass]="isOpen ? 'rerotation' : 'rotation'" style="margin-left: 10px" (click)="clickMenu()"></i>
+                    <i class="fa fa-bars" [ngClass]="isOpen ? 'rerotation' : 'rotation'" style="margin-left: 10px"
+                        (click)="clickMenu()"></i>
                     <img src="../../../assets/images/favicon.ico" />
                     <!-- <img src="{{downloadUrl}}"> -->
                     <!-- </label> -->
@@ -20,43 +21,25 @@
                         {{'Welcome'|translate}} {{ user?.firstname | titlecase }} {{ user?.lastname | titlecase }}&nbsp;
                     </li>
                     <img src="../../../assets/images/avatar 7.png" />
-                     <!-- <img src="{{downloadUrl}}"> -->
-                     
+                    <!-- <img src="{{downloadUrl}}"> -->
+
 
                     <li class="setting">
-                        <a><i
-                                class="fa fa-paint-brush"
-                                style="color: white"
-                                aria-hidden="true"
-                                [(colorPicker)]="themes"
-                                [cpOKButton]="true"
-                                [cpOKButtonClass]="' btn-primary btn-xs button'"
-                                [cpOKButtonText]="'Reset'"
-                                [cpCancelButton]="true"
-                                [cpCancelButtonClass]="'btn-primary btn-xs'"
-                                [cpCancelButtonText]="'Cancel'"
-                                [cpSaveClickOutside]="false"
-                                [cpCloseClickOutside]="false"
-                                [cpPresetColors]="[
+                        <a><i class="fa fa-paint-brush" style="color: white" aria-hidden="true" [(colorPicker)]="themes"
+                                [cpOKButton]="true" [cpOKButtonClass]="' btn-primary btn-xs button'"
+                                [cpOKButtonText]="'Reset'" [cpCancelButton]="true"
+                                [cpCancelButtonClass]="'btn-primary btn-xs'" [cpCancelButtonText]="'Cancel'"
+                                [cpSaveClickOutside]="false" [cpCloseClickOutside]="false" [cpPresetColors]="[
                                     '#9400D3',
                                     '#0000FF',
                                     '#00FF00',
                                     '#FFFF00',
                                     '#FF7F00',
                                     '#FF0000'
-                                ]"
-                                [cpPositionRelativeToArrow]="true"
-                                [cpPosition]="'left'"
-                                [cpPositionOffset]="'80%'"
-                                [cpAlphaChannel]="'disabled'"
-                                [cpDisableInput]="false"
-                                [cpOutputFormat]="'hex'"
-                                [cpWidth]="'270px'"
-                                [cpHeight]="'390px'"
-                                (cpSliderChange)="colorPicker($event)"
-                                (colorPickerSelect)="defaultColor()"
-                            ></i
-                        ></a>
+                                ]" [cpPositionRelativeToArrow]="true" [cpPosition]="'left'" [cpPositionOffset]="'80%'"
+                                [cpAlphaChannel]="'disabled'" [cpDisableInput]="false" [cpOutputFormat]="'hex'"
+                                [cpWidth]="'270px'" [cpHeight]="'390px'" (cpSliderChange)="colorPicker($event)"
+                                (colorPickerSelect)="defaultColor()"></i></a>
                     </li>
 
                     <!-- <li class="link" class="setting">
@@ -75,17 +58,14 @@
 
                     <li class="setting">
                         <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" style="color: white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="bttn">
-                                <i
-                                    class="fa fa-cog"
-                                    [ngClass]="
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                style="color: white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                                class="bttn">
+                                <i class="fa fa-cog" [ngClass]="
                                         parentMenuString == 'Setting'
                                             ? 'is-active'
                                             : ''
-                                    "
-                                    aria-hidden="true"
-                                    title="More options"
-                                ></i>
+                                    " aria-hidden="true" title="More options"></i>
                             </button>
 
                             <!-- [ngClass]="parentMenuString == 'Purchase Order' ? 'is-active' : ''"
@@ -104,8 +84,7 @@
                                                 'Setting',
                                                 'DashBoard'
                                             )
-                                        ">{{'DashBoard'|translate}}</a
-                                    >
+                                        ">{{'DashBoard'|translate}}</a>
                                 </li>
 
                                 <!-- <li
@@ -127,45 +106,6 @@
                                         >{{'Profile'|translate}}</a
                                     >
                                 </li> -->
-
-                                <!-- <li
-                                routerLink="./app-setting/app-brandmaster"
-                            >
-                                <a
-                                    [ngStyle]="{ color: colorthemes_1 }"
-                                    [ngClass]="
-                                        childMenuString == 'Brand Master'
-                                            ? 'is-active'
-                                            : ''
-                                    "
-                                    (click)="
-                                        onMenuChildClick(
-                                            'Setting',
-                                            'Brand Master'
-                                        )
-                                    "
-                                    >Brand Master</a
-                                >
-                            </li> -->
-                            <!-- <li
-                                routerLink="./app-setting/app-departments"
-                            >
-                                <a
-                                    [ngStyle]="{ color: colorthemes_1 }"
-                                    [ngClass]="
-                                        childMenuString == 'Departments'
-                                            ? 'is-active'
-                                            : ''
-                                    "
-                                    (click)="
-                                        onMenuChildClick(
-                                            'Setting',
-                                            'Departments'
-                                        )
-                                    "
-                                    >{{'Departments'|translate}}</a
-                                >
-                            </li> -->
 
                                 <!-- <li routerLink="./app-setting/app-settings">
                                     <a
@@ -202,61 +142,8 @@
                                         >{{'Themes'|translate}}</a
                                     >
                                 </li>
-                                <li routerLink="./app-setting/app-favourites">
-                                    <a
-                                        [ngStyle]="{ color: colorthemes_1 }"
-                                        [ngClass]="
-                                            childMenuString == 'Favourites'
-                                                ? 'is-active'
-                                                : ''
-                                        "
-                                        (click)="
-                                            onMenuChildClick(
-                                                'Setting',
-                                                'Favourites'
-                                            )
-                                        "
-                                        >{{'Favourites'|translate}}</a
-                                    >
-                                </li>
-
-                                <li routerLink="./app-setting/app-about"> -->
-                                    <!-- <a
-                                        [ngStyle]="{ color: colorthemes_1 }"
-                                        [ngClass]="
-                                            childMenuString == 'About'
-                                                ? 'is-active'
-                                                : ''
-                                        "
-                                        (click)="
-                                            onMenuChildClick('Setting', 'About')
-                                        "
-                                        >{{'About'|translate}}</a
-                                    >
-                                </li> -->
-
-                                <!-- <li
-                                    routerLink="./app-setting/app-import-export"
-                                >
-                                    <a
-                                        [ngStyle]="{ color: colorthemes_1 }"
-                                        [ngClass]="
-                                            childMenuString == 'Import / Export'
-                                                ? 'is-active'
-                                                : ''
-                                        "
-                                        (click)="
-                                            onMenuChildClick(
-                                                'Setting',
-                                                'Import / Export'
-                                            )
-                                        "
-                                        >{{'Import/Export'|translate}}</a
-                                    >
-                                </li> -->
-
                                 
-                                <!-- <li
+                              <li
                                     routerLink="./app-setting/app-app-language-setting"
                                 >
                                     <a
@@ -295,26 +182,6 @@
                                         >{{'Application Logo Setting'|translate}}</a
                                     >
                                 </li> -->
-                                <!-- <li
-                                    routerLink="./app-setting/app-applicationsetting"
-                                >
-                                    <a
-                                        [ngStyle]="{ color: colorthemes_1 }"
-                                        [ngClass]="
-                                            childMenuString ==
-                                            'Application Setting'
-                                                ? 'is-active'
-                                                : ''
-                                        "
-                                        (click)="
-                                            onMenuChildClick(
-                                                'Setting',
-                                                'Application Setting'
-                                            )
-                                        "
-                                        > {{'Application Setting'|translate}}</a
-                                    >
-                                </li> -->
                             </ul>
                         </div>
                     </li>
@@ -344,28 +211,11 @@
                         </div>
                     </li> -->
 
-                    <!-- <li class="setting" routerLink="./app-help">
-                        <a>
-                            <i
-                                class="fa fa-question-circle"
-                                aria-hidden="true"
-                                title="Help"
-                                style="color: white"
-                                [ngClass]="
-                                    parentMenuString == 'Help'
-                                        ? 'is-active'
-                                        : ''
-                                "
-                                (click)="onMenuParentClick('Help', 'Help')"
-                            ></i
-                        ></a>
-                                </li> -->
-                                <li class="setting">
-                                    <a (click)="submit()" [ngClass]="
+                    <li class="setting">
+                        <a (click)="submit()" [ngClass]="
                                 parentMenuString == 'Logout' ? 'is-actived' : ''
                             " (click)="onMenuParentClick('Logout', 'Logout')">
-                                        <i class="fa fa-sign-out color" aria-hidden="true" title="Logout"></i
-                        ></a>
+                            <i class="fa fa-sign-out color" aria-hidden="true" title="Logout"></i></a>
                     </li>
                 </ul>
             </div>
