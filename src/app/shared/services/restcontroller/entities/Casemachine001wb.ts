@@ -5,6 +5,7 @@ export class Casemachine001wb extends BaseEntity {
     cslno?: number;
     mname?: string | any;
     numofcase?: string | any;
+    charge?: string | any;
     insertUser?: string;
     insertDatetime?: Date;
     updatedUser?: string | null;

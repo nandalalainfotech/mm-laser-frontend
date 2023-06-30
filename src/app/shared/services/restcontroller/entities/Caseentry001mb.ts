@@ -4,8 +4,7 @@ import { Casemachine001wb } from "./Casemachine001wb";
 export class Caseentry001mb extends BaseEntity {
     caseentryId?: number;
     hospname?: string;
-    charge?: string;
-    status?: string;
+    status?: boolean;
     doctorname?: string;
     insertUser?: string;
     insertDatetime?: Date;
