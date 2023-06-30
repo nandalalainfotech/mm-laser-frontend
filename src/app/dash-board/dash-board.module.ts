@@ -24,24 +24,11 @@ import { DoctormasterManager } from '../shared/services/restcontroller/bizservic
 import { MachinemasterManager } from '../shared/services/restcontroller/bizservice/machinemaster.service';
 import { UserManager } from '../shared/services/restcontroller/bizservice/user.service';
 import { DataSharedService } from '../shared/services/services/datashared.service';
-import { APiechartComponent } from './body/a-piechart/a-piechart.component';
-import { BarchartComponent } from './body/barchart/barchart.component';
-import { BodyChartComponent } from './body/body-chart/body-chart.component';
-import { BodyComponent } from './body/body.component';
-import { ChatBoxComponent } from './body/chat-box/chat-box.component';
-import { ClientLoginComponent } from './body/client-login/client-login.component';
-import { LogsComponent } from './body/logs/logs.component';
-import { ProcessCardComponent } from './body/process-card/process-card.component';
-import { ReviewComponent } from './body/review/review.component';
-import { StateChartComponent } from './body/state-chart/state-chart.component';
-import { StatusOfSiteComponent } from './body/status-of-site/status-of-site.component';
-import { TablesComponent } from './body/tables/tables.component';
 import { DashboardRoutingModule } from './dash-board-routing.module';
 import { DashBoardComponent } from './dash-board.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
-import { SidemenuDashboardComponent } from './sidemenu-dashboard/sidemenu-dashboard.component';
 
 export const environment = {
   production: true,
@@ -57,20 +44,6 @@ export function createTranslateLoader(http: HttpClient) {
     HeaderComponent,
     FooterComponent,
     SideMenuComponent,
-    BodyComponent,
-    BodyChartComponent,
-    APiechartComponent,
-    BarchartComponent,
-    LogsComponent,
-    StatusOfSiteComponent,
-    ProcessCardComponent,
-    ChatBoxComponent,
-    ClientLoginComponent,
-    ReviewComponent,
-    TablesComponent,
-    SidemenuDashboardComponent,
-    StateChartComponent,
-
   ],
 
   imports: [

@@ -5,8 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxFileDropModule } from 'ngx-file-drop';
-import { FavouritesManager } from 'src/app/shared/services/restcontroller/bizservice/favourites.service';
-import { FavouritesComponent } from './favourites/favourites.component';
 import { SettingRoutingModule } from './setting-routing.module';
 import { SettingComponent } from './setting.component';
 
@@ -22,7 +20,7 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [SettingComponent, FavouritesComponent],
+  declarations: [SettingComponent],
   imports: [
     CommonModule,
     SettingRoutingModule,
@@ -38,7 +36,7 @@ export function createTranslateLoader(http: HttpClient) {
     }),
 
   ],
-  providers: [FavouritesManager,]
+  providers: []
 })
 
 export class SettingModule { }

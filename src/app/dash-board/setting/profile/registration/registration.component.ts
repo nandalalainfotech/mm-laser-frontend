@@ -8,7 +8,6 @@ import { AuditComponent } from 'src/app/shared/audit/audit.component';
 import { IconRendererComponent } from 'src/app/shared/services/renderercomponent/icon-renderer-component';
 import { ApplanguagesettingManager } from 'src/app/shared/services/restcontroller/bizservice/applanguagesetting.service';
 import { AuthManager } from 'src/app/shared/services/restcontroller/bizservice/auth-manager.service';
-import { PersonManager } from 'src/app/shared/services/restcontroller/bizservice/person.service';
 import { SystemPropertiesService } from 'src/app/shared/services/restcontroller/bizservice/system-properties.service';
 import { UserManager } from 'src/app/shared/services/restcontroller/bizservice/user.service';
 import { Applanguagesetting001mb } from 'src/app/shared/services/restcontroller/entities/Applanguagesetting001mb';

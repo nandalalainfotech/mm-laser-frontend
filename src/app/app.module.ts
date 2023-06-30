@@ -1,15 +1,17 @@
-import { CommonModule, DatePipe, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CommonModule, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbCollapseModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-// import { TranslateHttpLoader } from '@ngx-translate/http-loader/lib/http-loader';
+import { ScheduleAllModule } from '@syncfusion/ej2-angular-schedule';
 import { AgGridModule } from 'ag-grid-angular';
 import { GojsAngularModule } from 'gojs-angular';
+import { JwtInterceptor } from './_helpers';
+import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -17,19 +19,15 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { AuditComponent } from './shared/audit/audit.component';
 import { PopupComponent } from './shared/popup/popup.component';
 import { CalloutComponent } from './shared/services/callout/callout.component';
+import { IconRendererComponent } from './shared/services/renderercomponent/icon-renderer-component';
 import { applogoSettingManager } from './shared/services/restcontroller/bizservice/app-logo-settings.service';
-import { AppSettingManager } from './shared/services/restcontroller/bizservice/applicationsetting.service';
 import { AuthManager } from './shared/services/restcontroller/bizservice/auth-manager.service';
-import { PersonManager } from './shared/services/restcontroller/bizservice/person.service';
 import { UserManager } from './shared/services/restcontroller/bizservice/user.service';
 import { BaseService } from './shared/services/services/base.service';
 import { CalloutService } from './shared/services/services/callout.service';
 import { DataSharedService } from './shared/services/services/datashared.service';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import { UserRegistrationModule } from './user-registration/user-registration.module';
-import { JwtInterceptor } from './_helpers';
-import { ErrorInterceptor } from './_helpers/error.interceptor';
-import { ScheduleAllModule } from '@syncfusion/ej2-angular-schedule';
 
 export const environment = {
 	production: true,
@@ -49,6 +47,7 @@ export function createTranslateLoader(http: HttpClient) {
 		ResetPasswordComponent,
 		AuditComponent,
 		UserRegistrationComponent,
+		IconRendererComponent
 	],
 	imports: [
 		CommonModule,
@@ -73,9 +72,9 @@ export function createTranslateLoader(http: HttpClient) {
 		  defaultLanguage: 'en-US',
 		}),
 	],
-	exports: [PopupComponent, NgbCollapseModule],
+	exports: [PopupComponent, NgbCollapseModule,IconRendererComponent],
 	providers: [AuthManager, CalloutService, DataSharedService, UserManager, BaseService,
-		applogoSettingManager, PersonManager, UserManager,AppSettingManager,
+		applogoSettingManager, UserManager,
 		{ provide: LocationStrategy, useClass: PathLocationStrategy },
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },],

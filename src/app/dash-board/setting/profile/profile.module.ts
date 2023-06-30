@@ -11,7 +11,6 @@ import { AgGridModule } from 'ag-grid-angular';
 import { createTranslateLoader } from 'src/app/app.module';
 import { ApplanguagesettingManager } from 'src/app/shared/services/restcontroller/bizservice/applanguagesetting.service';
 import { AuthManager } from 'src/app/shared/services/restcontroller/bizservice/auth-manager.service';
-import { PersonManager } from 'src/app/shared/services/restcontroller/bizservice/person.service';
 import { UserManager } from 'src/app/shared/services/restcontroller/bizservice/user.service';
 import { BreadcrumbModule } from '../../breadcrumb/breadcrumb.module';
 import { PasswordComponent } from './password/password.component';
