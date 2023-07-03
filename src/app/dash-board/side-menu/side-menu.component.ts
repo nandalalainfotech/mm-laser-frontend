@@ -112,7 +112,10 @@ export class SideMenuComponent implements OnChanges, OnInit {
     }
     ngOnInit() {
 
+        this.role = this.authManager.getcurrentUser.role001mbs.rolename;
+
         this.authManager.currentUserSubject.subscribe((object: any) => {
+                  
             let lang = (object.language2?.name);
             this.translateService.setDefaultLang(lang); 
         })
@@ -150,6 +153,8 @@ export class SideMenuComponent implements OnChanges, OnInit {
             // this.colorthemes = object.theme;
         });
     }
+
+    role = this.authManager.getcurrentUser.role001mbs.rolename;
 
     ngAfterViewInit() {
         this.temporaryDisabled = false;
