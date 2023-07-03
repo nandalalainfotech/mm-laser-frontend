@@ -7,7 +7,7 @@
                         <ul class="nav navbar-nav">
 
 
-                            <li id="dropdown" title="Masters">
+                            <li id="dropdown" title="Masters" *ngIf="role == 'Admin'" >
                                 <a data-toggle="collapse" href="#Masters"
                                     [ngClass]="parentMenuString == 'Masters' ? 'is-active' : ''">
                                     <i class="fa fa-industry"

@@ -15,4 +15,5 @@ export class User001mb extends BaseEntity {
     theme?: string | null;
     language?:Number | null;
     language2?: any | null;
+    role001mbs?: any | null;
 }
