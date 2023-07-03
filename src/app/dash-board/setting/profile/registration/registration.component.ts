@@ -361,7 +361,7 @@ export class RegistrationComponent implements OnInit {
             user001mb.updatedUser = this.authManager.getcurrentUser.username;
             user001mb.updatedDatetime = new Date();
             this.userManager.updateuser(user001mb).subscribe(response => {
-                this.calloutService.showSuccess("Order Updated Successfully");
+                this.calloutService.showSuccess("Registration Updated Successfully");
                 this.loaddata();
                 this.registerForm.reset();
                 this.submitted = false;
@@ -372,7 +372,7 @@ export class RegistrationComponent implements OnInit {
             user001mb.insertUser = this.authManager.getcurrentUser.username;
             user001mb.insertDatetime = new Date();
             this.userManager.saveuser(user001mb).subscribe((response) => {
-                this.calloutService.showSuccess("Order Saved Successfully");
+                this.calloutService.showSuccess("Registration Saved Successfully");
                 this.loaddata();
                 this.registerForm.reset();
                 this.submitted = false;
