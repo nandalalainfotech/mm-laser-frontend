@@ -56,7 +56,7 @@
                         </div>
                     </li> -->
 
-                    <li class="setting">
+                    <li class="setting" *ngIf="role == 'Admin'">
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                                 style="color: white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
@@ -107,7 +107,7 @@
                                     >
                                 </li>
 
-                                <!-- <li routerLink="./app-setting/app-settings">
+                                <li routerLink="./app-setting/app-settings">
                                     <a
                                         [ngStyle]="{ color: colorthemes_1 }"
                                         [ngClass]="
@@ -123,7 +123,7 @@
                                         "
                                         >{{'Settings'|translate}}</a
                                     >
-                                </li> -->
+                                </li>
 
                                 <!-- <li routerLink="./app-setting/app-user-theme">
                                     <a

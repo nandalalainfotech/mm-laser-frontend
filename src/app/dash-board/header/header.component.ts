@@ -65,6 +65,9 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
+
+        this.role = this.authManager.getcurrentUser.role001mbs.rolename;
+
         this.authManager.currentUserSubject.subscribe((object: any) => {
             let lang = (object.language2?.name);
             this.translateService.setDefaultLang(lang);
@@ -90,6 +93,9 @@ export class HeaderComponent implements OnInit {
             this.downloadUrl = this.downloadUrl + this.appSettings;
         });
     }
+
+    role = this.authManager.getcurrentUser.role001mbs.rolename;
+    
     ngAfterViewInit() {
         this.temporaryDisabled = false;
     }
