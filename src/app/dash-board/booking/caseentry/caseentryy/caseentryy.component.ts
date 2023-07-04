@@ -155,7 +155,9 @@ export class CaseentryyComponent implements OnInit {
   }
 
   removeGroup(i: number) {
-    this.fa.removeAt(i);
+    if (i != 0) {
+      this.fa.removeAt(i);
+    }
   }
 
   loaddata() {
@@ -293,7 +295,6 @@ export class CaseentryyComponent implements OnInit {
         cellRenderer: 'iconRenderer',
         width: 80,
         flex: 1,
-        rowSelection: "multiple",
         suppressSizeToFit: true,
         cellStyle: { textAlign: 'center' },
         cellRendererParams: {
@@ -361,7 +362,7 @@ export class CaseentryyComponent implements OnInit {
   }
 
   onEditButtonClick(params: any) {
-    console.log('params-------------edit----->>>>', this.myForm.controls.times.controls.length);
+    console.log('params-------------edit----->>>>', params);
     // this.myForm.controls.times.controls = [];
     this.myForm.reset()
     // this.fa.push(this.initTimes());
@@ -381,6 +382,7 @@ export class CaseentryyComponent implements OnInit {
 
     for (let i = 0; i < params.data.casemachine001wbs.length; i++) {
       this.myForm.get('times') as FormArray;
+      console.log('myForm-------------edit----->>>>', this.myForm);
 
       // this.fa.push(this.initTimes());
       if (i < (params.data.casemachine001wbs.length) - 1) {
