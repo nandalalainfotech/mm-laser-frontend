@@ -79,7 +79,7 @@
                     </div>
                 </div>
                 <div class="col-xs-3 form-group">
-                    <label path="region" for="region" cssClass="required">region</label>
+                    <label path="region" for="region" cssClass="required">Region</label>
                     <select formControlName="region" class="form-control" name="region" id="region"
                         [ngClass]="{ 'is-invalid': submitted && f.region.errors }">
                         <option value="" hidden> - Select the Region - </option>
@@ -88,6 +88,9 @@
                             {{region.region}}
                         </option>
                     </select>
+                    <div *ngIf="submitted && f.region.errors" class="invalid-feedback">
+                        <div *ngIf="f.region.errors.required">Region is Required</div>
+                    </div>
                 </div>
             </div>
             <div class="row">

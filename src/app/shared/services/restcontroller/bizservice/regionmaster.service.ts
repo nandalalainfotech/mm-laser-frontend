@@ -11,8 +11,10 @@ export class RegionmasterManager extends BaseService {
     private regionmasterUrl: string = `${environment.apiUrl}/regionmaster`
 
 
-    allregion() {
-        return this.getCallService(`${this.regionmasterUrl}` + "/findAll");
+    allregion(username: any) {
+        let data: any = {};
+        data['username'] = username;
+        return this.getCallService(`${this.regionmasterUrl}` + "/findAll", data);
     }
 
     saveregion(regionmaster001mb: Regionmaster001mb) {

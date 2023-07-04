@@ -60,6 +60,7 @@ export class MachinemasterComponent implements OnInit {
   ngOnInit() {
     this.params;
     this.createDataGrid001();
+    this.username = this.authManager.getcurrentUser.username;
     this.authManager.currentUserSubject.subscribe((object: any) => {
       let rgb = Utils.hexToRgb(object.theme);
 
@@ -71,6 +72,8 @@ export class MachinemasterComponent implements OnInit {
 
       this.colorthemes_4 = Utils.rgbToHex(rgb, 0.8);
     });
+    console.log("this.username---------->",this.username );
+    
 
     this.machineForm = this.formBuilder.group({
       machinename: ['', Validators.required],
@@ -80,8 +83,13 @@ export class MachinemasterComponent implements OnInit {
     this.createDataGrid001();
   }
 
+  username = this.authManager.getcurrentUser.username;
+
+  // console.log("username----------------->", this.username);
+
+
   loaddata() {
-    this.machinemasterManager.allmachinemaster().subscribe((response) => {
+    this.machinemasterManager.allmachinemaster(this.username).subscribe((response) => {
       this.machiness = deserialize<Machinemaster001mb[]>(Machinemaster001mb, response);
       if (this.machiness.length > 0) {
         this.gridOptions?.api?.setRowData(this.machiness);

@@ -79,7 +79,7 @@ export class BookingentryComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.username = this.authManager.getcurrentUser.username;
     this.authManager.currentUserSubject.subscribe((object: any) => {
       let rgb = Utils.hexToRgb(object.theme);
 
@@ -104,21 +104,22 @@ export class BookingentryComponent implements OnInit {
 
     this.loaddata();
     this.createDataGrid001();
-    this.machinemasterManager.allmachinemaster().subscribe((response: any) => {
+    this.machinemasterManager.allmachinemaster(this.username).subscribe((response: any) => {
       this.machiness = deserialize<Machinemaster001mb[]>(Machinemaster001mb, response);
     })
-    this.doctormasterManager.alldoctormaster().subscribe((response: any) => {
+    this.doctormasterManager.alldoctormaster(this.username).subscribe((response: any) => {
       this.Doctormaster = deserialize<Doctormaster001mb[]>(Doctormaster001mb, response);
     });
-    this.employeemasterManager.allemployee().subscribe((response: any) => {
+    this.employeemasterManager.allemployee(this.username).subscribe((response: any) => {
       this.employee = deserialize<Employeemaster001mb[]>(Employeemaster001mb, response);
     });
 
   }
+  username = this.authManager.getcurrentUser.username;
 
   loaddata() {
 
-    this.bookingentryManager.allbooking().subscribe((response) => {
+    this.bookingentryManager.allbooking(this.username).subscribe((response) => {
       this.booking = deserialize<Bookingentry001mb[]>(Bookingentry001mb, response);
       if (this.booking.length > 0) {
         this.gridOptions?.api?.setRowData(this.booking);
