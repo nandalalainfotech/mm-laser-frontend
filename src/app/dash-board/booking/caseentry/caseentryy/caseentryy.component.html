@@ -35,16 +35,24 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-xs-3 form-group">
+                    <div class="form-group">
+                        <label>Send Bill</label>
+                        <div class="switch">
+                            <input type="checkbox" formControlName="status" checked style="width: 20px;height: 20px">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-lg-6 col-lg-6 ">
                     <form [formGroup]="myForm">
                         <div fxLayout="row">
                             <label>Machine</label>
-                            <label style="margin-left: 19%;">Number of Cases</label>
-                            <label style="margin-left: 12%;">Charges</label>
+                            <label style="margin-left: 149px;">Number of Cases</label>
+                            <label style="margin-left: 98px;">Charges</label>
                         </div>
-                        <div formArrayName='times' fxLayout="column" fxLayoutGap="10px">
+                        <div formArrayName='times' fxLayout="column" fxLayoutGap="10px" style="margin-right: -35%;">
                             <div *ngFor="let time of this.fa?.value; let i = index;  trackBy:trackByFn" fxLayout="row">
                                 <div [formGroupName]="i" fxLayout="row">
                                     <!-- <input formControlName="addmach" class="form-control" path="addmach" name="addmach"
@@ -56,10 +64,13 @@
                                             {{mslno.machinename}}
                                         </option>
                                     </select>
+                                    &nbsp;
+
                                     <input formControlName="numofcase" class="form-control" path="numofcase"
-                                        name="numofcase" style="margin-left: 8%;" />
+                                        name="numofcase" style="margin-left: 1%;" />
+                                    &nbsp;
                                     <input formControlName="charge" class="form-control" path="charge" name="charge"
-                                        style="margin-left: 6%;" />
+                                        style="margin-left: 1%;" />
                                 </div>
                                 <button (click)="addGroup()" class="btn btn-primary btn-sm"><i class="fa fa-plus"
                                         aria-hidden="true"></i></button>
@@ -68,23 +79,6 @@
                             </div>
                         </div><br>
                     </form>
-                </div>
-                <!-- <div class="col-xs-3 form-group">
-                    <label path="charge" for="charge" cssClass="required">Charges
-                    </label>
-                    <input formControlName="charge" class="form-control" path="charge" name="charge"
-                        [ngClass]="{ 'is-invalid': submitted && f.charge.errors }" />
-                    <div *ngIf="submitted && f.charge.errors" class="invalid-feedback">
-                        <div *ngIf="f.charge.errors.required">Charges is Required</div>
-                    </div>
-                </div> -->
-                <div class="col-xs-3 form-group">
-                    <div class="form-group">
-                        <label>Send Bill</label>
-                        <div class="switch">
-                            <input type="checkbox" formControlName="status" checked>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="row" *ngIf="title!=='Entry'">
