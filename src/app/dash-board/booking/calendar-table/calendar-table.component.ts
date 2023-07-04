@@ -30,24 +30,9 @@ import { Bookingentry001mb } from 'src/app/shared/services/restcontroller/entiti
 import { Doctormaster001mb } from 'src/app/shared/services/restcontroller/entities/Doctormaster001mb';
 import { Machinemaster001mb } from 'src/app/shared/services/restcontroller/entities/Machinemaster001mb';
 import { Utils } from 'src/app/shared/utils/utils';
-import { BookingmanagementComponent } from '../appointment/bookingmanagement/bookingmanagement.component';
 import { BookingentryComponent } from '../appointment/bookingentry/bookingentry.component';
+import { BookingmanagementComponent } from '../appointment/bookingmanagement/bookingmanagement.component';
 
-
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
-  }
-};
 @Component({
   selector: 'app-calendar-table',
   templateUrl: './calendar-table.component.html',
@@ -75,14 +60,13 @@ export class CalendarTableComponent implements OnInit {
     this.initializeEvents();
   }
 
-
   @HostBinding('style.--color_l1') colorthemes_1: any;
   @HostBinding('style.--color_l2') colorthemes_2: any;
   @HostBinding('style.--color_l3') colorthemes_3: any;
   @HostBinding('style.--color_l4') colorthemes_4: any;
 
   ngOnInit() {
-
+    this.username = this.authManager.getcurrentUser.username;
     this.authManager.currentUserSubject.subscribe((object: any) => {
       let rgb = Utils.hexToRgb(object.theme);
 
@@ -96,17 +80,18 @@ export class CalendarTableComponent implements OnInit {
     });
 
     this.loaddata();
-    this.machinemasterManager.allmachinemaster().subscribe((response: any) => {
+    this.machinemasterManager.allmachinemaster(this.username).subscribe((response: any) => {
       this.machiness = deserialize<Machinemaster001mb[]>(Machinemaster001mb, response);
     })
-    this.doctormasterManager.alldoctormaster().subscribe((response: any) => {
+    this.doctormasterManager.alldoctormaster(this.username).subscribe((response: any) => {
       this.Doctormaster = deserialize<Doctormaster001mb[]>(Doctormaster001mb, response);
     });
   }
+  username = this.authManager.getcurrentUser.username;
   loaddata() {
     this.events = [];
     this.event = [];
-    this.bookingentryManager.allbooking().subscribe((response) => {
+    this.bookingentryManager.allbooking(this.username).subscribe((response) => {
       this.booking = deserialize<Bookingentry001mb[]>(Bookingentry001mb, response);
       this.addEvent();
       this.initializeEvents();
@@ -159,21 +144,14 @@ export class CalendarTableComponent implements OnInit {
   events: any[] = [];
   activeDayIsOpen: boolean = true;
 
+  addBooking(events: any) {
+    const modalRef = this.modalService.open(BookingentryComponent, { windowClass: 'my-class' });
+    modalRef.componentInstance.title = "Booking Entry";
+    modalRef.componentInstance.details = events;
+    this.loaddata();
+  }
 
-//   onClick(){
-//     {
-//       label: '<i class="fa fa-fw fa-pencil"></i>',
-//       onClick: ({ event }: { event: CalendarEvent }): void => {
-//         this.handleEvent('Edited', event);
-//       }
-//   }
-// }
- 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-
-    console.log("events", events);
-
-
     const modalRef = this.modalService.open(BookingmanagementComponent, { windowClass: 'my-class' });
     modalRef.componentInstance.details = events;
     if (isSameMonth(date, this.viewDate)) {
@@ -218,25 +196,6 @@ export class CalendarTableComponent implements OnInit {
   setView(view: CalendarView) {
     this.view = view;
   }
-  onClick({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-
-    console.log("events", events);
-    const modalRef = this.modalService.open(BookingentryComponent);
-    modalRef.componentInstance.title = "Booking Entry";
-    modalRef.componentInstance.details = events;
-    if (isSameMonth(date, this.viewDate)) {
-      this.viewDate = date;
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-      }
-    }
-  }
-
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }

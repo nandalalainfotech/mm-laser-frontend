@@ -53,6 +53,7 @@ export class RegionmasterComponent implements OnInit {
 
   ngOnInit() {
     this.createDataGrid001();
+    this.username = this.authManager.getcurrentUser.username;
     this.authManager.currentUserSubject.subscribe((object: any) => {
       let rgb = Utils.hexToRgb(object.theme);
 
@@ -72,9 +73,10 @@ export class RegionmasterComponent implements OnInit {
     this.loaddata();
     this.createDataGrid001();
   }
+  username = this.authManager.getcurrentUser.username;
 
   loaddata() {
-    this.regionmasterManager.allregion().subscribe((response) => {
+    this.regionmasterManager.allregion(this.username).subscribe((response) => {
       this.regionmaster = deserialize<Regionmaster001mb[]>(Regionmaster001mb, response);
       if (this.regionmaster.length > 0) {
         this.gridOptions?.api?.setRowData(this.regionmaster);

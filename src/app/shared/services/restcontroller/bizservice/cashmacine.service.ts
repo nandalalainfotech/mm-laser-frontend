@@ -8,12 +8,14 @@ export class CaseMachineManager extends BaseService {
 
     private caseMachineUrl: string = `${environment.apiUrl}/casemachine`
 
-    allcasemachine() {
-        return this.getCallService(`${this.caseMachineUrl}` + "/findAll");
+    allcasemachine(username: any) {
+        let data: any = {};
+        data['username'] = username;
+        return this.getCallService(`${this.caseMachineUrl}` + "/findAll", data);
     }
 
     casemachinesave(casemachine001wb: Casemachine001wb) {
-        // console.log('casemachine001wb', casemachine001wb);
+        console.log('casemachine001wb', casemachine001wb);
         return this.postCallService(`${this.caseMachineUrl}` + "/save", {}, casemachine001wb);
     }
 

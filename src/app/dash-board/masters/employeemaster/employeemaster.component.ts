@@ -55,6 +55,7 @@ export class EmployeemasterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.username = this.authManager.getcurrentUser.username;
 
     this.authManager.currentUserSubject.subscribe((object: any) => {
       let lang = (object.language2?.name);
@@ -74,15 +75,16 @@ export class EmployeemasterComponent implements OnInit {
 
     this.employeeForm = this.formBuilder.group({
       employeename: ['', Validators.required],
-      mobilenumber: ['', [Validators.pattern("^[0-9_-]{10,15}")]],
+      mobilenumber: ['', Validators.required],
       emailid: ['', Validators.required],
       status: [''],
     })
     this.loaddata();
     this.createDataGrid001();
   }
+  username = this.authManager.getcurrentUser.username;
   loaddata() {
-    this.employeemasterManager.allemployee().subscribe((response) => {
+    this.employeemasterManager.allemployee(this.username).subscribe((response) => {
       this.employee = deserialize<Employeemaster001mb[]>(Employeemaster001mb, response);
       if (this.employee.length > 0) {
         this.gridOptions?.api?.setRowData(this.employee);

@@ -5,7 +5,8 @@
         (viewDateChange)="closeOpenMonthViewDay()">
         Previous
       </div>
-      <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
+      <div class="btn btn-outline-secondary" style="background-color: #3f51b5; color: white" mwlCalendarToday
+        [(viewDate)]="viewDate">
         This
       </div>
       <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
@@ -13,6 +14,10 @@
         Next
       </div>
     </div>
+
+    <button class="btn btn-primary pull-right" (click)="addBooking(event)">
+      Add Appointment
+    </button>
   </div>
   <div class="col-md-4">
     <h3>{{ viewDate | calendarDate:(view + 'ViewTitle') }}</h3>
@@ -29,17 +34,13 @@
         Day
       </div>
     </div>
+
   </div>
 </div>
 <br />
 <div [ngSwitch]="view">
   <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
     [refresh]="refresh" (dayClicked)="dayClicked($event.day)">
-    <!-- <span *ngIf="!checkForFutureDate(day)"> -->
-      <!-- <button type="click"  class="w3-button w3-xlarge w3-circle w3-black"> -->
-        +
-      <!-- </button> -->
-    <!-- </span> -->
   </mwl-calendar-month-view>
   <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
     (eventClicked)="handleEvent($event.event)">

@@ -8,8 +8,10 @@ export class EmployeemasterManager extends BaseService {
 
     private employeeUrl: string = `${environment.apiUrl}/employeemaster`;
 
-    allemployee() {
-        return this.getCallService(`${this.employeeUrl}` + "/findAll");
+    allemployee(username: any) {
+        let data: any = {};
+        data['username'] = username;
+        return this.getCallService(`${this.employeeUrl}` + "/findAll", data);
     }
     saveemployee(employeemaster001mb: Employeemaster001mb) {
         return this.postCallService(`${this.employeeUrl}` + "/save", {}, employeemaster001mb);

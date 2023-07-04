@@ -9,8 +9,10 @@ export class DoctormasterManager extends BaseService {
 
     private doctormasterUrl: string = `${environment.apiUrl}/doctormaster`;
 
-    alldoctormaster() {
-        return this.getCallService(`${this.doctormasterUrl}` + "/findAll");
+    alldoctormaster(username: any) {
+        let data: any = {};
+        data['username'] = username;
+        return this.getCallService(`${this.doctormasterUrl}` + "/findAll", data);
     }
 
     savedoctormaster(doctormaster001mb: Doctormaster001mb) {

@@ -8,17 +8,17 @@ export class CaseEntryManager extends BaseService {
 
     private caseEntryUrl: string = `${environment.apiUrl}/caseentry`
 
-    allorders() {
-        return this.getCallService(`${this.caseEntryUrl}` + "/findAll");
+    allorders(username:any) {
+        let data: any = {};
+        data['username'] = username;
+        return this.getCallService(`${this.caseEntryUrl}` + "/findAll",data);
     }
 
     casesave(caseentry001mb: Caseentry001mb) {
-        console.log('caseentry001mb-------save-->>>', caseentry001mb);
         return this.postCallService(`${this.caseEntryUrl}` + "/save", {}, caseentry001mb);
     }
 
     caseupdate(caseentry001mb: Caseentry001mb) {
-        // console.log('caseentry001mb-------update--', caseentry001mb);
         return this.putCallService(`${this.caseEntryUrl}` + "/update", {}, caseentry001mb);
     }
 

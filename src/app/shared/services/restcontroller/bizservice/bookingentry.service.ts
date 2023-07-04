@@ -11,8 +11,10 @@ export class BookingentryManager extends BaseService {
     private bookingentryUrl: string = `${environment.apiUrl}/bookingentry`
 
 
-    allbooking() {
-        return this.getCallService(`${this.bookingentryUrl}` + "/findAll");
+    allbooking(username: any) {
+        let data: any = {};
+        data['username'] = username;
+        return this.getCallService(`${this.bookingentryUrl}` + "/findAll", data);
     }
 
     savebooking(bookingentry001mb: Bookingentry001mb) {

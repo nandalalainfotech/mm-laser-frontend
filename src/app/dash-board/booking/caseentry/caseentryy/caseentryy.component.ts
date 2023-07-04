@@ -83,7 +83,7 @@ export class CaseentryyComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.username = this.authManager.getcurrentUser.username;
     this.authManager.currentUserSubject.subscribe((object: any) => {
       let rgb = Utils.hexToRgb(object.theme);
 
@@ -105,15 +105,15 @@ export class CaseentryyComponent implements OnInit {
 
     this.loaddata();
     this.createDataGrid001();
-    this.machinemasterManager.allmachinemaster().subscribe((response: any) => {
+    this.machinemasterManager.allmachinemaster(this.username).subscribe((response: any) => {
 
       this.machiness = deserialize<Machinemaster001mb[]>(Machinemaster001mb, response);
     })
-    this.doctormasterManager.alldoctormaster().subscribe((response: any) => {
+    this.doctormasterManager.alldoctormaster(this.username).subscribe((response: any) => {
       // console.log(response);
       this.Doctormaster = deserialize<Doctormaster001mb[]>(Doctormaster001mb, response);
     });
-    this.caseMachineManager.allcasemachine().subscribe((response: any) => {
+    this.caseMachineManager.allcasemachine(this.username).subscribe((response: any) => {
       this.casemachine = deserialize<Casemachine001wb[]>(Casemachine001wb, response);
     });
 
@@ -159,9 +159,9 @@ export class CaseentryyComponent implements OnInit {
       this.fa.removeAt(i);
     }
   }
-
+  username = this.authManager.getcurrentUser.username;
   loaddata() {
-    this.caseEntryManager.allorders().subscribe(response => {
+    this.caseEntryManager.allorders(this.username).subscribe(response => {
 
       this.numberofcase = deserialize<Caseentry001mb[]>(Caseentry001mb, response);
       if (this.numberofcase.length > 0) {

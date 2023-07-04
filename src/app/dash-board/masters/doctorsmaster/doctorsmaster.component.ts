@@ -1,7 +1,6 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
 import { GridOptions } from 'ag-grid-community';
 import { deserialize } from 'serializer.ts/Serializer';
 import { AuditComponent } from 'src/app/shared/audit/audit.component';
@@ -62,6 +61,7 @@ export class DoctorsmasterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.username = this.authManager.getcurrentUser.username;
 
     this.authManager.currentUserSubject.subscribe((object: any) => {
       let rgb = Utils.hexToRgb(object.theme);
@@ -74,10 +74,11 @@ export class DoctorsmasterComponent implements OnInit {
 
       this.colorthemes_4 = Utils.rgbToHex(rgb, 0.8);
     });
+    console.log("this.username---------->", this.username);
 
     this.doctorForm = this.formBuilder.group({
       doctorname: ['', Validators.required],
-      contactnumber: ['', [Validators.pattern("^[0-9_-]{10,15}")]],
+      contactnumber: ['', Validators.required],
       emailid: ['', Validators.required],
       hospitalname: ['', Validators.required],
       addressline1: ['', Validators.required],
@@ -91,13 +92,14 @@ export class DoctorsmasterComponent implements OnInit {
 
     this.loaddata();
     this.createDataGrid001();
-    this.regionmasterManager.allregion().subscribe((response: any) => {
+    this.regionmasterManager.allregion(this.username).subscribe((response: any) => {
       this.regionmaster = deserialize<Regionmaster001mb[]>(Regionmaster001mb, response);
     });
 
   }
+  username = this.authManager.getcurrentUser.username;
   loaddata() {
-    this.doctormasterManager.alldoctormaster().subscribe((response) => {
+    this.doctormasterManager.alldoctormaster(this.username).subscribe((response) => {
       this.Doctormaster = deserialize<Doctormaster001mb[]>(Doctormaster001mb, response);
       if (this.Doctormaster.length > 0) {
         this.gridOptions?.api?.setRowData(this.Doctormaster);
