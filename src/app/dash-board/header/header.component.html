@@ -18,7 +18,7 @@
             <div>
                 <ul class="setting-menu-list pull-right" style="margin: 0">
                     <li class="setting">
-                        {{'Welcome'|translate}} {{ user?.firstname | titlecase }} {{ user?.lastname | titlecase }}&nbsp;
+                        {{'Welcome'}} {{ user?.firstname | titlecase }} {{ user?.lastname | titlecase }}&nbsp;
                     </li>
                     <img src="../../../assets/images/avatar 7.png" />
                     <!-- <img src="{{downloadUrl}}"> -->
@@ -87,43 +87,31 @@
                                         ">{{'DashBoard'|translate}}</a>
                                 </li>
 
-                                <li
-                                    routerLink="./app-setting/app-profile/app-registration"
-                                >
-                                    <a
-                                        [ngStyle]="{ color: colorthemes_1 }"
-                                        [ngClass]="
+                                <li routerLink="./app-setting/app-profile/app-registration">
+                                    <a [ngStyle]="{ color: colorthemes_1 }" [ngClass]="
                                             childMenuString == 'Profile'
                                                 ? 'is-active'
                                                 : ''
-                                        "
-                                        (click)="
+                                        " (click)="
                                             onMenuChildClick(
                                                 'Setting',
                                                 'Profile'
                                             )
-                                        "
-                                        >{{'Profile'|translate}}</a
-                                    >
+                                        ">{{'Profile'|translate}}</a>
                                 </li>
 
-                                <li routerLink="./app-setting/app-settings">
-                                    <a
-                                        [ngStyle]="{ color: colorthemes_1 }"
-                                        [ngClass]="
+                                <!-- <li routerLink="./app-setting/app-settings">
+                                    <a [ngStyle]="{ color: colorthemes_1 }" [ngClass]="
                                             childMenuString == 'Settings'
                                                 ? 'is-active'
                                                 : ''
-                                        "
-                                        (click)="
+                                        " (click)="
                                             onMenuChildClick(
                                                 'Setting',
                                                 'Settings'
                                             )
-                                        "
-                                        >{{'Settings'|translate}}</a
-                                    >
-                                </li>
+                                        ">{{'Settings'|translate}}</a>
+                                </li> -->
 
                                 <!-- <li routerLink="./app-setting/app-user-theme">
                                     <a

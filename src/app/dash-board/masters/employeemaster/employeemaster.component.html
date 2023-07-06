@@ -16,9 +16,9 @@
                 <div class="col-xs-3 form-group">
                     <label path="mobilenumber" for="mobilenumber" cssClass="required">Mobile
                         Number</label>
-                    <input formControlName="mobilenumber" class="form-control" path="mobilenumber" name="mobilenumber"
-                        [ngClass]="{ 'is-invalid': submitted && f.mobilenumber.errors }" prefix="+91 "
-                        mask="(000) 000 0000" />
+                    <input formControlName="mobilenumber" class="form-control" type="number" path="mobilenumber"
+                        name="mobilenumber" [ngClass]="{ 'is-invalid': submitted && f.mobilenumber.errors }"
+                        prefix="+91 " mask="(000) 000 0000" />
                     <div *ngIf="submitted && f.mobilenumber.errors" class="invalid-feedback">
                         <div *ngIf="f.mobilenumber.errors.required">Mobile Number is Required</div>
                     </div>

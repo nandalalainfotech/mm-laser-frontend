@@ -23,7 +23,7 @@ import { TimeComponent } from './time/time.component';
 import { EmployeemasterManager } from 'src/app/shared/services/restcontroller/bizservice/employeemaster.service';
 
 @NgModule({
-  declarations: [AppointmentComponent, BookingentryComponent, BookingmanagementComponent,TimeComponent],
+  declarations: [AppointmentComponent, BookingentryComponent, BookingmanagementComponent, TimeComponent],
   imports: [
     CommonModule,
     AppointmentRoutingModule,

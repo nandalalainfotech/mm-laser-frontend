@@ -22,24 +22,19 @@ import { CalloutService } from 'src/app/shared/services/services/callout.service
     styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-    @Input() lang:any;
+    @Input() lang: any;
     frameworkComponents: any;
     id: number | any;
     personId: number | any;
     insertUser: string = "";
     insertDatetime: Date | any;
-    domain: string = "";
     username: string = "";
     status: string = "";
-    securityquestion: string = "";
-    securityanswer: string = "";
-    language?: Number | null;
+    password: string = "";
+    rolename: string = "";
     applanguagesetting: Applanguagesetting001mb[] = [];
     email: string = "";
-    name: string = "Registration.SecurityQuestion";
-    type: string = "SecurityQuestion";
-    dname: string = "Login.Domain";
-    dtype: string = "Domain";
+    mobileno: string = "";
     cname: string = "Register.status";
     ctype: string = "register";
     users: User001mb[] = [];
@@ -49,6 +44,7 @@ export class RegistrationComponent implements OnInit {
     public gridOptions: GridOptions | any;
     registerForm: FormGroup | any;
     submitted = false;
+    toggle1: boolean = false;
 
     constructor(private systemPropertiesService: SystemPropertiesService,
         private formBuilder: FormBuilder,
@@ -73,13 +69,12 @@ export class RegistrationComponent implements OnInit {
         this.registerForm = this.formBuilder.group({
             firstname: ['', Validators.required],
             lastname: ['', Validators.required],
-            domain: ['', Validators.required],
             username: ['', Validators.required],
             status: ['', Validators.required],
-            securityquestion: ['', Validators.required],
-            securityanswer: ['', Validators.required],
+            password: ['', Validators.required],
+            rolename: ['', Validators.required],
             email: ['', Validators.required],
-            language: ['', Validators.required]
+            mobileno: ['', Validators.required],
         });
 
         this.loaddata();
@@ -91,12 +86,6 @@ export class RegistrationComponent implements OnInit {
 
         this.loaddata();
         this.createDataGrid001();
-        this.systemPropertiesService.system(this.name, this.type).subscribe(response => {
-            this.systemproperties = deserialize<Systemproperties001mb[]>(Systemproperties001mb, response);
-        });
-        this.systemPropertiesService.system(this.dname, this.dtype).subscribe(response => {
-            this.dsystemproperties = deserialize<Systemproperties001mb[]>(Systemproperties001mb, response);
-        });
         this.systemPropertiesService.system(this.cname, this.ctype).subscribe(response => {
             this.csystemproperties = deserialize<Systemproperties001mb[]>(Systemproperties001mb, response);
         });
@@ -172,16 +161,6 @@ export class RegistrationComponent implements OnInit {
                 suppressSizeToFit: true,
             },
             {
-                headerName: 'Domain ',
-                field: 'domain',
-                width: 200,
-                flex: 1,
-                sortable: true,
-                filter: true,
-                resizable: true,
-                suppressSizeToFit: true,
-            },
-            {
                 headerName: 'Username ',
                 field: 'username',
                 width: 200,
@@ -191,38 +170,27 @@ export class RegistrationComponent implements OnInit {
                 resizable: true,
                 suppressSizeToFit: true,
             },
+            // {
+            //     headerName: 'Password',
+            //     field: 'password',
+            //     width: 200,
+            //     flex: 1,
+            //     sortable: true,
+            //     filter: true,
+            //     resizable: true,
+            //     suppressSizeToFit: true,
+            // },
             {
-                headerName: 'Select Your Language',
-                field: 'language',
+                headerName: 'Role Name',
+                field: 'rolename',
                 width: 200,
                 flex: 1,
                 sortable: true,
                 filter: true,
                 resizable: true,
                 suppressSizeToFit: true,
-                valueGetter: this.setName.bind(this)
+                // valueGetter: this.setName.bind(this)
             },
-            {
-                headerName: 'Securityquestion ',
-                field: 'securityquestion',
-                width: 200,
-                flex: 1,
-                sortable: true,
-                filter: true,
-                resizable: true,
-                suppressSizeToFit: true,
-            },
-            {
-                headerName: 'Securityanswer ',
-                field: 'securityanswer',
-                width: 200,
-                flex: 1,
-                sortable: true,
-                filter: true,
-                resizable: true,
-                suppressSizeToFit: true,
-            },
-
             {
                 headerName: 'Status',
                 field: 'status',
@@ -233,9 +201,18 @@ export class RegistrationComponent implements OnInit {
                 resizable: true,
                 suppressSizeToFit: true,
             },
-
             {
-                headerName: 'Email',
+                headerName: 'Mobile Number ',
+                field: 'mobileno',
+                width: 200,
+                flex: 1,
+                sortable: true,
+                filter: true,
+                resizable: true,
+                suppressSizeToFit: true,
+            },
+            {
+                headerName: 'Email ',
                 field: 'email',
                 width: 200,
                 flex: 1,
@@ -292,13 +269,12 @@ export class RegistrationComponent implements OnInit {
         this.registerForm.patchValue({
             'firstname': params.data.firstname,
             'lastname': params.data.lastname,
-            'domain': params.data.domain,
             'username': params.data.username,
             'status': params.data.status,
-            'securityquestion': params.data.securityquestion,
-            'securityanswer': params.data.securityanswer,
+            'password': params.data.password,
+            'rolename': params.data.rolename,
             'email': params.data.email,
-            'language': params.data.language
+            'mobileno': params.data.mobileno,
         });
     }
 
@@ -323,26 +299,38 @@ export class RegistrationComponent implements OnInit {
         modalRef.componentInstance.details = params.data;
     }
 
+    changeType(input_field_password: { type: string; }, num: number) {
+        if (input_field_password.type == "password")
+            input_field_password.type = "text";
+        else
+            input_field_password.type = "password";
+
+        if (num == 1)
+            this.toggle1 = !this.toggle1;
+        // else
+        //   this.toggle2 = !this.toggle2;
+    }
+
     onFirstDataRendered(params: any) {
         params.api.sizeColumnsToFit();
     }
 
-    // private markFormGroupTouched(formGroup: FormGroup) {
-    //     (<any>Object).values(formGroup.controls).forEach((control: any) => {
-    //         control.markAsTouched();
-    //         if (control.controls) {
-    //             this.markFormGroupTouched(control);
-    //         }
-    //     });
-    // }
+    private markFormGroupTouched(formGroup: FormGroup) {
+        (<any>Object).values(formGroup.controls).forEach((control: any) => {
+            control.markAsTouched();
+            if (control.controls) {
+                this.markFormGroupTouched(control);
+            }
+        });
+    }
 
     onUserClick(event: any, registerForm: any) {
         console.log("event-->", event);
-        // this.markFormGroupTouched(this.registerForm);
+        this.markFormGroupTouched(this.registerForm);
         this.submitted = true;
-        // if (this.registerForm.invalid) {
-        //     return;
-        // }
+        if (this.registerForm.invalid) {
+            return;
+        }
         // let person001mb = new Person001mb();
         let user001mb = new User001mb();
         user001mb.firstname = this.f.firstname.value ? this.f.firstname.value : "";
@@ -350,10 +338,10 @@ export class RegistrationComponent implements OnInit {
         // user001mb.domain = this.f.domain.value ? this.f.domain.value : "";
         user001mb.username = this.f.username.value ? this.f.username.value : "";
         user001mb.status = this.f.status.value ? this.f.status.value : "";
-        user001mb.language = this.f.language.value ? this.f.language.value : "";
-        user001mb.securityquestion = this.f.securityquestion.value ? this.f.securityquestion.value : "";
-        user001mb.securityanswer = this.f.securityanswer.value ? this.f.securityanswer.value : "";
+        user001mb.password = this.f.password.value ? this.f.password.value : "";
+        user001mb.rolename = this.f.rolename.value ? this.f.rolename.value : "";
         user001mb.email = this.f.email.value ? this.f.email.value : "";
+        user001mb.mobileno = this.f.mobileno.value ? this.f.mobileno.value : "";
         if (this.personId) {
             user001mb.personId = this.personId;
             user001mb.insertUser = this.insertUser;

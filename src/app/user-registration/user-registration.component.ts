@@ -105,8 +105,8 @@ export class UserRegistrationComponent implements OnInit {
         user001mb.lastname = this.f.lastname.value ? this.f.lastname.value : "";
         user001mb.username = this.f.username.value ? this.f.username.value : "";
         user001mb.status = "A";
-        user001mb.securityquestion = this.f.securityquestion.value ? this.f.securityquestion.value : "";
-        user001mb.securityanswer = this.f.securityanswer.value ? this.f.securityanswer.value : "";
+        // user001mb.securityquestion = this.f.securityquestion.value ? this.f.securityquestion.value : "";
+        // user001mb.securityanswer = this.f.securityanswer.value ? this.f.securityanswer.value : "";
         user001mb.email = this.f.email.value ? this.f.email.value : "";
         user001mb.insertUser = "siva";
         user001mb.insertDatetime = new Date();

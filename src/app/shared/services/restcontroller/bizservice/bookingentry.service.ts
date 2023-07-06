@@ -18,11 +18,9 @@ export class BookingentryManager extends BaseService {
     }
 
     savebooking(bookingentry001mb: Bookingentry001mb) {
-        console.log("bookingentry001mb", bookingentry001mb);
         return this.postCallService(`${this.bookingentryUrl}` + "/save", {}, bookingentry001mb);
     }
     updatebooking(bookingentry001mb: Bookingentry001mb) {
-        console.log("bookingentry001mb", bookingentry001mb);
 
         return this.putCallService(`${this.bookingentryUrl}` + "/update", {}, bookingentry001mb);
     }
@@ -31,5 +29,14 @@ export class BookingentryManager extends BaseService {
         let data: any = {};
         data['id'] = id;
         return this.deleteCallService(`${this.bookingentryUrl}` + "/delete", data);
+    }
+
+    getCount() {
+        return this.getCallService(`${this.bookingentryUrl}` + "/getCount");
+    }
+    findOne(id: any) {
+        let data: any = {};
+        data['id'] = id;
+        return this.getCallService(`${this.bookingentryUrl}`, data);
     }
 }

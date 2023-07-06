@@ -46,7 +46,7 @@ const animationParams = {
 })
 export class SideMenuComponent implements OnChanges, OnInit {
     @ViewChild('sidenav') public sidenav!: MatSidenav;
-    @Input() lang:any;
+    @Input() lang: any;
     @Input() openNav: boolean | undefined;
     private screenWidth$ = new BehaviorSubject<number>(window.innerWidth);
     isCollapsed: boolean = true;
@@ -112,14 +112,14 @@ export class SideMenuComponent implements OnChanges, OnInit {
     }
     ngOnInit() {
 
-        this.role = this.authManager.getcurrentUser.role001mbs.rolename;
+        this.role = this.authManager.getcurrentUser.rolename;
 
         this.authManager.currentUserSubject.subscribe((object: any) => {
-                  
+
             let lang = (object.language2?.name);
-            this.translateService.setDefaultLang(lang); 
+            this.translateService.setDefaultLang(lang);
         })
-        
+
         this.dataSharedService.currentMenuObject.subscribe((object: any) => {
             this.parentMenuString = object.parentMenuString;
             this.childMenuString = object.childMenuString;
@@ -154,7 +154,7 @@ export class SideMenuComponent implements OnChanges, OnInit {
         });
     }
 
-    role = this.authManager.getcurrentUser.role001mbs.rolename;
+    role = this.authManager.getcurrentUser.rolename;
 
     ngAfterViewInit() {
         this.temporaryDisabled = false;

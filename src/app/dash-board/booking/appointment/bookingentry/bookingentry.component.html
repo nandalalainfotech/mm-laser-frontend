@@ -1,8 +1,14 @@
-<fieldset class="scheduler-border">
+<fieldset class="scheduler-border" *ngIf="role == 'Admin'">
     <legend class="scheduler-border">Booking Entry</legend>
     <div class="formData">
         <form [formGroup]="bookingForm" (ngSubmit)="onUserClick($event, bookingForm)">
             <div class="row">
+                <div class="col-xs-3 col-sm-3 form-group">
+                    <div class="form-group">
+                        <label path="appNo" for="series" cssClass="required" required="true">Appointment No</label>
+                        <input class="form-control" formControlName="appNo" readonly />
+                    </div>
+                </div>
                 <div class="col-xs-3 col-sm-3 form-group">
                     <label for="mslno">Executive</label>
                     <select formControlName="mslno" class="form-control" name="mslno" id="mslno"
@@ -55,8 +61,8 @@
                         [ngClass]="{ 'is-invalid': submitted && f.staff.errors }">
                         <option value="" hidden> - Select the Employee - </option>
                         <option value="" hidden> - Select the Employee - </option>
-                        <option *ngFor="let staff of employee" [value]="staff.employeename">
-                            {{staff.employeename}}
+                        <option *ngFor="let staff of arr" [value]="staff.username">
+                            {{staff.username}}
                         </option>
                     </select>
                     <div *ngIf="submitted && f.staff.errors" class="invalid-feedback">
@@ -69,8 +75,7 @@
                             <div class="p-field p-col-12 p-md-5">
                                 <label path="date" for="date" cssClass="required">Date</label>
                                 <p-calendar [monthNavigator]="true" [yearNavigator]="true" formControlName="date"
-                                    name="date"  inputId="navigators" [showIcon]="true"
-                                    inputId="icon">
+                                    name="date" inputId="navigators" [showIcon]="true" inputId="icon">
                                 </p-calendar>
                                 <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
                                     <div *ngIf="f.date.errors.required">Date is Required</div>

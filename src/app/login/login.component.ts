@@ -70,13 +70,13 @@ export class LoginComponent implements OnInit {
 
             this.user001mb = this.authManager.getcurrentUser;
             if (this.user001mb.status == "R") {
-                console.log("this.user001mb",this.user001mb);
-                
+                console.log("this.user001mb", this.user001mb);
+
                 const modalRef = this.modalService.open(ResetPasswordComponent);
                 modalRef.componentInstance.user001mb = this.user001mb;
                 modalRef.result.then((data) => {
-                    console.log("data",data);
-                    
+                    console.log("data", data);
+
                     if (data == "Yes") {
                         this.router.navigate(['/app-dash-board']);
                     }

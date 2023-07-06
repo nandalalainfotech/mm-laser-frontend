@@ -66,7 +66,7 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit() {
 
-        this.role = this.authManager.getcurrentUser.role001mbs.rolename;
+        this.role = this.authManager.getcurrentUser.rolename;
 
         this.authManager.currentUserSubject.subscribe((object: any) => {
             let lang = (object.language2?.name);
@@ -94,8 +94,8 @@ export class HeaderComponent implements OnInit {
         });
     }
 
-    role = this.authManager.getcurrentUser.role001mbs.rolename;
-    
+    role = this.authManager.getcurrentUser.rolename;
+
     ngAfterViewInit() {
         this.temporaryDisabled = false;
     }

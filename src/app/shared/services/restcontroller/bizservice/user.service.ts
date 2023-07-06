@@ -15,7 +15,7 @@ export class UserManager extends BaseService {
   }
 
   saveuser(user001mb: User001mb) {
-    // console.log("user001mb-->", user001mb);
+    console.log("user001mb----------save->", user001mb);
     return this.postCallService(`${this.userUrl}` + "/save", {}, user001mb);
   }
 
