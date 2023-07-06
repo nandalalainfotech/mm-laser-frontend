@@ -11,5 +11,6 @@ export class Caseentry001mb extends BaseEntity {
     updatedUser?: string | null;
     updatedDatetime?: Date | null;
     Casemachine001wbs?: Casemachine001wb[] | any;
+    appointmentNo?: number;
 
 }

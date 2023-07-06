@@ -1,12 +1,12 @@
 <fieldset class="scheduler-border">
-    <legend class="scheduler-border">{{'Registration' | translate }} </legend>
+    <legend class="scheduler-border">Registration</legend>
     <div class="formData">
         <form [formGroup]="registerForm" (ngSubmit)="onUserClick($event, registerForm)">
             <div class="row">
                 <div class="col-xs-6 col-sm-6">
                     <div class="form-group">
                         <input class="form-control" path="id" type="hidden" />
-                        <label path="firstname" for="firstname" cssClass="required">{{'FirstName' | translate }}</label>
+                        <label path="firstname" for="firstname" cssClass="required">FirstName</label>
                         <input formControlName="firstname" class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" />
                         <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-xs-6 col-sm-6">
                     <div class="form-group">
-                        <label path="lastname" for="lastname" cssClass="required">{{'LastName' | translate }}</label>
+                        <label path="lastname" for="lastname" cssClass="required">LastName</label>
                         <input formControlName="lastname" class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" />
                         <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-xs-6 col-sm-6 ">
                     <div class="form-group">
-                        <label path="username" for="username" cssClass="required">{{'UserName' | translate }}</label>
+                        <label path="username" for="username" cssClass="required">UserName</label>
                         <input formControlName="username" class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
                         <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
@@ -39,18 +39,55 @@
                 </div>
                 <div class="col-xs-6 col-sm-6 ">
                     <div class="form-group">
-                        <label path="status" for="status" cssClass="required">{{'Status' | translate }}</label>
-                        <!-- <input formControlName="status" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.status.errors }" /> -->
+                        <label path="password" for="password" cssClass="required">Password</label>
+                        <input formControlName="password" class="form-control" path="password"
+                            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                        <!-- <div class="input-icon input-icon1" (click)="changeType(password1, 1)">
+                            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                        </div> -->
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">Password is required</div>
+                        </div>
+                    </div>
+                    <!-- <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <span class="focus-input100"><i class="fa fa-lock"></i></span>
+                        <input class="input100" name="Password" type="Password" placeholder="Password" id="password"
+                            #password1 formControlName="password"
+                            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+
+                        <div class="input-icon input-icon1" (click)="changeType(password1, 1)">
+                            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 ">
+                    <div class="form-group">
+                        <label for="roleID">Role Type</label>
+                        <input path="role" type="hidden" />
+                        <select formControlName="rolename" class="form-control" name="rolenamelist" id="rolenamelist"
+                            [ngClass]="{ 'is-invalid': submitted && f.rolename.errors }">
+                            <option value="" hidden> -Select the role - </option>
+                            <option value="null"> - Select the role - </option>
+                            <option>Admin</option>
+                            <option>User</option>
+                        </select>
+                        <div *ngIf="submitted && f.rolename.errors" class="invalid-feedback">
+                            <div *ngIf="f.rolename.errors.required">Role Type is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 ">
+                    <div class="form-group">
+                        <label path="status" for="status" cssClass="required">Status</label>
                         <select formControlName="status" class="form-control" path="status"
                             [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
-                            <option value="" hidden> {{'Select the status' | translate}} </option>
-                            <option value="null"> {{'Select the status' | translate}} </option>
+                            <option value="" hidden> Select the status </option>
+                            <option value="null"> Select the status</option>
                             <option>A</option>
-                            <option>R</option>
+                            <option>B</option>
                             <option>C</option>
-                            <!-- <option *ngFor="let system of csystemproperties" [value]="system.description">
-                                {{system.description}}
-                            </option> -->
                         </select>
                         <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
                             <div *ngIf="f.status.errors.required">Status is required</div>
@@ -58,79 +95,20 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-xs-6 col-sm-6">
                     <div class="form-group">
-                        <input class="form-control" path="securityquestion" type="hidden" />
-                        <label path="securityquestion" for="securityquestion" cssClass="required">{{'SecurityQuestion' |
-                            translate }}</label>
-                        <select formControlName="securityquestion" class="form-control" name="securityQuestionList"
-                            id="securityQuestionList"
-                            [ngClass]="{ 'is-invalid': submitted && f.securityquestion.errors }">
-                            <option value="" hidden> {{'Select the status' | translate}} </option>
-                            <option value="null"> {{'Select the status' | translate}} </option>
-                            <option *ngFor="let system of systemproperties" [value]="system.description">
-                                {{system.description}}
-                            </option>
-                        </select>
-                        <div *ngIf="submitted && f.securityquestion.errors" class="invalid-feedback">
-                            <div *ngIf="f.securityquestion.errors.required">Security Question is required</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 ">
-                    <div class="form-group">
-                        <label path="securityanswer" for="securityanswer" cssClass="required">{{'SecurityAnswer' |
-                            translate }}</label>
-                        <input formControlName="securityanswer" class="form-control" path="securityanswer"
-                            [ngClass]="{ 'is-invalid': submitted && f.securityanswer.errors }" />
-                        <div *ngIf="submitted && f.securityanswer.errors" class="invalid-feedback">
-                            <div *ngIf="f.securityanswer.errors.required">Security Answer is required</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6 col-sm-6">
-                    <div class="form-group">
-                        <label for="domain">{{'Domain' | translate }}</label>
-                        <input class="form-control" path="domain" type="hidden" />
-                        <select formControlName="domain" class="form-control" name="domain" id="domain"
-                            [ngClass]="{ 'is-invalid': submitted && f.domain.errors }">
-                            <option value="" hidden> {{'Select the status' | translate}} </option>
-                            <option value="null"> {{'Select the status' | translate}} </option>
-                            <option *ngFor="let system of dsystemproperties" [value]="system.description">
-                                {{system.description}}
-                            </option>
-                        </select>
-                        <div *ngIf="submitted && f.domain.errors" class="invalid-feedback">
-                            <div *ngIf="f.domain.errors.required">Domain is required</div>
+                        <label path="mobileno" for="mobileno" cssClass="required">Mobile Number</label>
+                        <input formControlName="mobileno" type="number" class="form-control" path="mobileno"
+                            [ngClass]="{ 'is-invalid': submitted && f.mobileno.errors }" />
+                        <div *ngIf="submitted && f.mobileno.errors" class="invalid-feedback">
+                            <div *ngIf="f.mobileno.errors.required">Mobile Number is required</div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-6">
                     <div class="form-group">
-                        <label for="language">{{'Select Your Language' | translate }}</label>
-                        <input class="form-control" path="language" type="hidden" />
-                        <select formControlName="language" class="form-control" name="language" id="language">
-                            <option value="" hidden> {{'Select the status' | translate}} </option>
-                            <option value=""> {{'Select the status' | translate}} </option>
-                            <option *ngFor="let applanguagesetting of applanguagesetting"
-                                [value]="applanguagesetting.id">
-                                {{applanguagesetting.name}}
-                            </option>
-                        </select>
-                        <div *ngIf="submitted && f.language.errors" class="invalid-feedback">
-                            <div *ngIf="f.language.errors.required">Language is required</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6 col-sm-6">
-                    <div class="form-group">
-                        <label path="email" for="email" cssClass="required">{{'Email' | translate }}</label>
+                        <label path="email" for="email" cssClass="required">Email</label>
                         <input formControlName="email" class="form-control" path="email"
                             [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
                         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
@@ -138,15 +116,16 @@
                         </div>
                     </div>
                 </div>
+
             </div>
             <div class="row">
                 <div class="col-sm-12 ">
                     <div class="form-group text-right">
                         <button type="submit" class="btn btn-primary mr-2">
-                            {{'Submit' | translate }}
+                            Submit
                         </button>
                         <button type="button" class="btn btn-warning mr-2" (click)="onReset()">
-                            {{'Clear' | translate }}
+                            Clear
                         </button>
                     </div>
                 </div>
@@ -155,7 +134,7 @@
     </div>
 </fieldset>
 <fieldset class="scheduler-border">
-    <legend class="scheduler-border">{{'RegistredDetails' | translate }}</legend>
+    <legend class="scheduler-border">RegistredDetails</legend>
     <ag-grid-angular #agGrid class="ag-theme-balham" [gridOptions]="gridOptions" style="width: 100%; height: 350px;"
         [pagination]="true" [frameworkComponents]="frameworkComponents">
     </ag-grid-angular>

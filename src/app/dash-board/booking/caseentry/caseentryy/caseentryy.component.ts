@@ -20,6 +20,9 @@ import { CalloutService } from 'src/app/shared/services/services/callout.service
 import { Utils } from 'src/app/shared/utils/utils';
 import { saveAs } from 'file-saver';
 import { DatePipe } from '@angular/common';
+import { Bookingentry001mb } from 'src/app/shared/services/restcontroller/entities/Bookingentry001mb';
+import { BookingentryManager } from 'src/app/shared/services/restcontroller/bizservice/bookingentry.service';
+
 @Component({
   selector: 'app-caseentryy',
   templateUrl: './caseentryy.component.html',
@@ -34,6 +37,7 @@ export class CaseentryyComponent implements OnInit {
   submitted = false;
   caseentryId: number | any;
   insertUser: string = "";
+  appointmentNo: number | any;
   insertDatetime: Date | any;
   updatedUser?: string | null;
   updatedDatetime?: Date | null;
@@ -45,6 +49,8 @@ export class CaseentryyComponent implements OnInit {
   numberofcase: Caseentry001mb[] = [];
   Casemachine001wbs: Casemachine001wb[] = [];
   casemachine001wb?: Casemachine001wb | any;
+  bookingentry: Bookingentry001mb[] = [];
+  bookingentry001mb?: Bookingentry001mb;
   slNo: any[] = []
   cslNo: any[] = []
   mname?: string;
@@ -74,6 +80,7 @@ export class CaseentryyComponent implements OnInit {
     private doctormasterManager: DoctormasterManager,
     private machinemasterManager: MachinemasterManager,
     private translateService: TranslateService,
+    private bookingentryManager: BookingentryManager,
     private modalService: NgbModal) {
     this.frameworkComponents = {
       //  linkRenderer: LinkRendererComponent,
@@ -98,6 +105,7 @@ export class CaseentryyComponent implements OnInit {
 
 
     this.caseentryForm = this.formBuilder.group({
+      appointmentNo: ['', Validators.required],
       hospname: ['', Validators.required],
       doctorname: ['', Validators.required],
       status: ['',],
@@ -110,7 +118,7 @@ export class CaseentryyComponent implements OnInit {
       this.machiness = deserialize<Machinemaster001mb[]>(Machinemaster001mb, response);
     })
     this.doctormasterManager.alldoctormaster(this.username).subscribe((response: any) => {
-      // console.log(response);
+      console.log("res---------------->", response);
       this.Doctormaster = deserialize<Doctormaster001mb[]>(Doctormaster001mb, response);
     });
     this.caseMachineManager.allcasemachine(this.username).subscribe((response: any) => {
@@ -171,6 +179,11 @@ export class CaseentryyComponent implements OnInit {
       }
     });
 
+    this.bookingentryManager.allbooking(this.username).subscribe((response: any) => {
+      this.bookingentry = deserialize<Bookingentry001mb[]>(Bookingentry001mb, response);
+
+    });
+
   }
 
 
@@ -201,6 +214,18 @@ export class CaseentryyComponent implements OnInit {
         suppressSizeToFit: true
       },
       {
+        headerName: 'Appointment No',
+        // field: 'doctorname',
+        width: 200,
+        flex: 1,
+        sortable: true,
+        filter: true,
+        resizable: true,
+        cellClass: "grid-cell-centered",
+        suppressSizeToFit: true,
+        valueGetter: this.setAppointment.bind(this)
+      },
+      {
         headerName: 'Doctor Name ',
         // field: 'doctorname',
         width: 200,
@@ -214,14 +239,14 @@ export class CaseentryyComponent implements OnInit {
       },
       {
         headerName: 'Hospital Name',
-        // field: 'hospname',
+        field: 'hospname',
         width: 200,
         flex: 1,
         sortable: true,
         filter: true,
         resizable: true,
         suppressSizeToFit: true,
-        valueGetter: this.setHospital.bind(this)
+        // valueGetter: this.setHospital.bind(this)
       },
       {
         headerName: 'Machine Name',
@@ -361,6 +386,11 @@ export class CaseentryyComponent implements OnInit {
     return params.data.hospname2 ? params.data.hospname2.hospitalname : null;
   }
 
+  setAppointment(params: any) {
+    return params.data.appointmentNo2 ? params.data.appointmentNo2.appNo : null;
+  }
+
+
   onEditButtonClick(params: any) {
     console.log('params-------------edit----->>>>', params);
     // this.myForm.controls.times.controls = [];
@@ -462,6 +492,7 @@ export class CaseentryyComponent implements OnInit {
 
     }
     let caseentry001mb = new Caseentry001mb();
+    caseentry001mb.appointmentNo = this.f.appointmentNo.value ? this.f.appointmentNo.value : "";
     caseentry001mb.hospname = this.f.hospname.value ? this.f.hospname.value : "";
     caseentry001mb.doctorname = this.f.doctorname.value ? this.f.doctorname.value : "";
     caseentry001mb.status = this.f.status.value ? this.f.status.value : false;
@@ -480,6 +511,7 @@ export class CaseentryyComponent implements OnInit {
         let caseentry001mbResp = deserialize<Caseentry001mb>(Caseentry001mb, response);
         for (let caseEntry of this.numberofcase) {
           if (caseEntry.caseentryId == caseentry001mbResp.caseentryId) {
+            caseentry001mb.appointmentNo = caseentry001mbResp.appointmentNo
             caseEntry.hospname = caseentry001mbResp.hospname;
             caseEntry.doctorname = caseentry001mbResp.doctorname;
             caseEntry.insertUser = this.insertUser;
@@ -518,6 +550,25 @@ export class CaseentryyComponent implements OnInit {
       });
     }
   }
+
+  onChange(event: any) {
+
+
+
+
+
+    this.bookingentryManager.findOne(event.target.value).subscribe(response => {
+
+      this.bookingentry001mb = deserialize<Bookingentry001mb>(Bookingentry001mb, response);
+      this.caseentryForm.patchValue({
+        'doctorname': this.bookingentry001mb.dslno,
+        'hospname': this.bookingentry001mb.hospital,
+      })
+
+    });
+
+  }
+
   onReset() {
     this.submitted = false;
     this.caseentryForm.reset();

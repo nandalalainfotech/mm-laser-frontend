@@ -13,13 +13,16 @@ import { DoctormasterManager } from 'src/app/shared/services/restcontroller/bizs
 import { EmployeemasterManager } from 'src/app/shared/services/restcontroller/bizservice/employeemaster.service';
 import { MachinemasterManager } from 'src/app/shared/services/restcontroller/bizservice/machinemaster.service';
 import { SystemPropertiesService } from 'src/app/shared/services/restcontroller/bizservice/system-properties.service';
+import { UserManager } from 'src/app/shared/services/restcontroller/bizservice/user.service';
 import { Bookingentry001mb } from 'src/app/shared/services/restcontroller/entities/Bookingentry001mb';
 import { Doctormaster001mb } from 'src/app/shared/services/restcontroller/entities/Doctormaster001mb';
 import { Employeemaster001mb } from 'src/app/shared/services/restcontroller/entities/Employeemaster001mb';
 import { Machinemaster001mb } from 'src/app/shared/services/restcontroller/entities/Machinemaster001mb';
+import { User001mb } from 'src/app/shared/services/restcontroller/entities/User001mb';
 import { CalloutService } from 'src/app/shared/services/services/callout.service';
 import { DataSharedService } from 'src/app/shared/services/services/datashared.service';
 import { Utils } from 'src/app/shared/utils/utils';
+import { TimeComponent } from '../time/time.component';
 
 @Component({
   selector: 'app-bookingentry',
@@ -29,7 +32,8 @@ import { Utils } from 'src/app/shared/utils/utils';
 export class BookingentryComponent implements OnInit {
 
   @Input() lang: any;
-  @Input() details: any
+  @Input() details: any;
+  @Input() bookingdetails: any;
   frameworkComponents: any;
   bookingId: number | any;
   insertUser: string = "";
@@ -41,10 +45,13 @@ export class BookingentryComponent implements OnInit {
   days: string = "";
   date: Date | any;
   time: string = "";
+  appNo: string | any;
+  count: number = 0;
   Doctormaster: Doctormaster001mb[] = [];
   machiness: Machinemaster001mb[] = [];
   booking: Bookingentry001mb[] = [];
   employee: Employeemaster001mb[] = [];
+  user: User001mb[] = [];
   public gridOptions: GridOptions | any;
   bookingForm: FormGroup | any;
   submitted = false;
@@ -53,6 +60,7 @@ export class BookingentryComponent implements OnInit {
   dayList: Array<any> = [];
   value: string = "";
   timeValue: string = "";
+  arr: any[] = [];
 
 
   @HostBinding('style.--color_l1') colorthemes_1: any;
@@ -71,6 +79,7 @@ export class BookingentryComponent implements OnInit {
     private calloutService: CalloutService,
     private authManager: AuthManager,
     private employeemasterManager: EmployeemasterManager,
+    private userManager: UserManager,
     private dataSharedService: DataSharedService,
     private modalService: NgbModal) {
     this.frameworkComponents = {
@@ -79,7 +88,12 @@ export class BookingentryComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.role = this.authManager.getcurrentUser.rolename;
+    // console.log('role-------rolelogin--------->>.', this.role);
+
     this.username = this.authManager.getcurrentUser.username;
+    // console.log('username-------userlogin--------->>.', this.username);
     this.authManager.currentUserSubject.subscribe((object: any) => {
       let rgb = Utils.hexToRgb(object.theme);
 
@@ -94,6 +108,7 @@ export class BookingentryComponent implements OnInit {
 
 
     this.bookingForm = this.formBuilder.group({
+      appNo: ['',],
       mslno: ['', Validators.required],
       dslno: ['', Validators.required],
       hospital: ['', Validators.required],
@@ -113,13 +128,23 @@ export class BookingentryComponent implements OnInit {
     this.employeemasterManager.allemployee(this.username).subscribe((response: any) => {
       this.employee = deserialize<Employeemaster001mb[]>(Employeemaster001mb, response);
     });
+    this.userManager.alluser().subscribe((response: any) => {
+      for (let i = 0; i < response.length; i++) {
+        if (response[i].rolename == "User") {
+          this.user = deserialize<User001mb[]>(User001mb, response);
+          this.arr.push(response[i])
+        }
+      }
+    });
 
   }
   username = this.authManager.getcurrentUser.username;
+  role = this.authManager.getcurrentUser.rolename;
 
   loaddata() {
 
     this.bookingentryManager.allbooking(this.username).subscribe((response) => {
+
       this.booking = deserialize<Bookingentry001mb[]>(Bookingentry001mb, response);
       if (this.booking.length > 0) {
         this.gridOptions?.api?.setRowData(this.booking);
@@ -127,6 +152,13 @@ export class BookingentryComponent implements OnInit {
         this.gridOptions?.api?.setRowData([]);
       }
     })
+
+    this.bookingentryManager.getCount().subscribe(response => {
+      this.count = response[0].row == 0 ? 1 : parseInt(response[0].row) + 1;
+      this.bookingForm.patchValue({
+        appNo: String("MM/APP/22-23/") + String(this.count).padStart(4, '0')
+      });
+    });
 
   }
   get f() { return this.bookingForm.controls; }
@@ -153,6 +185,16 @@ export class BookingentryComponent implements OnInit {
         headerCheckboxSelection: true,
         headerCheckboxSelectionFilteredOnly: true,
         checkboxSelection: true,
+        suppressSizeToFit: true,
+      },
+      {
+        headerName: 'Appointment No',
+        field: 'appNo',
+        width: 200,
+        // flex: 1,
+        sortable: true,
+        filter: true,
+        resizable: true,
         suppressSizeToFit: true,
       },
       {
@@ -224,6 +266,18 @@ export class BookingentryComponent implements OnInit {
         suppressSizeToFit: true,
       },
       {
+        headerName: 'View',
+        cellRenderer: 'iconRenderer',
+        width: 200,
+        flex: 1,
+        suppressSizeToFit: true,
+        cellStyle: { textAlign: 'center' },
+        cellRendererParams: {
+          onClick: this.onViewButtonClick.bind(this),
+          label: 'View'
+        }
+      },
+      {
         headerName: 'Edit',
         cellRenderer: 'iconRenderer',
         width: 200,
@@ -274,6 +328,7 @@ export class BookingentryComponent implements OnInit {
     this.bookingForm.patchValue({
       'mslno': params.data.mslno,
       'dslno': params.data.dslno,
+      'appNo': params.data.appNo,
       'hospital': params.data.hospital,
       'staff': params.data.staff,
       'date': this.datePipe.transform(params.data.date, 'MM/dd/yyyy'),
@@ -301,6 +356,13 @@ export class BookingentryComponent implements OnInit {
     modalRef.componentInstance.details = params.data;
   }
 
+  onViewButtonClick(params: any) {
+    const modalRef = this.modalService.open(TimeComponent);
+    modalRef.componentInstance.title = "Booking Entry";
+    modalRef.componentInstance.details = params;
+  }
+
+
   onFirstDataRendered(params: any) {
     params.api.sizeColumnsToFit();
   }
@@ -324,6 +386,7 @@ export class BookingentryComponent implements OnInit {
     let bookingentry001mb = new Bookingentry001mb();
     bookingentry001mb.mslno = this.f.mslno.value ? this.f.mslno.value : "";
     bookingentry001mb.dslno = this.f.dslno.value ? this.f.dslno.value : "";
+    bookingentry001mb.appNo = this.f.appNo.value ? this.f.appNo.value : "";
     bookingentry001mb.hospital = this.f.hospital.value ? this.f.hospital.value : "";
     bookingentry001mb.staff = this.f.staff.value ? this.f.staff.value : "";
     bookingentry001mb.date = new Date(this.f.date.value);

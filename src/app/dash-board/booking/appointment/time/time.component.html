@@ -1,21 +1,26 @@
-<!-- <div [formGroup]="parts" class="date-time-container">
-    <select matInput class="hours-element" formControlName="hour" placeholder="Hours" (change)="_handleInput()"
-        style="border-right-style: none;">
-        <option *ngFor="let singleHour of hoursRange()" [value]="singleHour">{{
-            singleHour
-            }}</option>
-    </select>
-    <select matInput class="hours-element"  formControlName="minute" placeholder="Minute"
-        (change)="_handleInput()" style="border-right-style: none;
-        border-left-style: none;">
-        <option *ngFor="let singleMinute of minutesRange()" [value]="singleMinute">{{ singleMinute }}</option>
-    </select>
-    <select matInput class="minutes-element" formControlName="type" (change)="_handleInput()"
-        style="border-left-style: none">
-        <option value="AM" selected="">AM</option>
-        <option value="PM">PM</option>
-    </select>
-</div> -->
-<ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
-
-
+<button type="button" value="close" class="closed col-sm-1" (click)="onCrossClick($event)">
+    <span aria-hidden="true">&times;</span>
+</button>
+<ng-container>
+    <div class="date-list">
+        <span>Request Service</span>
+    </div>
+    <div class="popup">
+        <ul>
+            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{details.data.dslno2.doctorname}}</li>
+            <li style="padding: 9px;">
+                <i class="fa fa-clock-o" style="color:red"></i>
+                {{details.data.date | date: "MMM-dd-yyyy" }}&nbsp;/{{details.data.time}}
+            </li>
+            <li style="padding: 9px;">
+                <!-- <i class='fas fa-location-arrow' style='color:red'></i> -->
+                <i class="fa fa-map-marker" style='color:red'></i>
+                {{details.data.dslno2.addressline1}}&nbsp;{{details.data.dslno2.addressline2}}&nbsp;,{{details.data.dslno2.city}},<br>{{details.data.dslno2.state}}&nbsp;,{{details.data.dslno2.pincode}}.
+            </li>
+            <li style="padding: 9px;">
+                <i class="fa fa-cogs" aria-hidden="true" style='color:red'></i>
+                Machine Name:&nbsp;&nbsp;{{details.data.mslno2.machinename}}
+            </li>
+        </ul>
+    </div>
+</ng-container>

@@ -6,8 +6,7 @@
         </span>
     </div>
 </a>
-<a [ngStyle]="{'color':colorthemes_1}" *ngIf="this.label == 'Status' ? true : false"
-    (click)="onClick($event)">
+<a [ngStyle]="{'color':colorthemes_1}" *ngIf="this.label == 'Status' ? true : false" (click)="onClick($event)">
     <div class="iconalign" style="font-size: 16px;" (click)="changeType(toggle)">
         <span>
             <!-- <i [ngClass]="toggle? 'fa fa-toggle-on' : 'fa fa-toggle-off'"></i> -->
@@ -21,6 +20,10 @@
 <a [ngStyle]="{'color':colorthemes_1}" *ngIf="this.label == 'Audit' ? true : false" href="javascript:void(0)"
     (click)="onClick($event)">
     <i class="fa fa-history"></i>
+</a>
+<a [ngStyle]="{'color':colorthemes_1}" *ngIf="this.label == 'View' ? true : false" href="javascript:void(0)"
+    (click)="onClick($event)">
+    <i class="fa fa-eye"></i>
 </a>
 <a [ngStyle]="{'color':colorthemes_1}" *ngIf="this.label == 'Pdf' ? true : false" href="javascript:void(0)"
     (click)="onClick($event)">

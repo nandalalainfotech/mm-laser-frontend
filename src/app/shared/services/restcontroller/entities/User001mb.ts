@@ -10,10 +10,10 @@ export class User001mb extends BaseEntity {
     password?: string | null;
     status?: string;
     email?: string;
-    securityquestion?: string;
-    securityanswer?: string;
+    mobileno?: string;
+    rolename?: string;
     theme?: string | null;
-    language?:Number | null;
+    language?: Number | null;
     language2?: any | null;
-    role001mbs?: any | null;
+    user001mbs?: any | null;
 }

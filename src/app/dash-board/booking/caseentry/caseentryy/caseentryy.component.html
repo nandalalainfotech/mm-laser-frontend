@@ -5,6 +5,23 @@
             <div class="row">
                 <div class="col-xs-3 col-sm-3 ">
                     <div class="form-group">
+                        <label for="appointmentNo">Appointment No</label>
+                        <select formControlName="appointmentNo" class="form-control" name="appointmentNo"
+                            id="appointmentNo" (change)="onChange($event)"
+                            [ngClass]="{ 'is-invalid': submitted && f.appointmentNo.errors }">
+                            <option value="" hidden> - Select the Appointment - </option>
+                            <option value="null"> - Select the Appointment - </option>
+                            <option *ngFor="let bookingentrys of bookingentry" [value]="bookingentrys.bookingId">
+                                {{bookingentrys.appNo}}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted && f.doctorname.errors" class="invalid-feedback">
+                            <div *ngIf="f.doctorname.errors.required">Doctor Name is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 ">
+                    <div class="form-group">
                         <label for="doctorname">Doctor Name</label>
                         <select formControlName="doctorname" class="form-control" name="doctorname" id="doctorname"
                             [ngClass]="{ 'is-invalid': submitted && f.doctorname.errors }">
@@ -20,7 +37,7 @@
                     </div>
                 </div>
                 <div class="col-xs-3">
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="hospname">Hospital Name</label>
                         <select formControlName="hospname" class="form-control" name="hospname" id="hospname"
                             [ngClass]="{ 'is-invalid': submitted && f.hospname.errors }">
@@ -33,6 +50,10 @@
                         <div *ngIf="submitted && f.hospname.errors" class="invalid-feedback">
                             <div *ngIf="f.hospname.errors.required">Hospital Name is required</div>
                         </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label path="hospname" for="hospname" cssClass="required">Hospital Name</label>
+                        <input class="form-control" formControlName="hospname" readonly />
                     </div>
                 </div>
                 <div class="col-xs-3 form-group">
@@ -55,8 +76,6 @@
                         <div formArrayName='times' fxLayout="column" fxLayoutGap="10px" style="margin-right: -35%;">
                             <div *ngFor="let time of this.fa?.value; let i = index;  trackBy:trackByFn" fxLayout="row">
                                 <div [formGroupName]="i" fxLayout="row">
-                                    <!-- <input formControlName="addmach" class="form-control" path="addmach" name="addmach"
-                                        [ngClass]="{ 'is-invalid': submitted && f.addmach.errors }" /> -->
                                     <select formControlName="mname" class="form-control" name="mname" id="mname">
                                         <option value="" hidden> - Select the Machine - </option>
                                         <option value="null"> - Select the Machine - </option>
@@ -66,11 +85,11 @@
                                     </select>
                                     &nbsp;
 
-                                    <input formControlName="numofcase" class="form-control" path="numofcase"
-                                        name="numofcase" style="margin-left: 1%;" />
+                                    <input formControlName="numofcase" class="form-control" type="number"
+                                        path="numofcase" name="numofcase" style="margin-left: 1%;" />
                                     &nbsp;
-                                    <input formControlName="charge" class="form-control" path="charge" name="charge"
-                                        style="margin-left: 1%;" />
+                                    <input formControlName="charge" class="form-control" type="number" path="charge"
+                                        name="charge" style="margin-left: 1%;" />
                                 </div>
                                 <button (click)="addGroup()" class="btn btn-primary btn-sm"><i class="fa fa-plus"
                                         aria-hidden="true"></i></button>
