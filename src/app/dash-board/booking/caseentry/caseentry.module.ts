@@ -11,6 +11,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CaseMachineManager } from 'src/app/shared/services/restcontroller/bizservice/cashmacine.service';
+import { CalendarModule } from 'primeng/calendar';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -25,7 +29,11 @@ import { CaseMachineManager } from 'src/app/shared/services/restcontroller/bizse
     MatTabsModule,
     FormsModule,
     ReactiveFormsModule,
+    CalendarModule,
     AgGridModule.withComponents([]),
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     DatePipe,

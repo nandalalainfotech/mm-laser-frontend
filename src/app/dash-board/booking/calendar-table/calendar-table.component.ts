@@ -66,6 +66,9 @@ export class CalendarTableComponent implements OnInit {
   @HostBinding('style.--color_l4') colorthemes_4: any;
 
   ngOnInit() {
+
+    this.role = this.authManager.getcurrentUser.rolename;
+
     this.username = this.authManager.getcurrentUser.username;
     this.authManager.currentUserSubject.subscribe((object: any) => {
       let rgb = Utils.hexToRgb(object.theme);
@@ -87,6 +90,9 @@ export class CalendarTableComponent implements OnInit {
       this.Doctormaster = deserialize<Doctormaster001mb[]>(Doctormaster001mb, response);
     });
   }
+
+  role = this.authManager.getcurrentUser.rolename;
+  
   username = this.authManager.getcurrentUser.username;
   loaddata() {
     this.events = [];
