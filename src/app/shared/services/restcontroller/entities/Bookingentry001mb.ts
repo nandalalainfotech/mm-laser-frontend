@@ -8,5 +8,6 @@ export class Bookingentry001mb extends BaseEntity {
     staff?: string;
     date?: Date;
     time?: string;
+    status?: string;
     appNo?: string | any;
 }

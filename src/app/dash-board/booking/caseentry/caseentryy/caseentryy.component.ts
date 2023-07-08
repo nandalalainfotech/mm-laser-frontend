@@ -186,15 +186,12 @@ export class CaseentryyComponent implements OnInit {
 
     const date = moment(new Date()).format("YYYY-MM-DD");
 
-    console.log("date----->", date);
-
-    console.log("date----->", this.role);
     
     this.bookingentryManager.allbooking(this.username).subscribe((response: any) => {
 
       if(this.role == "User") {
         for(let i = 0; i < response.length; i++) {
-          if(date === moment(response[i].date).format("YYYY-MM-DD")) {
+          if(date === moment(response[i].date).format("YYYY-MM-DD") && response[i].status === "Not Approved") {
             console.log("date------->", moment(response[i].date).format("YYYY-MM-DD"));
             console.log("bokinggg------->", response[i]);
             this.bookingentry.push(response[i])
@@ -585,10 +582,6 @@ export class CaseentryyComponent implements OnInit {
   }
 
   onChange(event: any) {
-
-
-
-
 
     this.bookingentryManager.findOne(event.target.value).subscribe(response => {
 

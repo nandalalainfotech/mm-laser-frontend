@@ -42,6 +42,7 @@ export class BookingentryComponent implements OnInit {
   dslno: string = "";
   hospital: string = "";
   staff: string = "";
+  status: string = "";
   days: string = "";
   date: Date | any;
   time: string = "";
@@ -61,6 +62,7 @@ export class BookingentryComponent implements OnInit {
   value: string = "";
   timeValue: string = "";
   arr: any[] = [];
+  params: any;
 
 
   @HostBinding('style.--color_l1') colorthemes_1: any;
@@ -90,7 +92,7 @@ export class BookingentryComponent implements OnInit {
   ngOnInit() {
 
     this.role = this.authManager.getcurrentUser.rolename;
-    // console.log('role-------rolelogin--------->>.', this.role);
+    console.log('role-------rolelogin--------->>.', this.role);
 
     this.username = this.authManager.getcurrentUser.username;
     // console.log('username-------userlogin--------->>.', this.username);
@@ -114,7 +116,8 @@ export class BookingentryComponent implements OnInit {
       hospital: ['', Validators.required],
       staff: ['', Validators.required],
       date: ['', Validators.required],
-      time: ['', Validators.required]
+      time: ['', Validators.required],
+      status: ['',],
     });
 
     this.loaddata();
@@ -136,6 +139,7 @@ export class BookingentryComponent implements OnInit {
         }
       }
     });
+
 
   }
   username = this.authManager.getcurrentUser.username;
@@ -162,6 +166,9 @@ export class BookingentryComponent implements OnInit {
 
   }
   get f() { return this.bookingForm.controls; }
+
+
+  
 
 
   createDataGrid001(): void {
@@ -391,6 +398,7 @@ export class BookingentryComponent implements OnInit {
     bookingentry001mb.staff = this.f.staff.value ? this.f.staff.value : "";
     bookingentry001mb.date = new Date(this.f.date.value);
     bookingentry001mb.time = this.f.time.value ? this.f.time.value : "";
+    bookingentry001mb.status =  "Not Approved";
     if (this.bookingId) {
       bookingentry001mb.bookingId = this.bookingId;
       bookingentry001mb.insertUser = this.insertUser;
@@ -425,6 +433,24 @@ export class BookingentryComponent implements OnInit {
   onReset() {
     this.bookingForm.reset();
     this.submitted = false;
+  }
+
+
+  getRowStyle(params: any) {
+
+    // console.log("role---->", this.role);
+    
+
+      if(params.data.status == "Approved") {
+        return { 'background-color': '#7FFFD4' };
+      }
+      else {
+        return { 'background-color': '#FFB6C1' };
+      }
+   
+
+   
+
   }
 }
 

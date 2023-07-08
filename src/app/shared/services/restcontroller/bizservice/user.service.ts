@@ -28,6 +28,9 @@ export class UserManager extends BaseService {
   }
 
   updatePassword(user001mb: User001mb) {
+
+    console.log("user001mb--------->", user001mb);
+    
     return this.postCallService(`${this.userUrl}` + "/updatePassword", {}, user001mb);
   }
 
