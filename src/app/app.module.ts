@@ -28,6 +28,8 @@ import { CalloutService } from './shared/services/services/callout.service';
 import { DataSharedService } from './shared/services/services/datashared.service';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import { UserRegistrationModule } from './user-registration/user-registration.module';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ChangePasswordModule } from './change-password/change-password.module';
 
 export const environment = {
 	production: true,
@@ -47,11 +49,13 @@ export function createTranslateLoader(http: HttpClient) {
 		ResetPasswordComponent,
 		AuditComponent,
 		UserRegistrationComponent,
-		IconRendererComponent
+		IconRendererComponent,
+		ChangePasswordComponent
 	],
 	imports: [
 		CommonModule,
 		BrowserModule,
+		ChangePasswordModule,
 		FormsModule,
 		ReactiveFormsModule,
 		HttpClientModule,

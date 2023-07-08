@@ -58,7 +58,8 @@ export class LoginComponent implements OnInit {
 
 
     onLoginClick(event: any, loginForm: any) {
-        console.log("event", event);
+        console.log("this.f.username.value", this.f.username.value);
+        console.log("this.f.password.value", this.f.password.value);
         this.markFormGroupTouched(this.loginForm);
         this.submitted = true;
         if (this.loginForm.invalid) {
