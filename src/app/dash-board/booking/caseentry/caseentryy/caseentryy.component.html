@@ -2,6 +2,24 @@
     <legend class="scheduler-border">Case Entry</legend>
     <div class="formData">
         <form [formGroup]="caseentryForm" (ngSubmit)="onOrderClick($event, caseentryForm)">
+            <!-- <div class="row">
+                <div class="col-xs-3 col-sm-3">
+                    <div class="form-group">
+                        <div class="p-fluid p-grid p-formgrid">
+                            <div class="p-field p-col-12 p-md-5">
+                                <label path="date" for="date" cssClass="required">Date</label>
+                                <p-calendar [monthNavigator]="true" [yearNavigator]="true" formControlName="date" (input)="validateDateRange($event)"
+                                (onSelect)="validateDateRange($event)"
+                                    name="date" inputId="navigators" [showIcon]="true" inputId="icon">
+                                </p-calendar>
+                                <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                                    <div *ngIf="f.date.errors.required">Date is Required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
             <div class="row">
                 <div class="col-xs-3 col-sm-3 ">
                     <div class="form-group">

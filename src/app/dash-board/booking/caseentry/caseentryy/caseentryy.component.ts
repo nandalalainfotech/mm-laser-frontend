@@ -22,6 +22,7 @@ import { saveAs } from 'file-saver';
 import { DatePipe } from '@angular/common';
 import { Bookingentry001mb } from 'src/app/shared/services/restcontroller/entities/Bookingentry001mb';
 import { BookingentryManager } from 'src/app/shared/services/restcontroller/bizservice/bookingentry.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-caseentryy',
@@ -52,7 +53,8 @@ export class CaseentryyComponent implements OnInit {
   bookingentry: Bookingentry001mb[] = [];
   bookingentry001mb?: Bookingentry001mb;
   slNo: any[] = []
-  cslNo: any[] = []
+  cslNo: any[] = [];
+  arr: any[] = [];
   mname?: string;
   numofcase?: string;
   charge?: string;
@@ -90,6 +92,10 @@ export class CaseentryyComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.role = this.authManager.getcurrentUser.rolename;
+
+  
     this.username = this.authManager.getcurrentUser.username;
     this.authManager.currentUserSubject.subscribe((object: any) => {
       let rgb = Utils.hexToRgb(object.theme);
@@ -118,7 +124,6 @@ export class CaseentryyComponent implements OnInit {
       this.machiness = deserialize<Machinemaster001mb[]>(Machinemaster001mb, response);
     })
     this.doctormasterManager.alldoctormaster(this.username).subscribe((response: any) => {
-      console.log("res---------------->", response);
       this.Doctormaster = deserialize<Doctormaster001mb[]>(Doctormaster001mb, response);
     });
     this.caseMachineManager.allcasemachine(this.username).subscribe((response: any) => {
@@ -179,12 +184,40 @@ export class CaseentryyComponent implements OnInit {
       }
     });
 
-    this.bookingentryManager.allbooking(this.username).subscribe((response: any) => {
-      this.bookingentry = deserialize<Bookingentry001mb[]>(Bookingentry001mb, response);
+    const date = moment(new Date()).format("YYYY-MM-DD");
 
+    console.log("date----->", date);
+
+    console.log("date----->", this.role);
+    
+    this.bookingentryManager.allbooking(this.username).subscribe((response: any) => {
+
+      if(this.role == "User") {
+        for(let i = 0; i < response.length; i++) {
+          if(date === moment(response[i].date).format("YYYY-MM-DD")) {
+            console.log("date------->", moment(response[i].date).format("YYYY-MM-DD"));
+            console.log("bokinggg------->", response[i]);
+            this.bookingentry.push(response[i])
+          }
+        }
+      }
+      else {
+        this.bookingentry = deserialize<Bookingentry001mb[]>(Bookingentry001mb, response);
+      }
+      
     });
 
+    // for(let i = 0; i < this.bookingentry.length; i++) {
+    //   if(date === moment(this.bookingentry[i].date).format("YYYY-MM-DD")) {
+    //     console.log("date------->", moment(this.bookingentry[i].date).format("YYYY-MM-DD"));
+    //     console.log("bokinggg------->", this.bookingentry[i]);
+    //     this.arr.push(this.bookingentry[i])
+    //   }
+    // }    
+
   }
+
+  role = this.authManager.getcurrentUser.rolename;
 
 
   get f() { return this.caseentryForm.controls; }
@@ -568,6 +601,25 @@ export class CaseentryyComponent implements OnInit {
     });
 
   }
+
+  // validateDateRange(event: any) {
+  //   // console.log("Event111", event);
+  //   // console.log("Event2222", event);
+
+  //   this.arr = [];
+
+  //   const date = moment(event).format("YYYY-MM-DD");
+  //   // console.log("date---->", date);
+
+  //   for(let i = 0; i < this.bookingentry.length; i++) {
+  //     if(date === moment(this.bookingentry[i].date).format("YYYY-MM-DD")) {
+  //       // console.log("date------->", moment(this.bookingentry[i].date).format("YYYY-MM-DD"));
+  //       // console.log("bokinggg------->", this.bookingentry[i]);
+  //       this.arr.push(this.bookingentry[i])
+  //     }
+  //   }
+
+  // }
 
   onReset() {
     this.submitted = false;
