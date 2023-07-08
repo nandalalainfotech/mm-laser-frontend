@@ -271,7 +271,7 @@ export class RegistrationComponent implements OnInit {
             'lastname': params.data.lastname,
             'username': params.data.username,
             'status': params.data.status,
-            'password': params.data.password,
+            // 'password': params.data.password,
             'rolename': params.data.rolename,
             'email': params.data.email,
             'mobileno': params.data.mobileno,

@@ -95,7 +95,7 @@ export class CaseentryyComponent implements OnInit {
 
     this.role = this.authManager.getcurrentUser.rolename;
 
-  
+
     this.username = this.authManager.getcurrentUser.username;
     this.authManager.currentUserSubject.subscribe((object: any) => {
       let rgb = Utils.hexToRgb(object.theme);
@@ -186,12 +186,12 @@ export class CaseentryyComponent implements OnInit {
 
     const date = moment(new Date()).format("YYYY-MM-DD");
 
-    
+
     this.bookingentryManager.allbooking(this.username).subscribe((response: any) => {
 
-      if(this.role == "User") {
-        for(let i = 0; i < response.length; i++) {
-          if(date === moment(response[i].date).format("YYYY-MM-DD") && response[i].status === "Not Approved") {
+      if (this.role == "User") {
+        for (let i = 0; i < response.length; i++) {
+          if (date === moment(response[i].date).format("YYYY-MM-DD") && response[i].status === "Not Approved") {
             console.log("date------->", moment(response[i].date).format("YYYY-MM-DD"));
             console.log("bokinggg------->", response[i]);
             this.bookingentry.push(response[i])
@@ -201,7 +201,7 @@ export class CaseentryyComponent implements OnInit {
       else {
         this.bookingentry = deserialize<Bookingentry001mb[]>(Bookingentry001mb, response);
       }
-      
+
     });
 
     // for(let i = 0; i < this.bookingentry.length; i++) {
@@ -433,7 +433,8 @@ export class CaseentryyComponent implements OnInit {
     this.caseentryForm.patchValue({
       'hospname': params.data.hospname,
       'doctorname': params.data.doctorname,
-      'status': params.data.status
+      'status': params.data.status,
+      'appointmentNo': params.data.appointmentNo
     });
 
     // this.myForm.get('times') as FormArray;
