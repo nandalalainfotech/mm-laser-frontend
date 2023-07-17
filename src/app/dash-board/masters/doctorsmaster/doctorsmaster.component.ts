@@ -324,7 +324,7 @@ export class DoctorsmasterComponent implements OnInit {
       }
       const selectedRows = params.api.getSelectedRows();
       params.api.applyTransaction({ remove: selectedRows });
-      this.calloutService.showSuccess("Order Removed Successfully");
+      this.calloutService.showSuccess("Doctors Master Details Removed Successfully");
     });
   }
 
@@ -372,7 +372,7 @@ export class DoctorsmasterComponent implements OnInit {
       doctormaster001mb.updatedUser = this.authManager.getcurrentUser.username;
       doctormaster001mb.updatedDatetime = new Date();
       this.doctormasterManager.updatedoctormaster(doctormaster001mb).subscribe((response) => {
-        this.calloutService.showSuccess("Order Updated Successfully");
+        this.calloutService.showSuccess("Doctors Master Details Updated Successfully");
         let doctormaster001mb = deserialize<Doctormaster001mb>(Doctormaster001mb, response);
         for (let Doctormasters of this.Doctormaster) {
           if (Doctormasters.slNo == doctormaster001mb.slNo) {
@@ -408,7 +408,7 @@ export class DoctorsmasterComponent implements OnInit {
       this.doctormasterManager.savedoctormaster(doctormaster001mb).subscribe((response) => {
         console.log("response----------->", response);
 
-        this.calloutService.showSuccess("Order Saved Successfully");
+        this.calloutService.showSuccess("Doctors Master Details Saved Successfully");
         let doctormaster001mb = deserialize<Doctormaster001mb>(Doctormaster001mb, response);
         this.Doctormaster?.push(doctormaster001mb);
         const newItems = [JSON.parse(JSON.stringify(doctormaster001mb))];

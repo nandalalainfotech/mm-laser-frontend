@@ -10,6 +10,7 @@ import { DoctormasterManager } from 'src/app/shared/services/restcontroller/bizs
 import { MachinemasterManager } from 'src/app/shared/services/restcontroller/bizservice/machinemaster.service';
 import { BookingentryManager } from 'src/app/shared/services/restcontroller/bizservice/bookingentry.service';
 import { EmployeemasterManager } from 'src/app/shared/services/restcontroller/bizservice/employeemaster.service';
+import { FlatpickrModule } from 'angularx-flatpickr';
 
 @NgModule({
   declarations: [CalendarTableComponent],
@@ -18,6 +19,7 @@ import { EmployeemasterManager } from 'src/app/shared/services/restcontroller/bi
     ReactiveFormsModule,
     FormsModule,
     NgbModalModule,
+    FlatpickrModule.forRoot(),
     CalendarTableRoutingModule,
     CalendarModule.forRoot({
       provide: DateAdapter,

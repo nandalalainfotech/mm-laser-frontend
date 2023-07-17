@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GridOptions } from 'ag-grid-community';
 import { deserialize } from 'serializer.ts/Serializer';
 import { AuditComponent } from 'src/app/shared/audit/audit.component';
@@ -31,9 +31,7 @@ import { TimeComponent } from '../time/time.component';
 })
 export class BookingentryComponent implements OnInit {
 
-  @Input() lang: any;
-  @Input() details: any;
-  @Input() bookingdetails: any;
+
   frameworkComponents: any;
   bookingId: number | any;
   insertUser: string = "";
@@ -63,7 +61,8 @@ export class BookingentryComponent implements OnInit {
   timeValue: string = "";
   arr: any[] = [];
   params: any;
-
+  minDate = new Date();
+  maxDate = new Date();
 
   @HostBinding('style.--color_l1') colorthemes_1: any;
   @HostBinding('style.--color_l2') colorthemes_2: any;
@@ -76,7 +75,7 @@ export class BookingentryComponent implements OnInit {
     private doctormasterManager: DoctormasterManager,
     private machinemasterManager: MachinemasterManager,
     private bookingentryManager: BookingentryManager,
-    private datePipe: DatePipe,
+    private datepipe: DatePipe,
     private router: Router,
     private calloutService: CalloutService,
     private authManager: AuthManager,
@@ -92,10 +91,7 @@ export class BookingentryComponent implements OnInit {
   ngOnInit() {
 
     this.role = this.authManager.getcurrentUser.rolename;
-    console.log('role-------rolelogin--------->>.', this.role);
-
     this.username = this.authManager.getcurrentUser.username;
-    // console.log('username-------userlogin--------->>.', this.username);
     this.authManager.currentUserSubject.subscribe((object: any) => {
       let rgb = Utils.hexToRgb(object.theme);
 
@@ -108,7 +104,7 @@ export class BookingentryComponent implements OnInit {
       this.colorthemes_4 = Utils.rgbToHex(rgb, 0.8);
     });
 
-
+    this.maxDate.setFullYear(this.maxDate.getFullYear() + 10);
     this.bookingForm = this.formBuilder.group({
       appNo: ['',],
       mslno: ['', Validators.required],
@@ -139,16 +135,14 @@ export class BookingentryComponent implements OnInit {
         }
       }
     });
-
-
   }
+
   username = this.authManager.getcurrentUser.username;
   role = this.authManager.getcurrentUser.rolename;
 
   loaddata() {
 
     this.bookingentryManager.allbooking(this.username).subscribe((response) => {
-
       this.booking = deserialize<Bookingentry001mb[]>(Bookingentry001mb, response);
       if (this.booking.length > 0) {
         this.gridOptions?.api?.setRowData(this.booking);
@@ -166,10 +160,6 @@ export class BookingentryComponent implements OnInit {
 
   }
   get f() { return this.bookingForm.controls; }
-
-
-  
-
 
   createDataGrid001(): void {
     this.gridOptions = {
@@ -198,7 +188,6 @@ export class BookingentryComponent implements OnInit {
         headerName: 'Appointment No',
         field: 'appNo',
         width: 200,
-        // flex: 1,
         sortable: true,
         filter: true,
         resizable: true,
@@ -246,7 +235,6 @@ export class BookingentryComponent implements OnInit {
       },
       {
         headerName: 'Date',
-        field: 'date',
         width: 200,
         flex: 1,
         sortable: true,
@@ -254,13 +242,8 @@ export class BookingentryComponent implements OnInit {
         resizable: true,
         suppressSizeToFit: true,
         valueGetter: (params: any) => {
-          return params.data.date
-            ? this.datePipe.transform(
-              params.data.date,
-              'MM/dd/yyyy'
-            )
-            : '';
-        },
+          return params.data.date ? this.datepipe.transform(params.data.date, 'dd-MM-yyyy') : '';
+        }
       },
       {
         headerName: 'Time',
@@ -338,7 +321,7 @@ export class BookingentryComponent implements OnInit {
       'appNo': params.data.appNo,
       'hospital': params.data.hospital,
       'staff': params.data.staff,
-      'date': this.datePipe.transform(params.data.date, 'MM/dd/yyyy'),
+      'date': new Date(params.data.date),
       'time': params.data.time
     });
   }
@@ -353,7 +336,7 @@ export class BookingentryComponent implements OnInit {
       }
       const selectedRows = params.api.getSelectedRows();
       params.api.applyTransaction({ remove: selectedRows });
-      this.calloutService.showSuccess("Order Removed Successfully");
+      this.calloutService.showSuccess("Booking Entry Details Removed Successfully");
     });
   }
 
@@ -398,7 +381,7 @@ export class BookingentryComponent implements OnInit {
     bookingentry001mb.staff = this.f.staff.value ? this.f.staff.value : "";
     bookingentry001mb.date = new Date(this.f.date.value);
     bookingentry001mb.time = this.f.time.value ? this.f.time.value : "";
-    bookingentry001mb.status =  "Not Approved";
+    bookingentry001mb.status = "Not Approved";
     if (this.bookingId) {
       bookingentry001mb.bookingId = this.bookingId;
       bookingentry001mb.insertUser = this.insertUser;
@@ -406,7 +389,7 @@ export class BookingentryComponent implements OnInit {
       bookingentry001mb.updatedUser = this.authManager.getcurrentUser.username;
       bookingentry001mb.updatedDatetime = new Date();
       this.bookingentryManager.updatebooking(bookingentry001mb).subscribe((response: any) => {
-        this.calloutService.showSuccess("Order Updated Successfully");
+        this.calloutService.showSuccess("Booking Entry Details Updated Successfully");
         this.loaddata();
         this.bookingForm.reset();
         this.submitted = false;
@@ -417,10 +400,9 @@ export class BookingentryComponent implements OnInit {
       bookingentry001mb.insertUser = this.authManager.getcurrentUser.username;
       bookingentry001mb.insertDatetime = new Date();
       this.bookingentryManager.savebooking(bookingentry001mb).subscribe((response) => {
-        console.log("response", response);
-
-        this.calloutService.showSuccess("Order Saved Successfully");
+        this.calloutService.showSuccess("Booking Entry Details Saved Successfully");
         if (this.bookingForm.valid) {
+          this.loaddata();
           this.router.navigate(['/app-dash-board/app-booking/app-calendar-table']);
           return;
         }
@@ -437,20 +419,12 @@ export class BookingentryComponent implements OnInit {
 
 
   getRowStyle(params: any) {
-
-    // console.log("role---->", this.role);
-    
-
-      if(params.data.status == "Approved") {
-        return { 'background-color': '#7FFFD4' };
-      }
-      else {
-        return { 'background-color': '#FFB6C1' };
-      }
-   
-
-   
-
+    if (params.data.status == "Approved") {
+      return { 'background-color': '#7FFFD4' };
+    }
+    else {
+      return { 'background-color': '#FFB6C1' };
+    }
   }
 }
 

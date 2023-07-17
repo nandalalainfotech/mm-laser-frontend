@@ -21,9 +21,10 @@ import { BookingentryComponent } from './bookingentry/bookingentry.component';
 import { BookingmanagementComponent } from './bookingmanagement/bookingmanagement.component';
 import { TimeComponent } from './time/time.component';
 import { EmployeemasterManager } from 'src/app/shared/services/restcontroller/bizservice/employeemaster.service';
+import { CalendarPopupComponent } from './calendar-popup/calendar-popup.component';
 
 @NgModule({
-  declarations: [AppointmentComponent, BookingentryComponent, BookingmanagementComponent, TimeComponent],
+  declarations: [AppointmentComponent, BookingentryComponent, BookingmanagementComponent, TimeComponent, CalendarPopupComponent],
   imports: [
     CommonModule,
     AppointmentRoutingModule,

@@ -1,31 +1,131 @@
-<button type="button" value="close" class="closed col-sm-1" (click)="onCrossClick($event)">
-    <span aria-hidden="true">&times;</span>
-</button>
-<ng-container *ngFor="let item of details">
-    <div class="date-list">
-        <span>Date:{{item.payload.date | date: "dd-MM-yyyy"}}</span>
+<div _ngcontent-jih-c160="" class="modal-header head">
+    <h3 _ngcontent-jih-c160="" class="modal-title col-sm-11 text-info title ng-star-inserted"> Booking Entry
+    </h3><button _ngcontent-jih-c160="" (click)="onCrossClick($event)" type="button" value="close"
+        class="closed col-sm-1"><span _ngcontent-jih-c160="" aria-hidden="true">×</span></button>
+</div>
+<fieldset class="scheduler-border" *ngIf="role == 'Admin'">
+    <legend class="scheduler-border">Booking Entry</legend>
+    <div class="formData">
+        <form [formGroup]="bookingForm" (ngSubmit)="onUserClick($event, bookingForm)">
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 form-group">
+                    <div class="form-group">
+                        <label path="appNo" for="series" cssClass="required" required="true">Appointment No</label>
+                        <input class="form-control" formControlName="appNo" readonly />
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 form-group">
+                    <label for="mslno">Executive</label>
+                    <select formControlName="mslno" class="form-control" name="mslno" id="mslno"
+                        [ngClass]="{ 'is-invalid': submitted && f.mslno.errors }">
+                        <option value="" hidden> - Select the Executive - </option>
+                        <option value="null"> - Select the Executive - </option>
+                        <option *ngFor="let mslno of machiness" [value]="mslno.slNo">
+                            {{mslno.machinename}}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted && f.mslno.errors" class="invalid-feedback">
+                        <div *ngIf="f.mslno.errors.required">Machine is required</div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 form-group">
+                    <label for="dslno">Doctor</label>
+                    <select formControlName="dslno" class="form-control" name="dslno" id="dslno"
+                        [ngClass]="{ 'is-invalid': submitted && f.dslno.errors }">
+                        <option value="" hidden> - Select the Doctor - </option>
+                        <option value="null"> - Select the Doctor - </option>
+                        <option *ngFor="let dslno of Doctormaster" [value]="dslno.slNo">
+                            {{dslno.doctorname}}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted && f.dslno.errors" class="invalid-feedback">
+                        <div *ngIf="f.dslno.errors.required">Doctor is required</div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 form-group">
+                    <label path="hospital" for="hospital" cssClass="required">Hospital
+                    </label>
+                    <select formControlName="hospital" class="form-control" name="hospital" id="hospital"
+                        [ngClass]="{ 'is-invalid': submitted && f.hospital.errors }">
+                        <option value="" hidden> - Select the Hospital - </option>
+                        <option value="null"> - Select the Hospital - </option>
+                        <option *ngFor="let hospital of Doctormaster" [value]="hospital.hospitalname">
+                            {{hospital.hospitalname}}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted && f.hospital.errors" class="invalid-feedback">
+                        <div *ngIf="f.hospital.errors.required">Hospital is Required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 form-group">
+                    <label path="staff" for="staff" cssClass="required">Employee
+                    </label>
+                    <select formControlName="staff" class="form-control" name="staff" id="staff"
+                        [ngClass]="{ 'is-invalid': submitted && f.staff.errors }">
+                        <option value="" hidden> - Select the Employee - </option>
+                        <option value="" hidden> - Select the Employee - </option>
+                        <option *ngFor="let staff of arr" [value]="staff.username">
+                            {{staff.username}}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted && f.staff.errors" class="invalid-feedback">
+                        <div *ngIf="f.staff.errors.required">Staff is Required</div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <div class="form-group">
+                        <div class="p-fluid p-grid p-formgrid">
+                            <div class="p-field p-col-12 p-md-5">
+                                <label path="date" for="date" cssClass="required">Date</label>
+                                <p-calendar [monthNavigator]="true" [yearNavigator]="true" formControlName="date"
+                                    name="date" inputId="navigators" [showIcon]="true" inputId="icon">
+                                </p-calendar>
+                                <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                                    <div *ngIf="f.date.errors.required">Date is Required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <div class="form-group">
+                        <div class="p-fluid p-grid p-formgrid">
+                            <div class="p-field p-col-12 p-md-5">
+                                <label path="time" for="time" cssClass="required">
+                                    Time</label>
+                                <p-calendar [timeOnly]="true" hourFormat="24" [showSeconds]="true" inputId="timeonly"
+                                    formControlName="time">
+                                </p-calendar>
+                                <div *ngIf="submitted && f.time.errors" class="invalid-feedback">
+                                    <div *ngIf="f.time.errors.required">Time Duration is Required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 ">
+                    <div class="form-group text-right">
+                        <button type="button" class="btn btn-warning mr-2" (click)="onReset()">
+                            Clear
+                        </button>
+                        <button type="submit" class="btn btn-primary mr-2">
+                            Submit
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-    &nbsp;
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Machine Name</th>
-                <th>Doctor Name</th>
-                <th>Hospital</th>
-                <th>Staff</th>
-                <th>Time</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr
-                style="font-family: -apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif !important;">
-                <td>{{item.payload.mslno2.machinename}}</td>
-                <td>{{item.payload.dslno2.doctorname}}</td>
-                <td>{{item.payload.hospital}}</td>
-                <td>{{item.payload.staff}}</td>
-                <td>{{item.payload.time}}</td>
-            </tr>
-        </tbody>
-    </table>
-    <!-- &nbsp; -->
-</ng-container>
+</fieldset>
+<fieldset class="scheduler-border">
+    <legend class="scheduler-border">Booking Entry</legend>
+    <ag-grid-angular #agGrid class="ag-theme-balham" [gridOptions]="gridOptions" style="width: 100%; height: 350px;"
+        [pagination]="true" [frameworkComponents]="frameworkComponents" [getRowStyle]="getRowStyle">
+    </ag-grid-angular>
+</fieldset>
