@@ -16,11 +16,17 @@
                 <div class="col-xs-3 form-group">
                     <label path="contactnumber" for="contactnumber" cssClass="required">Contact
                         Number</label>
-                    <input formControlName="contactnumber" class="form-control" type="number" path="contactnumber"
-                        name="contactnumber" [ngClass]="{ 'is-invalid': submitted && f.contactnumber.errors }"
-                        prefix="+91" mask="(000) 000 0000" />
+                    <input formControlName="contactnumber" class="form-control" path="contactnumber"
+                        name="contactnumber" maxlength="10"
+                        [ngClass]="{ 'is-invalid': submitted && f.contactnumber.errors }" />
                     <div *ngIf="submitted && f.contactnumber.errors" class="invalid-feedback">
-                        <div *ngIf="f.contactnumber.errors.required">Contact Number is Required</div>
+                        <!-- <div *ngIf="f.contactnumber.errors.required">Contact Number is Required</div> -->
+                        <div *ngIf="f.contactnumber.errors.required">
+                            Contact Number is Required
+                        </div>
+                        <div *ngIf="f.contactnumber.errors.minlength">
+                            Contact Number is Invalid
+                        </div>
                     </div>
                 </div>
                 <div class="col-xs-3 form-group">
@@ -28,7 +34,13 @@
                     <input formControlName="emailid" class="form-control" path="emailid" name="emailid"
                         [ngClass]="{ 'is-invalid': submitted && f.emailid.errors }" />
                     <div *ngIf="submitted && f.emailid.errors" class="invalid-feedback">
-                        <div *ngIf="f.emailid.errors.required">Email Id is Required</div>
+                        <!-- <div *ngIf="f.emailid.errors.required">Email Id is Required</div> -->
+                        <div *ngIf="f.emailid.errors.required">
+                            Email ID is Required
+                        </div>
+                        <div *ngIf="f.emailid.errors.pattern">
+                            Email ID is Invalid
+                        </div>
                     </div>
                 </div>
             </div>
@@ -98,9 +110,15 @@
                     <label path="pincode" for="pincode" cssClass="required">
                         PinCode</label>
                     <input class="form-control" path="pincode" id="pincode" name="pincode" formControlName="pincode"
-                        type="number" [ngClass]="{ 'is-invalid': submitted && f.pincode.errors }" mask="0*.00" />
+                        maxlength="6" [ngClass]="{ 'is-invalid': submitted && f.pincode.errors }" />
                     <div *ngIf="submitted && f.pincode.errors" class="invalid-feedback">
-                        <div *ngIf="f.pincode.errors.required"> PinCode is Required
+                        <!-- <div *ngIf="f.pincode.errors.required"> PinCode is Required
+                        </div> -->
+                        <div *ngIf="f.pincode.errors.required">
+                            PinCode is Required
+                        </div>
+                        <div *ngIf="f.pincode.errors.minlength">
+                            PinCode is Invalid
                         </div>
                     </div>
                 </div>

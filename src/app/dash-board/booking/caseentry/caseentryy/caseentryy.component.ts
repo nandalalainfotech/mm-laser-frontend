@@ -85,7 +85,6 @@ export class CaseentryyComponent implements OnInit {
     private bookingentryManager: BookingentryManager,
     private modalService: NgbModal) {
     this.frameworkComponents = {
-      //  linkRenderer: LinkRendererComponent,
       iconRenderer: IconRendererComponent
     }
     translateService.setDefaultLang(this.translateService.store.currentLang);
@@ -135,12 +134,6 @@ export class CaseentryyComponent implements OnInit {
         this.initTimes()
       ])
     });
-
-    this.fa.valueChanges.subscribe(value => {
-      console.log("values-------->", value);
-
-      // this.caseentryadd = value
-    });
   }
 
   get fa() { return this.myForm.get('times') as FormArray; }
@@ -155,7 +148,7 @@ export class CaseentryyComponent implements OnInit {
     return this.fb.group({
       mname: this.fb.control('', Validators.required),
       numofcase: this.fb.control("", Validators.required),
-      charge: this.fb.control("", Validators.required)
+      charge: this.fb.control("", Validators.required),
     });
   }
 
@@ -168,6 +161,7 @@ export class CaseentryyComponent implements OnInit {
   }
 
   removeGroup(i: number) {
+
     if (i != 0) {
       this.fa.removeAt(i);
     }
@@ -204,14 +198,6 @@ export class CaseentryyComponent implements OnInit {
 
     });
 
-    // for(let i = 0; i < this.bookingentry.length; i++) {
-    //   if(date === moment(this.bookingentry[i].date).format("YYYY-MM-DD")) {
-    //     console.log("date------->", moment(this.bookingentry[i].date).format("YYYY-MM-DD"));
-    //     console.log("bokinggg------->", this.bookingentry[i]);
-    //     this.arr.push(this.bookingentry[i])
-    //   }
-    // }    
-
   }
 
   role = this.authManager.getcurrentUser.rolename;
@@ -245,7 +231,6 @@ export class CaseentryyComponent implements OnInit {
       },
       {
         headerName: 'Appointment No',
-        // field: 'doctorname',
         width: 200,
         flex: 1,
         sortable: true,
@@ -276,11 +261,9 @@ export class CaseentryyComponent implements OnInit {
         filter: true,
         resizable: true,
         suppressSizeToFit: true,
-        // valueGetter: this.setHospital.bind(this)
       },
       {
         headerName: 'Machine Name',
-        // field: 'machinename',
         width: 200,
         flex: 1,
         sortable: true,
@@ -336,14 +319,6 @@ export class CaseentryyComponent implements OnInit {
           onClick: this.onPdfButtonClick.bind(this),
           label: 'Pdf',
         },
-        // cellRenderer: (params: any, event: any) => {
-        //   // console.log("params----------", params);
-        //   if (params.data.status == 1) {
-        //     return `<i class="fa fa-file-pdf-o" (click)="onPdfButtonClick("${this.params}")"></i>`;
-        //   } else {
-        //     return '';
-        //   }
-        // },
       },
       {
         headerName: 'Edit',
@@ -422,12 +397,8 @@ export class CaseentryyComponent implements OnInit {
 
 
   onEditButtonClick(params: any) {
-    console.log('params-------------edit----->>>>', params);
-    // this.myForm.controls.times.controls = [];
     this.myForm.reset()
-    // this.fa.push(this.initTimes());
     this.caseentryId = params.data.caseentryId;
-    // this.caseentryadd = params.data.Casemachine001wbs;
     this.insertUser = params.data.insertUser;
     this.insertDatetime = params.data.insertDatetime;
     this.caseentryForm.patchValue({
@@ -437,25 +408,31 @@ export class CaseentryyComponent implements OnInit {
       'appointmentNo': params.data.appointmentNo
     });
 
-    // this.myForm.get('times') as FormArray;
-
-    // this.fa.push(this.initTimes());
-
     for (let i = 0; i < params.data.casemachine001wbs.length; i++) {
       this.myForm.get('times') as FormArray;
-      console.log('myForm-------------edit----->>>>', this.myForm);
-
-      // this.fa.push(this.initTimes());
-      if (i < (params.data.casemachine001wbs.length) - 1) {
+      if (params.data.casemachine001wbs.length - 1) {
         this.fa.push(this.initTimes());
       }
-      this.slNo.push(params.data.casemachine001wbs[i].slno)
-      this.cslNo.push(params.data.casemachine001wbs[i].cslno)
-      this.myForm.controls.times.controls[i].controls['mname'].setValue(params.data.casemachine001wbs[i].mname);
-      this.myForm.controls.times.controls[i].controls['numofcase'].setValue(params.data.casemachine001wbs[i].numofcase);
-      this.myForm.controls.times.controls[i].controls['charge'].setValue(params.data.casemachine001wbs[i].charge);
     }
 
+    for (let i = 0; i < params.data.casemachine001wbs.length; i++) {
+      console.log("params.data.casemachine001wbs.length111111", params.data.casemachine001wbs.length);
+
+      for (let j = 0; j < this.myForm.controls.times.controls.length; j++) {
+        console.log("myForm.controls.times.controls.length222222", this.myForm.controls.times.controls.length);
+        if (i == j) {
+          this.slNo.push(params.data.casemachine001wbs[i].slno)
+          this.cslNo.push(params.data.casemachine001wbs[i].cslno)
+          this.myForm.controls.times.controls[i].controls['mname'].setValue(params.data.casemachine001wbs[i].mname ? params.data.casemachine001wbs[i].mname : "");
+          this.myForm.controls.times.controls[i].controls['numofcase'].setValue(params.data.casemachine001wbs[i].numofcase ? params.data.casemachine001wbs[i].numofcase : "");
+          this.myForm.controls.times.controls[i].controls['charge'].setValue(params.data.casemachine001wbs[i].charge ? params.data.casemachine001wbs[i].charge : "");
+        } else {
+          if (j > params.data.casemachine001wbs.length - 1) {
+            this.fa.removeAt(j);
+          }
+        }
+      }
+    }
   }
 
 
@@ -471,13 +448,13 @@ export class CaseentryyComponent implements OnInit {
       const selectedRows = params.api.getSelectedRows();
       params.api.applyTransaction({ remove: selectedRows });
       this.gridOptions.api.deselectAll();
-      this.calloutService.showSuccess("Order Removed Successfully");
+      this.calloutService.showSuccess("Case Entry Details Removed Successfully");
     });
   }
 
   onAuditButtonClick(params: any) {
     const modalRef = this.modalService.open(AuditComponent);
-    modalRef.componentInstance.title = "Production Order";
+    modalRef.componentInstance.title = "Case Entry";
     modalRef.componentInstance.details = params.data
   }
 
@@ -494,7 +471,17 @@ export class CaseentryyComponent implements OnInit {
     });
   }
 
+  private markFormGroupToucheds(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach((control: any) => {
+      control.markAsTouched();
+      if (control.controls) {
+        this.markFormGroupToucheds(control);
+      }
+    });
+  }
+
   onOrderClick(event: any, caseentryForm: any) {
+
     // console.log("myForm", this.myForm.value.times);
 
     this.markFormGroupTouched(this.caseentryForm);
@@ -502,12 +489,15 @@ export class CaseentryyComponent implements OnInit {
     if (this.caseentryForm.invalid) {
       return;
     }
+
+    this.markFormGroupToucheds(this.myForm);
+    this.submitted = true;
+    if (this.myForm.invalid) {
+      return;
+    }
     let casemachine001wbs: Casemachine001wb[] = [];
-    // console.log('casemachine001wbs=====================>>>>', casemachine001wbs);
     for (let i = 0; i < this.myForm.value.times.length; i++) {
-      console.log("myForm------------.", this.myForm.value.times[i]);
       let casemachine001wb = new Casemachine001wb();
-      // casemachine001wb.slno = casemachine001wb
       if (this.slNo.length > 0) {
         casemachine001wb.slno = this.slNo.length ? this.slNo[i] : ""
         casemachine001wb.cslno = this.cslNo.length ? this.cslNo[i] : ""
@@ -527,10 +517,8 @@ export class CaseentryyComponent implements OnInit {
     caseentry001mb.hospname = this.f.hospname.value ? this.f.hospname.value : "";
     caseentry001mb.doctorname = this.f.doctorname.value ? this.f.doctorname.value : "";
     caseentry001mb.status = this.f.status.value ? this.f.status.value : false;
-    // console.log("caseentryadd-----------------", this.caseentryadd);
     caseentry001mb.Casemachine001wbs = casemachine001wbs ? casemachine001wbs : 0;
     if (this.caseentryId) {
-      // caseentry001mb.Casemachine001wbs = this.add ? this.add : 0;
       caseentry001mb.caseentryId = this.caseentryId;
       caseentry001mb.insertUser = this.insertUser;
       caseentry001mb.insertDatetime = this.insertDatetime;
@@ -538,7 +526,7 @@ export class CaseentryyComponent implements OnInit {
       caseentry001mb.updatedDatetime = new Date();
       console.log("Caseentry001mb", caseentry001mb);
       this.caseEntryManager.caseupdate(caseentry001mb).subscribe((response) => {
-        this.calloutService.showSuccess("Order Updated Successfully");
+        this.calloutService.showSuccess("Case Entry Details Updated Successfully");
         let caseentry001mbResp = deserialize<Caseentry001mb>(Caseentry001mb, response);
         for (let caseEntry of this.numberofcase) {
           if (caseEntry.caseentryId == caseentry001mbResp.caseentryId) {
@@ -561,14 +549,13 @@ export class CaseentryyComponent implements OnInit {
         this.submitted = false;
       });
     } else {
-      // caseentry001mb.Casemachine001wbs = this.caseentryadd ? this.caseentryadd : 0;
 
       caseentry001mb.insertUser = this.authManager.getcurrentUser.username;
       caseentry001mb.insertDatetime = new Date();
       console.log("Caseentry001mb", caseentry001mb);
 
       this.caseEntryManager.casesave(caseentry001mb).subscribe((response) => {
-        this.calloutService.showSuccess("Order Saved Successfully");
+        this.calloutService.showSuccess("Case Entry Details Saved Successfully");
         let caseentry001mb = deserialize<Caseentry001mb>(Caseentry001mb, response);
         this.numberofcase?.push(caseentry001mb);
         const newItems = [JSON.parse(JSON.stringify(caseentry001mb))];

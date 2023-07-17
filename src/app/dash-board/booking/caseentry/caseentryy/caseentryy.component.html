@@ -33,8 +33,8 @@
                                 {{bookingentrys.appNo}}
                             </option>
                         </select>
-                        <div *ngIf="submitted && f.doctorname.errors" class="invalid-feedback">
-                            <div *ngIf="f.doctorname.errors.required">Doctor Name is required</div>
+                        <div *ngIf="submitted && f.appointmentNo.errors" class="invalid-feedback">
+                            <div *ngIf="f.appointmentNo.errors.required">Appointment No is required</div>
                         </div>
                     </div>
                 </div>
@@ -109,11 +109,17 @@
                                     <input formControlName="charge" class="form-control" type="number" path="charge"
                                         name="charge" style="margin-left: 1%;" />
                                 </div>
+
                                 <button (click)="addGroup()" class="btn btn-primary btn-sm"><i class="fa fa-plus"
                                         aria-hidden="true"></i></button>
                                 <button (click)="removeGroup(i)" class="btn btn-primary btn-sm"><i class="fa fa-minus"
                                         aria-hidden="true"></i></button>
                             </div>
+                            <div *ngIf="submitted && fa.status === 'INVALID'" class="invalid-feedback"
+                                style="font-size: 10px;display: flex;flex-direction: row;">
+                                <span *ngIf="fa.status === 'INVALID'">Machine Details is required</span>
+                            </div>
+
                         </div><br>
                     </form>
                 </div>

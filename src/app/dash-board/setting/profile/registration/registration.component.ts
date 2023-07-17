@@ -71,10 +71,10 @@ export class RegistrationComponent implements OnInit {
             lastname: ['', Validators.required],
             username: ['', Validators.required],
             status: ['', Validators.required],
-            password: ['', Validators.required],
+            password: [''],
             rolename: ['', Validators.required],
-            email: ['', Validators.required],
-            mobileno: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+            mobileno: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(10)]],
         });
 
         this.loaddata();
