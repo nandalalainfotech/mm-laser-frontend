@@ -18,6 +18,8 @@ export class BookingentryManager extends BaseService {
     }
 
     savebooking(bookingentry001mb: Bookingentry001mb) {
+        console.log('bookingentry001mb', bookingentry001mb);
+
         return this.postCallService(`${this.bookingentryUrl}` + "/save", {}, bookingentry001mb);
     }
     updatebooking(bookingentry001mb: Bookingentry001mb) {

@@ -78,14 +78,14 @@ export class DoctorsmasterComponent implements OnInit {
 
     this.doctorForm = this.formBuilder.group({
       doctorname: ['', Validators.required],
-      contactnumber: ['', Validators.required],
-      emailid: ['', Validators.required],
+      contactnumber: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(10)]],
+      emailid: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       hospitalname: ['', Validators.required],
       addressline1: ['', Validators.required],
       addressline2: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
-      pincode: ['', Validators.required],
+      pincode: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(6)]],
       region: ['', Validators.required],
       status: [''],
     })

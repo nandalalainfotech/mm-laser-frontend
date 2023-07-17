@@ -13,11 +13,9 @@ import { ApplanguagesettingManager } from 'src/app/shared/services/restcontrolle
 import { AuthManager } from 'src/app/shared/services/restcontroller/bizservice/auth-manager.service';
 import { UserManager } from 'src/app/shared/services/restcontroller/bizservice/user.service';
 import { BreadcrumbModule } from '../../breadcrumb/breadcrumb.module';
-import { PasswordComponent } from './password/password.component';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
 import { RegistrationComponent } from './registration/registration.component';
-import { UsernameComponent } from './username/username.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -25,8 +23,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     ProfileComponent,
-    UsernameComponent,
-    PasswordComponent,
     RegistrationComponent],
   imports: [
     CommonModule,
@@ -38,13 +34,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     FlexLayoutModule,
     MatSidenavModule,
     TranslateModule.forRoot({
-		  loader: {
-			provide: TranslateLoader,
-			useFactory: (createTranslateLoader),
-			deps: [HttpClient],
-		  },
-		  defaultLanguage: 'en-US',
-		}),
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient],
+      },
+      defaultLanguage: 'en-US',
+    }),
     AgGridModule.withComponents([])
   ],
   providers: [
