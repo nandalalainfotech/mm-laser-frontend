@@ -57,3 +57,8 @@
   width: 900px !important;
   margin: 30px auto;
 }
+/* ::ng-deep.cal-month-view .cal-event {
+  background-color: #1e90ff!important;
+  border-color: #d1e8ff!important;
+  color: #fff!important;
+} */

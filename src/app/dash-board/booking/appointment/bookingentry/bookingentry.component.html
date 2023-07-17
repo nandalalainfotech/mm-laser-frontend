@@ -73,9 +73,10 @@
                     <div class="form-group">
                         <div class="p-fluid p-grid p-formgrid">
                             <div class="p-field p-col-12 p-md-5">
-                                <label path="date" for="date" cssClass="required">Date</label>
+                                <label path="date" for="date" cssClass="required"> Date</label>
                                 <p-calendar [monthNavigator]="true" [yearNavigator]="true" formControlName="date"
-                                    name="date" inputId="navigators" [showIcon]="true" inputId="icon">
+                                    [minDate]="minDate" [maxDate]="maxDate" yearRange="2000:2060" inputId="navigators"
+                                    [showIcon]="true" inputId="icon">
                                 </p-calendar>
                                 <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
                                     <div *ngIf="f.date.errors.required">Date is Required</div>
@@ -120,7 +121,7 @@
 <fieldset class="scheduler-border">
     <legend class="scheduler-border">Booking Entry</legend>
     <ag-grid-angular #agGrid class="ag-theme-balham" [gridOptions]="gridOptions" style="width: 100%; height: 350px;"
-        [pagination]="true" [frameworkComponents]="frameworkComponents"
-        [getRowStyle]="getRowStyle">
+        [pagination]="true" [frameworkComponents]="frameworkComponents" [getRowStyle]="getRowStyle">
     </ag-grid-angular>
 </fieldset>
+<!-- </app-add-popup> -->

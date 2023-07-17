@@ -72,8 +72,8 @@ export class MachinemasterComponent implements OnInit {
 
       this.colorthemes_4 = Utils.rgbToHex(rgb, 0.8);
     });
-    console.log("this.username---------->",this.username );
-    
+    console.log("this.username---------->", this.username);
+
 
     this.machineForm = this.formBuilder.group({
       machinename: ['', Validators.required],
@@ -84,9 +84,6 @@ export class MachinemasterComponent implements OnInit {
   }
 
   username = this.authManager.getcurrentUser.username;
-
-  // console.log("username----------------->", this.username);
-
 
   loaddata() {
     this.machinemasterManager.allmachinemaster(this.username).subscribe((response) => {
@@ -214,7 +211,7 @@ export class MachinemasterComponent implements OnInit {
       }
       const selectedRows = params.api.getSelectedRows();
       params.api.applyTransaction({ remove: selectedRows });
-      this.calloutService.showSuccess("Order Removed Successfully");
+      this.calloutService.showSuccess("Machine Master Details Removed Successfully");
     });
   }
 
@@ -254,9 +251,7 @@ export class MachinemasterComponent implements OnInit {
       machinemaster001mb.updatedUser = this.authManager.getcurrentUser.username;
       machinemaster001mb.updatedDatetime = new Date();
       this.machinemasterManager.updatemachinemaster(machinemaster001mb).subscribe((response: any) => {
-        console.log("response", response);
-
-        this.calloutService.showSuccess("Order Updated Successfully");
+        this.calloutService.showSuccess("Machine Master Details Updated Successfully");
         let machinemaster001mb = deserialize<Machinemaster001mb>(Machinemaster001mb, response);
         for (let machineemasters of this.machiness) {
           if (machineemasters.slNo == machinemaster001mb.slNo) {
@@ -278,8 +273,7 @@ export class MachinemasterComponent implements OnInit {
       machinemaster001mb.insertUser = this.authManager.getcurrentUser.username;
       machinemaster001mb.insertDatetime = new Date();
       this.machinemasterManager.savemachinemaster(machinemaster001mb).subscribe((response) => {
-        console.log("response", response)
-        this.calloutService.showSuccess("Order Saved Successfully");
+        this.calloutService.showSuccess("Machine Master Details Saved Successfully");
         let machinemaster001mb = deserialize<Machinemaster001mb>(Machinemaster001mb, response);
         this.machiness?.push(machinemaster001mb);
         const newItems = [JSON.parse(JSON.stringify(machinemaster001mb))];

@@ -34,14 +34,15 @@
         Day
       </div>
     </div>
-
   </div>
 </div>
 <br />
 <div [ngSwitch]="view">
+
   <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
-    [refresh]="refresh" (dayClicked)="dayClicked($event.day)">
+    [refresh]="refresh" (dayClicked)="dayClicked($event.day)" [cellTemplate]="customCellTemplate">
   </mwl-calendar-month-view>
+
   <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
     (eventClicked)="handleEvent($event.event)">
   </mwl-calendar-week-view>
@@ -49,3 +50,18 @@
     (eventClicked)="handleEvent($event.event)">
   </mwl-calendar-day-view>
 </div>
+
+<ng-template #customCellTemplate let-day="day" let-locale="locale">
+  <div class="cal-cell-top">
+    <span style="background-color: grey" class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+    <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+  </div>
+  <div>
+    <span style="background-color: green" *ngIf="day.badgeTotal > 0" class="cal-day-badge">{{
+      countErrors(day.events)}}</span>
+    <span style="background-color: red" class="cal-day-badge"
+      *ngIf="day.badgeTotal > 0">{{countsuccess(day.events)}}</span>
+  </div>
+  <div>
+  </div>
+</ng-template>

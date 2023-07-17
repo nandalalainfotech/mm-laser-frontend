@@ -200,7 +200,7 @@ export class RegionmasterComponent implements OnInit {
       }
       const selectedRows = params.api.getSelectedRows();
       params.api.applyTransaction({ remove: selectedRows });
-      this.calloutService.showSuccess("Order Removed Successfully");
+      this.calloutService.showSuccess("Region Master Details Removed Successfully");
     });
   }
 
@@ -240,9 +240,7 @@ export class RegionmasterComponent implements OnInit {
       regionmaster001mb.updatedUser = this.authManager.getcurrentUser.username;
       regionmaster001mb.updatedDatetime = new Date();
       this.regionmasterManager.updateregion(regionmaster001mb).subscribe((response: any) => {
-        console.log("response", response);
-
-        this.calloutService.showSuccess("Order Updated Successfully");
+        this.calloutService.showSuccess("Region Master Details Updated Successfully");
         let regionmaster001mb = deserialize<Regionmaster001mb>(Regionmaster001mb, response);
         for (let regionmasters of this.regionmaster) {
           if (regionmasters.slNo == regionmaster001mb.slNo) {
@@ -264,8 +262,7 @@ export class RegionmasterComponent implements OnInit {
       regionmaster001mb.insertUser = this.authManager.getcurrentUser.username;
       regionmaster001mb.insertDatetime = new Date();
       this.regionmasterManager.saveregion(regionmaster001mb).subscribe((response) => {
-        console.log("response", response)
-        this.calloutService.showSuccess("Order Saved Successfully");
+        this.calloutService.showSuccess("Region Master Details Saved Successfully");
         let regionmaster001mb = deserialize<Regionmaster001mb>(Regionmaster001mb, response);
         this.regionmaster?.push(regionmaster001mb);
         const newItems = [JSON.parse(JSON.stringify(regionmaster001mb))];

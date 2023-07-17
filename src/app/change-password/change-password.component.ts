@@ -105,8 +105,6 @@ export class ChangePasswordComponent implements OnInit {
 
         if (num == 1)
             this.toggle1 = !this.toggle1;
-        // else
-        //   this.toggle2 = !this.toggle2;
     }
 
     onReset() {

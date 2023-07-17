@@ -59,7 +59,7 @@
         "angular-resizable-element": "3.2.4",
         "angular-sparklines": "^1.0.2",
         "angular-svg-round-progressbar": "^7.0.0",
-        "angularx-flatpickr": "6.1.0",
+        "angularx-flatpickr": "^6.1.0",
         "apexcharts": "3.6.4",
         "bcrypt": "5.0.0",
         "bootstrap": "4.6.0",
