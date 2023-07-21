@@ -152,7 +152,7 @@ export class BookingentryComponent implements OnInit {
     })
 
     this.bookingentryManager.getCount().subscribe(response => {
-      this.count = response[0].row == 0 ? 1 : parseInt(response[0].row) + 1;
+      this.count = response[0].ss == 0 ? 1 : parseInt(response[0].ss) + 1;
       this.bookingForm.patchValue({
         appNo: String("MM/APP/22-23/") + String(this.count).padStart(4, '0')
       });
