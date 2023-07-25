@@ -30,15 +30,21 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 import { UserRegistrationModule } from './user-registration/user-registration.module';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ChangePasswordModule } from './change-password/change-password.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
 
 export const environment = {
 	production: true,
 	appRootPrefix: '/<>'
-	};
+};
 
 export function createTranslateLoader(http: HttpClient) {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-  }
+}
 
 @NgModule({
 	declarations: [
@@ -66,17 +72,23 @@ export function createTranslateLoader(http: HttpClient) {
 		AgGridModule.withComponents([]),
 		NgbCollapseModule,
 		UserRegistrationModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatButtonModule,
+		MatListModule,
+		MatTableModule,
+		MatIconModule,
 		GojsAngularModule,
 		TranslateModule.forRoot({
-		  loader: {
-			provide: TranslateLoader,
-			useFactory: (createTranslateLoader),
-			deps: [HttpClient],
-		  },
-		  defaultLanguage: 'en-US',
+			loader: {
+				provide: TranslateLoader,
+				useFactory: (createTranslateLoader),
+				deps: [HttpClient],
+			},
+			defaultLanguage: 'en-US',
 		}),
 	],
-	exports: [PopupComponent, NgbCollapseModule,IconRendererComponent],
+	exports: [PopupComponent, NgbCollapseModule, IconRendererComponent],
 	providers: [AuthManager, CalloutService, DataSharedService, UserManager, BaseService,
 		applogoSettingManager, UserManager,
 		{ provide: LocationStrategy, useClass: PathLocationStrategy },

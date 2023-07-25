@@ -22,6 +22,11 @@ import { BookingmanagementComponent } from './bookingmanagement/bookingmanagemen
 import { TimeComponent } from './time/time.component';
 import { EmployeemasterManager } from 'src/app/shared/services/restcontroller/bizservice/employeemaster.service';
 import { CalendarPopupComponent } from './calendar-popup/calendar-popup.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
+import { CdkColumnDef } from '@angular/cdk/table';
 
 @NgModule({
   declarations: [AppointmentComponent, BookingentryComponent, BookingmanagementComponent, TimeComponent, CalendarPopupComponent],
@@ -38,16 +43,21 @@ import { CalendarPopupComponent } from './calendar-popup/calendar-popup.componen
     NgbTimepickerModule,
     AgGridModule.withComponents([]),
     MatFormFieldModule,
-    MatInputModule,
+    MatListModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSelectModule,
+    MatTableModule,
+    MatInputModule,
+    MatButtonModule,
   ],
   providers: [
     DatePipe,
     DoctormasterManager,
     MachinemasterManager,
     BookingentryManager,
-    EmployeemasterManager
+    EmployeemasterManager,
+    CdkColumnDef
   ],
   exports: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]

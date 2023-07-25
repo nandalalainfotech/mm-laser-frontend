@@ -16,3 +16,9 @@
     float: right;
     margin: -25px 5px 0px 0px;
 }
+
+.material-btn {
+    float: right !important;
+    background: var(--color_l1) !important;
+    color: #ffff;
+}

@@ -1,48 +1,24 @@
 <fieldset class="scheduler-border">
     <legend class="scheduler-border">Executive Master</legend>
-    <div class="formData">
-        <form [formGroup]="machineForm" (ngSubmit)="onUserClick($event, machineForm)">
-            <div class="row">
-                <div class="col-xs-3 col-sm-3 ">
-                    <div class="form-group">
-                        <label path="machinename" for="machinename" cssClass="required">
-                            Executive</label>
-                        <input formControlName="machinename" class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f.machinename.errors }" />
-                        <div *ngIf="submitted && f.machinename.errors" class="invalid-feedback">
-                            <div *ngIf="f.machinename.errors.required">Executive is required
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-3">
-                    <div class="form-group">
-                        <label path="status" for="status">Status</label>
-                        <br>
-                        <label class="switch">
-                            <input type="checkbox" formControlName="status" name="status" checked>
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
+    <form [formGroup]="machineForm" (ngSubmit)="onUserClick($event, machineForm,f)" #f="ngForm">
+        <mat-form-field appearance="outline">
+            <mat-label class="font">Executive Name</mat-label>
+            <input class="material" formControlName="machinename" matInput>
+            <mat-error
+                *ngIf="submitted && machineForm.controls['machinename'].invalid && machineForm.controls['machinename'].touched">
+                Executive is required.
+            </mat-error>
+        </mat-form-field><br>
+        <label style="margin-top: 5px;">Status :
+        </label>
+        <br>
+        <mat-slide-toggle formControlName="status"></mat-slide-toggle>
 
-                <div class="col-sm-12 ">
-                    <div class="form-group text-right">
-                        <button type="submit" class="btn btn-primary mr-2">
-                            Submit
-                        </button>
-                        <button type="button" class="btn btn-warning mr-2" (click)="onReset()">
-                            Clear
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+        <br>
+        <button mat-button type="button" class="material-btn mr-2" (click)="onReset(f)">Clear</button>
+        <button mat-button type="submit" class="material-btn mr-2">Submit</button>
+
+    </form>
 </fieldset>
 
 <fieldset class="scheduler-border">

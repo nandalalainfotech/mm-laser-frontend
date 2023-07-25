@@ -1,136 +1,96 @@
 <fieldset class="scheduler-border">
     <legend class="scheduler-border">Registration</legend>
-    <div class="formData">
-        <form [formGroup]="registerForm" (ngSubmit)="onUserClick($event, registerForm)">
-            <div class="row">
-                <div class="col-xs-6 col-sm-6">
-                    <div class="form-group">
-                        <input class="form-control" path="id" type="hidden" />
-                        <label path="firstname" for="firstname" cssClass="required">FirstName</label>
-                        <input formControlName="firstname" class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" />
-                        <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
-                            <div *ngIf="f.firstname.errors.required">Firstname is required</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6">
-                    <div class="form-group">
-                        <label path="lastname" for="lastname" cssClass="required">LastName</label>
-                        <input formControlName="lastname" class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" />
-                        <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
-                            <div *ngIf="f.lastname.errors.required">LastName is required</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-6 col-sm-6 ">
-                    <div class="form-group">
-                        <label path="username" for="username" cssClass="required">UserName</label>
-                        <input formControlName="username" class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-                        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                            <div *ngIf="f.username.errors.required">UserName is required</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 ">
-                    <div class="form-group">
-                        <label for="roleID">Role Type</label>
-                        <input path="role" type="hidden" />
-                        <select formControlName="rolename" class="form-control" name="rolenamelist" id="rolenamelist"
-                            [ngClass]="{ 'is-invalid': submitted && f.rolename.errors }">
-                            <option value="" hidden> -Select the role - </option>
-                            <option value="null"> - Select the role - </option>
-                            <option>Admin</option>
-                            <option>User</option>
-                        </select>
-                        <div *ngIf="submitted && f.rolename.errors" class="invalid-feedback">
-                            <div *ngIf="f.rolename.errors.required">Role Type is required</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="col-xs-6 col-sm-6 ">
-                    <div class="form-group">
-                        <label path="password" for="password" cssClass="required">Password</label>
-                        <input formControlName="password" class="form-control" path="password"
-                            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                            <div *ngIf="f.password.errors.required">Password is required</div>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
-            <div class="row">
-                <div class="col-xs-6 col-sm-6 ">
-                    <div class="form-group">
-                        <label path="status" for="status" cssClass="required">Status</label>
-                        <select formControlName="status" class="form-control" path="status"
-                            [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
-                            <option value="" hidden> Select the status </option>
-                            <option value="null"> Select the status</option>
-                            <option>A</option>
-                            <option>B</option>
-                            <option>C</option>
-                        </select>
-                        <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
-                            <div *ngIf="f.status.errors.required">Status is required</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6">
-                    <div class="form-group">
-                        <label path="mobileno" for="mobileno" cssClass="required">Mobile Number</label>
-                        <input formControlName="mobileno" maxlength="10" class="form-control" path="mobileno"
-                            [ngClass]="{ 'is-invalid': submitted && f.mobileno.errors }" />
-                        <div *ngIf="submitted && f.mobileno.errors" class="invalid-feedback">
-                            <!-- <div *ngIf="f.mobileno.errors.required">Mobile Number is required</div> -->
-                            <div *ngIf="f.mobileno.errors.required">
-                                Mobile Number is Required
-                            </div>
-                            <div *ngIf="f.mobileno.errors.minlength">
-                                Mobile Number is Invalid
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6 col-sm-6">
-                    <div class="form-group">
-                        <label path="email" for="email" cssClass="required">Email</label>
-                        <input formControlName="email" class="form-control" path="email"
-                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                            <!-- <div *ngIf="f.email.errors.required">Email is required</div> -->
-                            <div *ngIf="f.email.errors.required">
-                                Email is Required
-                            </div>
-                            <div *ngIf="f.email.errors.pattern">
-                                Email is Invalid
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-sm-12 ">
-                    <div class="form-group text-right">
-                        <button type="submit" class="btn btn-primary mr-2">
-                            Submit
-                        </button>
-                        <button type="button" class="btn btn-warning mr-2" (click)="onReset()">
-                            Clear
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+    <form [formGroup]="registerForm" (ngSubmit)="onUserClick($event, registerForm,f)" #f="ngForm">
+        <mat-form-field appearance="outline">
+            <mat-label class="font">FirstName</mat-label>
+            <input class="material" formControlName="firstname" matInput>
+            <mat-error
+                *ngIf="submitted && registerForm.controls['firstname'].hasError('required') && registerForm.controls['firstname'].touched">
+                FirstName is required.
+            </mat-error>
+        </mat-form-field>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <mat-form-field appearance="outline">
+            <mat-label class="font">LastName</mat-label>
+            <input class="material" formControlName="lastname" matInput>
+            <mat-error
+                *ngIf="submitted && registerForm.controls['lastname'].hasError('required') && registerForm.controls['lastname'].touched">
+                LastName is required.
+            </mat-error>
+        </mat-form-field>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <mat-form-field appearance="outline">
+            <mat-label class="font">UserName</mat-label>
+            <input class="material" formControlName="username" matInput>
+            <mat-error
+                *ngIf="submitted && registerForm.controls['username'].hasError('required') && registerForm.controls['username'].touched">
+                UserName is required.
+            </mat-error>
+        </mat-form-field>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <mat-form-field appearance="outline">
+            <mat-label>Role Type</mat-label>
+            <mat-select formControlName="rolename">
+                <mat-option value="Admin">Admin</mat-option>
+                <mat-option value="User">User</mat-option>
+            </mat-select>
+            <mat-error
+                *ngIf="submitted && registerForm.controls['rolename'].hasError('required') && registerForm.controls['rolename'].touched">
+                Role Type is required.
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="outline">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+                <mat-option value="A">A</mat-option>
+                <mat-option value="B">B</mat-option>
+                <mat-option value="C">C</mat-option>
+            </mat-select>
+            <mat-error
+                *ngIf="submitted && registerForm.controls['status'].hasError('required') && registerForm.controls['status'].touched">
+                Status is required.
+            </mat-error>
+        </mat-form-field>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <mat-form-field appearance="outline">
+            <mat-label class="font">Mobile Number</mat-label>
+            <input matInput formControlName="mobileno" class="mat" maxlength="10">
+            <mat-error
+                *ngIf="registerForm.controls['mobileno'].hasError('required') && registerForm.controls['mobileno'].touched">
+                Mobile Number is required.
+            </mat-error>
+            <mat-error
+                *ngIf="registerForm.controls['mobileno'].hasError('pattern') && registerForm.controls['mobileno'].touched">
+                Mobile Number is Invalid.
+            </mat-error>
+        </mat-form-field>
+        &nbsp;
+        &nbsp;
+        <mat-form-field appearance="outline">
+            <mat-label class="font">Email</mat-label>
+            <input matInput formControlName="email" class="mat">
+            <mat-error
+                *ngIf="registerForm.controls['email'].hasError('required') && registerForm.controls['email'].touched">
+                Email is required.
+            </mat-error>
+            <mat-error
+                *ngIf="registerForm.controls['email'].hasError('email') && registerForm.controls['email'].touched">
+                Email is Invalid.
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <button mat-button type="button" class="material-btn mr-2" (click)="onReset(f)">Clear</button>
+        <button mat-button type="submit" class="material-btn mr-2">Submit</button>
+    </form>
 </fieldset>
 <fieldset class="scheduler-border">
     <legend class="scheduler-border">RegistredDetails</legend>

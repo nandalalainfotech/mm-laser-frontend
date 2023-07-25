@@ -16,6 +16,10 @@ import { BreadcrumbModule } from '../../breadcrumb/breadcrumb.module';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -31,6 +35,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     BreadcrumbModule,
     MatTabsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    MatButtonModule,
     FlexLayoutModule,
     MatSidenavModule,
     TranslateModule.forRoot({

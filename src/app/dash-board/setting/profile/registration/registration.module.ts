@@ -7,6 +7,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { AgGridModule } from 'ag-grid-angular';
 import { BreadcrumbModule } from 'src/app/dash-board/breadcrumb/breadcrumb.module';
 import { RegistrationRoutingModule } from './registration-routing.module';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -20,6 +24,10 @@ import { RegistrationRoutingModule } from './registration-routing.module';
     BreadcrumbModule,
     MatTabsModule,
     FlexLayoutModule,
+    MatInputModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    MatButtonModule,
     AgGridModule.withComponents([])
   ]
 })

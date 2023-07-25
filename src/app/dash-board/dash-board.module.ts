@@ -29,6 +29,10 @@ import { DashBoardComponent } from './dash-board.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
+import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { CdkColumnDef } from '@angular/cdk/table';
 
 export const environment = {
   production: true,
@@ -66,6 +70,9 @@ export function createTranslateLoader(http: HttpClient) {
     FlexLayoutModule,
     MatSidenavModule,
     MatTabsModule,
+    MatListModule,
+    MatIconModule,
+    MatExpansionModule,
     ColorPickerModule,
     DashboardRoutingModule,
     TranslateModule.forRoot({
@@ -77,7 +84,7 @@ export function createTranslateLoader(http: HttpClient) {
       defaultLanguage: 'en-US',
     }),
   ],
-  providers: [DataSharedService, UserManager, ApplanguagesettingManager, DoctormasterManager, MachinemasterManager, BookingentryManager, DatePipe
+  providers: [DataSharedService, CdkColumnDef, UserManager, ApplanguagesettingManager, DoctormasterManager, MachinemasterManager, BookingentryManager, DatePipe
   ],
   exports: [NgbCollapseModule],
 })

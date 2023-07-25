@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { GridOptions } from 'ag-grid-community';
@@ -43,6 +43,7 @@ export class RegistrationComponent implements OnInit {
     csystemproperties?: Systemproperties001mb[] = [];
     public gridOptions: GridOptions | any;
     registerForm: FormGroup | any;
+    resetForm: FormGroup | any;
     submitted = false;
     toggle1: boolean = false;
 
@@ -74,7 +75,7 @@ export class RegistrationComponent implements OnInit {
             password: [''],
             rolename: ['', Validators.required],
             email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-            mobileno: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(10)]],
+            mobileno: ['', [Validators.required, Validators.pattern(/^\d{10}$/), Validators.minLength(10)]],
         });
 
         this.loaddata();
@@ -324,8 +325,8 @@ export class RegistrationComponent implements OnInit {
         });
     }
 
-    onUserClick(event: any, registerForm: any) {
-        console.log("event-->", event);
+    onUserClick(data: NgForm, registerForm: any, form: any) {
+        console.log("event-->", this.f);
         this.markFormGroupTouched(this.registerForm);
         this.submitted = true;
         if (this.registerForm.invalid) {
@@ -350,9 +351,11 @@ export class RegistrationComponent implements OnInit {
             user001mb.updatedDatetime = new Date();
             this.userManager.updateuser(user001mb).subscribe(response => {
                 this.calloutService.showSuccess("Registration Updated Successfully");
-                this.loaddata();
                 this.registerForm.reset();
+                form.resetForm();
+                this.loaddata();
                 this.submitted = false;
+                data.resetForm();
                 this.personId = null;
             })
         }
@@ -361,16 +364,19 @@ export class RegistrationComponent implements OnInit {
             user001mb.insertDatetime = new Date();
             this.userManager.saveuser(user001mb).subscribe((response) => {
                 this.calloutService.showSuccess("Registration Saved Successfully");
-                this.loaddata();
                 this.registerForm.reset();
+                form.resetForm();
+                this.loaddata();
                 this.submitted = false;
+                data.resetForm();
             })
         }
 
     }
 
-    onReset() {
+    onReset(data: any) {
         this.registerForm.reset();
+        data.resetForm();
         this.submitted = false;
     }
 }

@@ -1,47 +1,22 @@
 <fieldset class="scheduler-border">
     <legend class="scheduler-border">Region Master</legend>
-    <div class="formData">
-        <form [formGroup]="regionForm" (ngSubmit)="onUserClick($event, regionForm)">
-            <div class="row">
-                <div class="col-xs-3 col-sm-3 ">
-                    <div class="form-group">
-                        <label path="region" for="region" cssClass="required">
-                            Region</label>
-                        <input formControlName="region" class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f.region.errors }" />
-                        <div *ngIf="submitted && f.region.errors" class="invalid-feedback">
-                            <div *ngIf="f.region.errors.required">Region is required
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-3">
-                    <div class="form-group">
-                        <label path="status" for="status">Status</label>
-                        <br>
-                        <label class="switch">
-                            <input type="checkbox" formControlName="status" name="status" checked>
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 ">
-                    <div class="form-group text-right">
-                        <button type="submit" class="btn btn-primary mr-2">
-                            Submit
-                        </button>
-                        <button type="button" class="btn btn-warning mr-2" (click)="onReset()">
-                            Clear
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+    <form [formGroup]="regionForm" (ngSubmit)="onUserClick($event, regionForm,f)" #f="ngForm">
+        <mat-form-field appearance="outline">
+            <mat-label class="font">Region</mat-label>
+            <input class="mat" formControlName="region" matInput>
+            <mat-error
+                *ngIf="submitted && regionForm.controls['region'].invalid && regionForm.controls['region'].touched">
+                Region is required.
+            </mat-error>
+        </mat-form-field><br>
+        <label>Status :
+        </label>
+        <br>
+        <mat-slide-toggle formControlName="status"></mat-slide-toggle>
+        <br>
+        <button mat-button type="button" class="material-btn mr-2" (click)="onReset(f)">Clear</button>
+        <button mat-button type="submit" class="material-btn mr-2">Submit</button>
+    </form>
 </fieldset>
 
 <fieldset class="scheduler-border">

@@ -12,6 +12,7 @@
   font-weight: bold !important;
 }
 
+
 .logo img {
   width: 24px;
   height: 24px;
@@ -29,4 +30,32 @@
   margin-bottom: 4px;
 
   opacity: 1 !important;
+}
+
+.mat-list-item {
+  color: #ffff;
+  font-size: 13px;
+}
+
+.mat-head {
+  vertical-align: middle;
+  padding: 0 8px;
+  margin: 14px 0;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.head-img {
+  margin-top: 2px;
+}
+
+@media (min-width:337px)and(max-width:667px) {
+  .mat-head {
+    vertical-align: middle;
+    padding: 0 8px;
+    margin: 14px 0;
+    font-size: 11px;
+    cursor: pointer;
+    display: none !important;
+  }
 }
