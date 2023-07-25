@@ -29,10 +29,14 @@ import { DashBoardComponent } from './dash-board.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
+import { RouterModule } from '@angular/router';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { CdkColumnDef } from '@angular/cdk/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 export const environment = {
   production: true,
@@ -70,9 +74,15 @@ export function createTranslateLoader(http: HttpClient) {
     FlexLayoutModule,
     MatSidenavModule,
     MatTabsModule,
+    ColorPickerModule,
+    DashboardRoutingModule,
     MatListModule,
+    MatButtonModule,
+    MatToolbarModule,
     MatIconModule,
+    RouterModule,
     MatExpansionModule,
+     MatTooltipModule,
     ColorPickerModule,
     DashboardRoutingModule,
     TranslateModule.forRoot({

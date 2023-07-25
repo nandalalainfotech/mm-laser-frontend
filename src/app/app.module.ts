@@ -36,6 +36,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 export const environment = {
 	production: true,
@@ -68,6 +71,7 @@ export function createTranslateLoader(http: HttpClient) {
 		ScheduleAllModule,
 		BrowserAnimationsModule,
 		AppRoutingModule,
+	MatSelectModule,
 		NgbModule,
 		AgGridModule.withComponents([]),
 		NgbCollapseModule,
@@ -79,6 +83,8 @@ export function createTranslateLoader(http: HttpClient) {
 		MatTableModule,
 		MatIconModule,
 		GojsAngularModule,
+			MatDatepickerModule,
+		MatNativeDateModule,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,

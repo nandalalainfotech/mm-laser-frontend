@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GridOptions } from 'ag-grid-community';
@@ -377,7 +377,7 @@ export class BookingmanagementComponent implements OnInit {
     });
   }
 
-  onUserClick(event: any, bookingForm: any) {
+  onUserClick(bookingForm: any, data: NgForm, form: any) {
 
     this.markFormGroupTouched(this.bookingForm);
     this.submitted = true;
@@ -401,9 +401,11 @@ export class BookingmanagementComponent implements OnInit {
       bookingentry001mb.updatedDatetime = new Date();
       this.bookingentryManager.updatebooking(bookingentry001mb).subscribe((response: any) => {
         this.calloutService.showSuccess("Booking Entry Details Updated Successfully");
-        this.loaddata();
         this.bookingForm.reset();
+        form.resetForm();
+        this.loaddata();
         this.submitted = false;
+        data.resetForm();
         this.bookingId = null;
       })
     }
@@ -414,17 +416,22 @@ export class BookingmanagementComponent implements OnInit {
         console.log("response", response);
         this.calloutService.showSuccess("Booking Entry Details Saved Successfully");
         if (this.bookingForm.valid) {
-          this.loaddata();
           this.bookingForm.reset();
+          form.resetForm();
+          this.loaddata();
           this.submitted = false;
+          data.resetForm();
           this.router.navigate(['/app-dash-board/app-booking/app-calendar-table']);
           return;
         }
       })
     }
   }
-  onReset() {
+
+  onReset(data: any) {
     this.bookingForm.reset();
+    data.resetForm();
+    this.loaddata();
     this.submitted = false;
   }
 
