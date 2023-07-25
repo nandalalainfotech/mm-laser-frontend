@@ -5,123 +5,99 @@
 </div>
 <fieldset class="scheduler-border" *ngIf="role == 'Admin'">
     <legend class="scheduler-border">Booking Entry</legend>
-    <div class="formData">
-        <form [formGroup]="bookingForm" (ngSubmit)="onUserClick($event, bookingForm)">
-            <div class="row">
-                <div class="col-xs-3 col-sm-3 form-group">
-                    <div class="form-group">
-                        <label path="appNo" for="series" cssClass="required" required="true">Appointment No</label>
-                        <input class="form-control" formControlName="appNo" readonly />
-                    </div>
-                </div>
-                <div class="col-xs-3 col-sm-3 form-group">
-                    <label for="mslno">Executive</label>
-                    <select formControlName="mslno" class="form-control" name="mslno" id="mslno"
-                        [ngClass]="{ 'is-invalid': submitted && f.mslno.errors }">
-                        <option value="" hidden> - Select the Executive - </option>
-                        <option value="null"> - Select the Executive - </option>
-                        <option *ngFor="let mslno of machiness" [value]="mslno.slNo">
-                            {{mslno.machinename}}
-                        </option>
-                    </select>
-                    <div *ngIf="submitted && f.mslno.errors" class="invalid-feedback">
-                        <div *ngIf="f.mslno.errors.required">Machine is required</div>
-                    </div>
-                </div>
-                <div class="col-xs-3 col-sm-3 form-group">
-                    <label for="dslno">Doctor</label>
-                    <select formControlName="dslno" class="form-control" name="dslno" id="dslno"
-                        [ngClass]="{ 'is-invalid': submitted && f.dslno.errors }">
-                        <option value="" hidden> - Select the Doctor - </option>
-                        <option value="null"> - Select the Doctor - </option>
-                        <option *ngFor="let dslno of Doctormaster" [value]="dslno.slNo">
-                            {{dslno.doctorname}}
-                        </option>
-                    </select>
-                    <div *ngIf="submitted && f.dslno.errors" class="invalid-feedback">
-                        <div *ngIf="f.dslno.errors.required">Doctor is required</div>
-                    </div>
-                </div>
-                <div class="col-xs-3 col-sm-3 form-group">
-                    <label path="hospital" for="hospital" cssClass="required">Hospital
-                    </label>
-                    <select formControlName="hospital" class="form-control" name="hospital" id="hospital"
-                        [ngClass]="{ 'is-invalid': submitted && f.hospital.errors }">
-                        <option value="" hidden> - Select the Hospital - </option>
-                        <option value="null"> - Select the Hospital - </option>
-                        <option *ngFor="let hospital of Doctormaster" [value]="hospital.hospitalname">
-                            {{hospital.hospitalname}}
-                        </option>
-                    </select>
-                    <div *ngIf="submitted && f.hospital.errors" class="invalid-feedback">
-                        <div *ngIf="f.hospital.errors.required">Hospital is Required</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-3 col-sm-3 form-group">
-                    <label path="staff" for="staff" cssClass="required">Employee
-                    </label>
-                    <select formControlName="staff" class="form-control" name="staff" id="staff"
-                        [ngClass]="{ 'is-invalid': submitted && f.staff.errors }">
-                        <option value="" hidden> - Select the Employee - </option>
-                        <option value="" hidden> - Select the Employee - </option>
-                        <option *ngFor="let staff of arr" [value]="staff.username">
-                            {{staff.username}}
-                        </option>
-                    </select>
-                    <div *ngIf="submitted && f.staff.errors" class="invalid-feedback">
-                        <div *ngIf="f.staff.errors.required">Staff is Required</div>
-                    </div>
-                </div>
-                <div class="col-xs-3 col-sm-3">
-                    <div class="form-group">
-                        <div class="p-fluid p-grid p-formgrid">
-                            <div class="p-field p-col-12 p-md-5">
-                                <label path="date" for="date" cssClass="required">Date</label>
-                                <p-calendar [monthNavigator]="true" [yearNavigator]="true" formControlName="date"
-                                    name="date" inputId="navigators" [showIcon]="true" inputId="icon">
-                                </p-calendar>
-                                <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
-                                    <div *ngIf="f.date.errors.required">Date is Required</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-3 col-sm-3">
-                    <div class="form-group">
-                        <div class="p-fluid p-grid p-formgrid">
-                            <div class="p-field p-col-12 p-md-5">
-                                <label path="time" for="time" cssClass="required">
-                                    Time</label>
-                                <p-calendar [timeOnly]="true" hourFormat="24" [showSeconds]="true" inputId="timeonly"
-                                    formControlName="time">
-                                </p-calendar>
-                                <div *ngIf="submitted && f.time.errors" class="invalid-feedback">
-                                    <div *ngIf="f.time.errors.required">Time Duration is Required
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 ">
-                    <div class="form-group text-right">
-                        <button type="button" class="btn btn-warning mr-2" (click)="onReset()">
-                            Clear
-                        </button>
-                        <button type="submit" class="btn btn-primary mr-2">
-                            Submit
-                        </button>
-
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+    <form [formGroup]="bookingForm" (ngSubmit)="onUserClick($event, bookingForm,f)" #f="ngForm">
+        <mat-form-field appearance="outline">
+            <mat-label class="font">Appointment No</mat-label>
+            <input class="mat" formControlName="appNo" matInput readonly />
+        </mat-form-field>
+        &nbsp;
+        &nbsp;
+        <mat-form-field appearance="outline">
+            <mat-label>Executive</mat-label>
+            <mat-select formControlName="mslno">
+                <mat-option>- Select the Executive - </mat-option>
+                <mat-option *ngFor="let mslno of machiness" [value]="mslno.slNo">
+                    {{mslno.machinename}}
+                </mat-option>
+            </mat-select>
+            <mat-error
+                *ngIf="submitted && bookingForm.controls['mslno'].hasError('required') && bookingForm.controls['mslno'].touched">
+                Executive is required.
+            </mat-error>
+        </mat-form-field>
+        &nbsp;
+        &nbsp;
+        <mat-form-field appearance="outline">
+            <mat-label>Doctor</mat-label>
+            <mat-select formControlName="dslno">
+                <mat-option>- Select the Doctor - </mat-option>
+                <mat-option *ngFor="let dslno of Doctormaster" [value]="dslno.slNo">
+                    {{dslno.doctorname}}
+                </mat-option>
+            </mat-select>
+            <mat-error
+                *ngIf="submitted && bookingForm.controls['dslno'].hasError('required') && bookingForm.controls['dslno'].touched">
+                Doctor is required.
+            </mat-error>
+        </mat-form-field>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <mat-form-field appearance="outline">
+            <mat-label>Hospital</mat-label>
+            <mat-select formControlName="hospital">
+                <mat-option>- Select the Hospital - </mat-option>
+                <mat-option *ngFor="let hospital of Doctormaster" [value]="hospital.hospitalname">
+                    {{hospital.hospitalname}}
+                </mat-option>
+            </mat-select>
+            <mat-error
+                *ngIf="submitted && bookingForm.controls['hospital'].hasError('required') && bookingForm.controls['hospital'].touched">
+                Hospital is required.
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="outline">
+            <mat-label>Employee</mat-label>
+            <mat-select formControlName="staff">
+                <mat-option>- Select the Employee - </mat-option>
+                <mat-option *ngFor="let staff of arr" [value]="staff.username">
+                    {{staff.username}}
+                </mat-option>
+            </mat-select>
+            <mat-error
+                *ngIf="submitted && bookingForm.controls['staff'].hasError('required') && bookingForm.controls['staff'].touched">
+                Employee is required.
+            </mat-error>
+        </mat-form-field>
+        &nbsp;
+        <!-- &nbsp; -->
+        &nbsp;
+        <mat-form-field appearance="outline">
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="date" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+            <mat-datepicker #date></mat-datepicker>
+            <mat-error
+                *ngIf="submitted && bookingForm.controls['date'].hasError('required') && bookingForm.controls['date'].touched">
+                Date is required.
+            </mat-error>
+        </mat-form-field>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <mat-form-field appearance="outline">
+            <mat-label>Time</mat-label>
+            <input type="time" matInput name="week" min="09:00" max="18:00" formControlName="time" inputId="timeonly" />
+            <mat-error
+                *ngIf="submitted && bookingForm.controls['time'].hasError('required') && bookingForm.controls['time'].touched">
+                Time is required.
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <button mat-button type="button" class="material-btn mr-2" (click)="onReset(f)">Clear</button>
+        <button mat-button type="submit" class="material-btn mr-2">Submit</button>
+    </form>
 </fieldset>
 <fieldset class="scheduler-border">
     <legend class="scheduler-border">Booking Entry</legend>

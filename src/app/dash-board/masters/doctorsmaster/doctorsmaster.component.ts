@@ -1,5 +1,6 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { ThemePalette } from '@angular/material/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GridOptions } from 'ag-grid-community';
 import { deserialize } from 'serializer.ts/Serializer';
@@ -13,6 +14,7 @@ import { Regionmaster001mb } from 'src/app/shared/services/restcontroller/entiti
 import { CalloutService } from 'src/app/shared/services/services/callout.service';
 import { Utils } from 'src/app/shared/utils/utils';
 
+
 @Component({
   selector: 'app-doctorsmaster',
   templateUrl: './doctorsmaster.component.html',
@@ -20,9 +22,9 @@ import { Utils } from 'src/app/shared/utils/utils';
 })
 export class DoctorsmasterComponent implements OnInit {
 
-  @Input() lang: any;
   frameworkComponents: any;
   doctorForm: FormGroup | any;
+  resetForm: FormGroup | any;
   slNo: number | any;
   insertUser: string = "";
   insertDatetime: Date | any;
@@ -59,8 +61,11 @@ export class DoctorsmasterComponent implements OnInit {
       iconRenderer: IconRendererComponent
     }
   }
+  colorControl = new FormControl('primary' as ThemePalette);
 
   ngOnInit() {
+    let users: any[] = [];
+    // this.control.markAsTouched();
     this.username = this.authManager.getcurrentUser.username;
 
     this.authManager.currentUserSubject.subscribe((object: any) => {
@@ -78,14 +83,14 @@ export class DoctorsmasterComponent implements OnInit {
 
     this.doctorForm = this.formBuilder.group({
       doctorname: ['', Validators.required],
-      contactnumber: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(10)]],
+      contactnumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       emailid: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       hospitalname: ['', Validators.required],
       addressline1: ['', Validators.required],
       addressline2: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
-      pincode: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(6)]],
+      pincode: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]],
       region: ['', Validators.required],
       status: [''],
     })
@@ -95,8 +100,8 @@ export class DoctorsmasterComponent implements OnInit {
     this.regionmasterManager.allregion(this.username).subscribe((response: any) => {
       this.regionmaster = deserialize<Regionmaster001mb[]>(Regionmaster001mb, response);
     });
-
   }
+
   username = this.authManager.getcurrentUser.username;
   loaddata() {
     this.doctormasterManager.alldoctormaster(this.username).subscribe((response) => {
@@ -347,7 +352,7 @@ export class DoctorsmasterComponent implements OnInit {
     });
   }
 
-  onOrderClick(event: any, doctorForm: any) {
+  onOrderClick(doctorForm: any, data: NgForm, form: any) {
     this.markFormGroupTouched(this.doctorForm);
     this.submitted = true;
     if (this.doctorForm.invalid) {
@@ -397,8 +402,10 @@ export class DoctorsmasterComponent implements OnInit {
         this.gridOptions.api.refreshView();
         this.gridOptions.api.deselectAll();
         this.doctorForm.reset();
+        form.resetForm();
         this.loaddata();
         this.submitted = false;
+        data.resetForm();
         this.slNo = null;
       });
     }
@@ -414,15 +421,17 @@ export class DoctorsmasterComponent implements OnInit {
         const newItems = [JSON.parse(JSON.stringify(doctormaster001mb))];
         this.gridOptions.api.applyTransaction({ add: newItems });
         this.doctorForm.reset();
+        form.resetForm();
         this.loaddata();
         this.submitted = false;
+        data.resetForm();
       })
     }
   }
-
-  onReset() {
+  onReset(data: any) {
     this.doctorForm.reset();
+    data.resetForm();
+    this.loaddata();
     this.submitted = false;
   }
-
 }

@@ -31,15 +31,23 @@
     float: right;
 }
 
+.material-btn {
+    float: right !important;
+    background: var(--color_l1) !important;
+    color: #ffff;
+}
+
 /* Darker background on mouse-over */
 .btn:hover {
     background-color: RoyalBlue;
 }
+
 .head {
     padding: 1px 0 0 0;
     background-color: var(--color_l2);
     box-sizing: border-box;
 }
+
 .title {
     text-align: left;
     padding-left: 10px;
@@ -48,10 +56,12 @@
     font-family: inherit !important;
     top: 5px;
 }
+
 .modal-header {
     padding: 0px;
     border-bottom: 1px solid #e5e5e5;
 }
+
 .closed {
     top: 8px;
     font-size: 26px;
@@ -60,4 +70,18 @@
     border: 0px solid;
     color: #f3f3f3 !important;
     font-weight: 900;
-}   
+}
+
+.cdk-global-overlay-wrapper,
+.cdk-overlay-container {
+    z-index: 99999 !important;
+}
+
+::ng-deep .cdk-overlay-container {
+    z-index: 9999;
+}
+
+.mat-input-element[type=time] {
+    line-height: 1;
+    font-size: 18px;
+}
