@@ -23,7 +23,8 @@
 
 .popup {
     font-family: Helvetica, sans-serif !important;
-    padding: 30px;
+    padding: 20px;
+    margin-left: 10px;
     font-weight: 700;
     text-align: justify;
     font-size: 14px;

@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { GridOptions } from 'ag-grid-community';
@@ -35,6 +35,7 @@ export class CaseentryyComponent implements OnInit {
   @Input() lang: any;
   params: any;
   caseentryForm: FormGroup | any;
+  resetForm: FormGroup | any;
   submitted = false;
   caseentryId: number | any;
   insertUser: string = "";
@@ -416,10 +417,10 @@ export class CaseentryyComponent implements OnInit {
     }
 
     for (let i = 0; i < params.data.casemachine001wbs.length; i++) {
-      console.log("params.data.casemachine001wbs.length111111", params.data.casemachine001wbs.length);
+      console.log("params.data.casemachine001wbs.length11111111", params.data.casemachine001wbs.length);
 
       for (let j = 0; j < this.myForm.controls.times.controls.length; j++) {
-        console.log("myForm.controls.times.controls.length222222", this.myForm.controls.times.controls.length);
+        console.log("myForm.controls.times.controls.length22222222", this.myForm.controls.times.controls.length);
         if (i == j) {
           this.slNo.push(params.data.casemachine001wbs[i].slno)
           this.cslNo.push(params.data.casemachine001wbs[i].cslno)
@@ -480,9 +481,10 @@ export class CaseentryyComponent implements OnInit {
     });
   }
 
-  onOrderClick(event: any, caseentryForm: any) {
+  onOrderClick(data: NgForm, caseentryForm: any, form: any) {
 
-    // console.log("myForm", this.myForm.value.times);
+    console.log("caseentryForm---------->>>", this.f);
+    console.log("myForm---------->>>", this.fa);
 
     this.markFormGroupTouched(this.caseentryForm);
     this.submitted = true;
@@ -542,11 +544,13 @@ export class CaseentryyComponent implements OnInit {
         this.gridOptions.api.setRowData(this.numberofcase);
         this.gridOptions.api.refreshView();
         this.gridOptions.api.deselectAll();
-        this.loaddata();
         this.caseentryForm.reset();
         this.myForm.reset();
-        this.caseentryId = null;
+        form.resetForm();
+        this.loaddata();
         this.submitted = false;
+        data.resetForm();
+        this.caseentryId = null;
       });
     } else {
 
@@ -561,19 +565,22 @@ export class CaseentryyComponent implements OnInit {
         const newItems = [JSON.parse(JSON.stringify(caseentry001mb))];
         this.gridOptions.api.applyTransaction({ add: newItems });
         this.gridOptions.api.deselectAll();
-        this.loaddata();
         this.caseentryForm.reset();
         this.myForm.reset();
+        form.resetForm();
+        this.loaddata();
         this.submitted = false;
+        data.resetForm();
       });
     }
   }
 
   onChange(event: any) {
 
-    this.bookingentryManager.findOne(event.target.value).subscribe(response => {
+    this.bookingentryManager.findOne(event).subscribe(response => {
 
       this.bookingentry001mb = deserialize<Bookingentry001mb>(Bookingentry001mb, response);
+
       this.caseentryForm.patchValue({
         'doctorname': this.bookingentry001mb.dslno,
         'hospname': this.bookingentry001mb.hospital,
@@ -602,8 +609,10 @@ export class CaseentryyComponent implements OnInit {
 
   // }
 
-  onReset() {
+  onReset(data: any) {
     this.submitted = false;
+    data.resetForm();
+    this.loaddata();
     this.caseentryForm.reset();
     this.myForm.reset();
   }

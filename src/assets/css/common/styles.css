@@ -2046,3 +2046,15 @@ label {
     color: white;
     padding-right: 5px;
 }
+
+.font {
+    font-size: 14px;
+}
+
+.material {
+    font-size: 20px;
+}
+
+.material-icons {
+    font-size: 16px;
+}

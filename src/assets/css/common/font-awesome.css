@@ -6,6 +6,7 @@
   src: local('Raleway Light'), local('Raleway-Light'), url(https://fonts.gstatic.com/s/raleway/v11/ZKwULyCG95tk6mOqHQfRBCEAvth_LlrfE80CYdSH47w.woff2) format('woff2');
   unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
 }
+
 /* latin */
 @font-face {
   font-family: 'Raleway';
@@ -14,6 +15,7 @@
   src: local('Raleway Light'), local('Raleway-Light'), url(https://fonts.gstatic.com/s/raleway/v11/-_Ctzj9b56b8RgXW8FArifk_vArhqVIZ0nv9q090hN8.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
+
 /* latin-ext */
 @font-face {
   font-family: 'Raleway';
@@ -22,6 +24,7 @@
   src: local('Raleway'), local('Raleway-Regular'), url(https://fonts.gstatic.com/s/raleway/v11/yQiAaD56cjx1AooMTSghGfY6323mHUZFJMgTvxaG2iE.woff2) format('woff2');
   unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
 }
+
 /* latin */
 @font-face {
   font-family: 'Raleway';
@@ -30,6 +33,7 @@
   src: local('Raleway'), local('Raleway-Regular'), url(https://fonts.gstatic.com/s/raleway/v11/0dTEPzkLWceF7z0koJaX1A.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
+
 /* latin-ext */
 @font-face {
   font-family: 'Raleway';
@@ -38,6 +42,7 @@
   src: local('Raleway Medium'), local('Raleway-Medium'), url(https://fonts.gstatic.com/s/raleway/v11/Li18TEFObx_yGdzKDoI_ciEAvth_LlrfE80CYdSH47w.woff2) format('woff2');
   unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
 }
+
 /* latin */
 @font-face {
   font-family: 'Raleway';
@@ -46,6 +51,7 @@
   src: local('Raleway Medium'), local('Raleway-Medium'), url(https://fonts.gstatic.com/s/raleway/v11/CcKI4k9un7TZVWzRVT-T8_k_vArhqVIZ0nv9q090hN8.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
+
 /* latin-ext */
 @font-face {
   font-family: 'Raleway';
@@ -54,6 +60,7 @@
   src: local('Raleway Bold'), local('Raleway-Bold'), url(https://fonts.gstatic.com/s/raleway/v11/WmVKXVcOuffP_qmCpFuyzSEAvth_LlrfE80CYdSH47w.woff2) format('woff2');
   unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
 }
+
 /* latin */
 @font-face {
   font-family: 'Raleway';
@@ -66,8 +73,13 @@
 /*!
  *  Font Awesome 4.6.3 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
- */@font-face {
-  font-family:'FontAwesome';src:url('../fonts/fontawesome-webfont.eot?v=4.6.3');src:url('../fonts/fontawesome-webfont.eot?#iefix&v=4.6.3') format('embedded-opentype'),url('../fonts/fontawesome-webfont.woff2?v=4.6.3') format('woff2'),url('../fonts/fontawesome-webfont.woff?v=4.6.3') format('woff'),url('../fonts/fontawesome-webfont.ttf?v=4.6.3') format('truetype'),url('../fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular') format('svg');font-weight:normal;font-style:normal;
+ */
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('../fonts/fontawesome-webfont.eot?v=4.6.3');
+  src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.6.3') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=4.6.3') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=4.6.3') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.6.3') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 
 .fa {
@@ -235,7 +247,11 @@
   transform: scale(1, -1);
 }
 
-:root .fa-rotate-90,:root .fa-rotate-180,:root .fa-rotate-270,:root .fa-flip-horizontal,:root .fa-flip-vertical {
+:root .fa-rotate-90,
+:root .fa-rotate-180,
+:root .fa-rotate-270,
+:root .fa-flip-horizontal,
+:root .fa-flip-vertical {
   filter: none;
 }
 
@@ -248,7 +264,8 @@
   vertical-align: middle;
 }
 
-.fa-stack-1x,.fa-stack-2x {
+.fa-stack-1x,
+.fa-stack-2x {
   position: absolute;
   left: 0;
   width: 100%;
@@ -319,7 +336,9 @@
   content: "\f00c";
 }
 
-.fa-remove:before,.fa-close:before,.fa-times:before {
+.fa-remove:before,
+.fa-close:before,
+.fa-times:before {
   content: "\f00d";
 }
 
@@ -339,7 +358,8 @@
   content: "\f012";
 }
 
-.fa-gear:before,.fa-cog:before {
+.fa-gear:before,
+.fa-cog:before {
   content: "\f013";
 }
 
@@ -383,7 +403,8 @@
   content: "\f01d";
 }
 
-.fa-rotate-right:before,.fa-repeat:before {
+.fa-rotate-right:before,
+.fa-repeat:before {
   content: "\f01e";
 }
 
@@ -491,7 +512,8 @@
   content: "\f03a";
 }
 
-.fa-dedent:before,.fa-outdent:before {
+.fa-dedent:before,
+.fa-outdent:before {
   content: "\f03b";
 }
 
@@ -503,7 +525,9 @@
   content: "\f03d";
 }
 
-.fa-photo:before,.fa-image:before,.fa-picture-o:before {
+.fa-photo:before,
+.fa-image:before,
+.fa-picture-o:before {
   content: "\f03e";
 }
 
@@ -523,7 +547,8 @@
   content: "\f043";
 }
 
-.fa-edit:before,.fa-pencil-square-o:before {
+.fa-edit:before,
+.fa-pencil-square-o:before {
   content: "\f044";
 }
 
@@ -643,7 +668,8 @@
   content: "\f063";
 }
 
-.fa-mail-forward:before,.fa-share:before {
+.fa-mail-forward:before,
+.fa-share:before {
   content: "\f064";
 }
 
@@ -691,7 +717,8 @@
   content: "\f070";
 }
 
-.fa-warning:before,.fa-exclamation-triangle:before {
+.fa-warning:before,
+.fa-exclamation-triangle:before {
   content: "\f071";
 }
 
@@ -747,7 +774,8 @@
   content: "\f07e";
 }
 
-.fa-bar-chart-o:before,.fa-bar-chart:before {
+.fa-bar-chart-o:before,
+.fa-bar-chart:before {
   content: "\f080";
 }
 
@@ -767,7 +795,8 @@
   content: "\f084";
 }
 
-.fa-gears:before,.fa-cogs:before {
+.fa-gears:before,
+.fa-cogs:before {
   content: "\f085";
 }
 
@@ -847,7 +876,8 @@
   content: "\f099";
 }
 
-.fa-facebook-f:before,.fa-facebook:before {
+.fa-facebook-f:before,
+.fa-facebook:before {
   content: "\f09a";
 }
 
@@ -863,7 +893,8 @@
   content: "\f09d";
 }
 
-.fa-feed:before,.fa-rss:before {
+.fa-feed:before,
+.fa-rss:before {
   content: "\f09e";
 }
 
@@ -939,11 +970,13 @@
   content: "\f0b2";
 }
 
-.fa-group:before,.fa-users:before {
+.fa-group:before,
+.fa-users:before {
   content: "\f0c0";
 }
 
-.fa-chain:before,.fa-link:before {
+.fa-chain:before,
+.fa-link:before {
   content: "\f0c1";
 }
 
@@ -955,11 +988,13 @@
   content: "\f0c3";
 }
 
-.fa-cut:before,.fa-scissors:before {
+.fa-cut:before,
+.fa-scissors:before {
   content: "\f0c4";
 }
 
-.fa-copy:before,.fa-files-o:before {
+.fa-copy:before,
+.fa-files-o:before {
   content: "\f0c5";
 }
 
@@ -967,7 +1002,8 @@
   content: "\f0c6";
 }
 
-.fa-save:before,.fa-floppy-o:before {
+.fa-save:before,
+.fa-floppy-o:before {
   content: "\f0c7";
 }
 
@@ -975,7 +1011,9 @@
   content: "\f0c8";
 }
 
-.fa-navicon:before,.fa-reorder:before,.fa-bars:before {
+.fa-navicon:before,
+.fa-reorder:before,
+.fa-bars:before {
   content: "\f0c9";
 }
 
@@ -1047,15 +1085,18 @@
   content: "\f0db";
 }
 
-.fa-unsorted:before,.fa-sort:before {
+.fa-unsorted:before,
+.fa-sort:before {
   content: "\f0dc";
 }
 
-.fa-sort-down:before,.fa-sort-desc:before {
+.fa-sort-down:before,
+.fa-sort-desc:before {
   content: "\f0dd";
 }
 
-.fa-sort-up:before,.fa-sort-asc:before {
+.fa-sort-up:before,
+.fa-sort-asc:before {
   content: "\f0de";
 }
 
@@ -1067,15 +1108,18 @@
   content: "\f0e1";
 }
 
-.fa-rotate-left:before,.fa-undo:before {
+.fa-rotate-left:before,
+.fa-undo:before {
   content: "\f0e2";
 }
 
-.fa-legal:before,.fa-gavel:before {
+.fa-legal:before,
+.fa-gavel:before {
   content: "\f0e3";
 }
 
-.fa-dashboard:before,.fa-tachometer:before {
+.fa-dashboard:before,
+.fa-tachometer:before {
   content: "\f0e4";
 }
 
@@ -1087,7 +1131,8 @@
   content: "\f0e6";
 }
 
-.fa-flash:before,.fa-bolt:before {
+.fa-flash:before,
+.fa-bolt:before {
   content: "\f0e7";
 }
 
@@ -1099,7 +1144,8 @@
   content: "\f0e9";
 }
 
-.fa-paste:before,.fa-clipboard:before {
+.fa-paste:before,
+.fa-clipboard:before {
   content: "\f0ea";
 }
 
@@ -1223,7 +1269,8 @@
   content: "\f10a";
 }
 
-.fa-mobile-phone:before,.fa-mobile:before {
+.fa-mobile-phone:before,
+.fa-mobile:before {
   content: "\f10b";
 }
 
@@ -1247,7 +1294,8 @@
   content: "\f111";
 }
 
-.fa-mail-reply:before,.fa-reply:before {
+.fa-mail-reply:before,
+.fa-reply:before {
   content: "\f112";
 }
 
@@ -1299,11 +1347,14 @@
   content: "\f121";
 }
 
-.fa-mail-reply-all:before,.fa-reply-all:before {
+.fa-mail-reply-all:before,
+.fa-reply-all:before {
   content: "\f122";
 }
 
-.fa-star-half-empty:before,.fa-star-half-full:before,.fa-star-half-o:before {
+.fa-star-half-empty:before,
+.fa-star-half-full:before,
+.fa-star-half-o:before {
   content: "\f123";
 }
 
@@ -1319,7 +1370,8 @@
   content: "\f126";
 }
 
-.fa-unlink:before,.fa-chain-broken:before {
+.fa-unlink:before,
+.fa-chain-broken:before {
   content: "\f127";
 }
 
@@ -1471,19 +1523,23 @@
   content: "\f14e";
 }
 
-.fa-toggle-down:before,.fa-caret-square-o-down:before {
+.fa-toggle-down:before,
+.fa-caret-square-o-down:before {
   content: "\f150";
 }
 
-.fa-toggle-up:before,.fa-caret-square-o-up:before {
+.fa-toggle-up:before,
+.fa-caret-square-o-up:before {
   content: "\f151";
 }
 
-.fa-toggle-right:before,.fa-caret-square-o-right:before {
+.fa-toggle-right:before,
+.fa-caret-square-o-right:before {
   content: "\f152";
 }
 
-.fa-euro:before,.fa-eur:before {
+.fa-euro:before,
+.fa-eur:before {
   content: "\f153";
 }
 
@@ -1491,27 +1547,36 @@
   content: "\f154";
 }
 
-.fa-dollar:before,.fa-usd:before {
+.fa-dollar:before,
+.fa-usd:before {
   content: "\f155";
 }
 
-.fa-rupee:before,.fa-inr:before {
+.fa-rupee:before,
+.fa-inr:before {
   content: "\f156";
 }
 
-.fa-cny:before,.fa-rmb:before,.fa-yen:before,.fa-jpy:before {
+.fa-cny:before,
+.fa-rmb:before,
+.fa-yen:before,
+.fa-jpy:before {
   content: "\f157";
 }
 
-.fa-ruble:before,.fa-rouble:before,.fa-rub:before {
+.fa-ruble:before,
+.fa-rouble:before,
+.fa-rub:before {
   content: "\f158";
 }
 
-.fa-won:before,.fa-krw:before {
+.fa-won:before,
+.fa-krw:before {
   content: "\f159";
 }
 
-.fa-bitcoin:before,.fa-btc:before {
+.fa-bitcoin:before,
+.fa-btc:before {
   content: "\f15a";
 }
 
@@ -1667,7 +1732,8 @@
   content: "\f183";
 }
 
-.fa-gittip:before,.fa-gratipay:before {
+.fa-gittip:before,
+.fa-gratipay:before {
   content: "\f184";
 }
 
@@ -1715,7 +1781,8 @@
   content: "\f190";
 }
 
-.fa-toggle-left:before,.fa-caret-square-o-left:before {
+.fa-toggle-left:before,
+.fa-caret-square-o-left:before {
   content: "\f191";
 }
 
@@ -1731,7 +1798,8 @@
   content: "\f194";
 }
 
-.fa-turkish-lira:before,.fa-try:before {
+.fa-turkish-lira:before,
+.fa-try:before {
   content: "\f195";
 }
 
@@ -1759,11 +1827,14 @@
   content: "\f19b";
 }
 
-.fa-institution:before,.fa-bank:before,.fa-university:before {
+.fa-institution:before,
+.fa-bank:before,
+.fa-university:before {
   content: "\f19c";
 }
 
-.fa-mortar-board:before,.fa-graduation-cap:before {
+.fa-mortar-board:before,
+.fa-graduation-cap:before {
   content: "\f19d";
 }
 
@@ -1867,11 +1938,13 @@
   content: "\f1b8";
 }
 
-.fa-automobile:before,.fa-car:before {
+.fa-automobile:before,
+.fa-car:before {
   content: "\f1b9";
 }
 
-.fa-cab:before,.fa-taxi:before {
+.fa-cab:before,
+.fa-taxi:before {
   content: "\f1ba";
 }
 
@@ -1911,19 +1984,24 @@
   content: "\f1c4";
 }
 
-.fa-file-photo-o:before,.fa-file-picture-o:before,.fa-file-image-o:before {
+.fa-file-photo-o:before,
+.fa-file-picture-o:before,
+.fa-file-image-o:before {
   content: "\f1c5";
 }
 
-.fa-file-zip-o:before,.fa-file-archive-o:before {
+.fa-file-zip-o:before,
+.fa-file-archive-o:before {
   content: "\f1c6";
 }
 
-.fa-file-sound-o:before,.fa-file-audio-o:before {
+.fa-file-sound-o:before,
+.fa-file-audio-o:before {
   content: "\f1c7";
 }
 
-.fa-file-movie-o:before,.fa-file-video-o:before {
+.fa-file-movie-o:before,
+.fa-file-video-o:before {
   content: "\f1c8";
 }
 
@@ -1943,7 +2021,11 @@
   content: "\f1cc";
 }
 
-.fa-life-bouy:before,.fa-life-buoy:before,.fa-life-saver:before,.fa-support:before,.fa-life-ring:before {
+.fa-life-bouy:before,
+.fa-life-buoy:before,
+.fa-life-saver:before,
+.fa-support:before,
+.fa-life-ring:before {
   content: "\f1cd";
 }
 
@@ -1951,11 +2033,14 @@
   content: "\f1ce";
 }
 
-.fa-ra:before,.fa-resistance:before,.fa-rebel:before {
+.fa-ra:before,
+.fa-resistance:before,
+.fa-rebel:before {
   content: "\f1d0";
 }
 
-.fa-ge:before,.fa-empire:before {
+.fa-ge:before,
+.fa-empire:before {
   content: "\f1d1";
 }
 
@@ -1967,7 +2052,9 @@
   content: "\f1d3";
 }
 
-.fa-y-combinator-square:before,.fa-yc-square:before,.fa-hacker-news:before {
+.fa-y-combinator-square:before,
+.fa-yc-square:before,
+.fa-hacker-news:before {
   content: "\f1d4";
 }
 
@@ -1979,15 +2066,18 @@
   content: "\f1d6";
 }
 
-.fa-wechat:before,.fa-weixin:before {
+.fa-wechat:before,
+.fa-weixin:before {
   content: "\f1d7";
 }
 
-.fa-send:before,.fa-paper-plane:before {
+.fa-send:before,
+.fa-paper-plane:before {
   content: "\f1d8";
 }
 
-.fa-send-o:before,.fa-paper-plane-o:before {
+.fa-send-o:before,
+.fa-paper-plane-o:before {
   content: "\f1d9";
 }
 
@@ -2023,7 +2113,8 @@
   content: "\f1e2";
 }
 
-.fa-soccer-ball-o:before,.fa-futbol-o:before {
+.fa-soccer-ball-o:before,
+.fa-futbol-o:before {
   content: "\f1e3";
 }
 
@@ -2175,7 +2266,9 @@
   content: "\f20a";
 }
 
-.fa-shekel:before,.fa-sheqel:before,.fa-ils:before {
+.fa-shekel:before,
+.fa-sheqel:before,
+.fa-ils:before {
   content: "\f20b";
 }
 
@@ -2263,7 +2356,8 @@
   content: "\f223";
 }
 
-.fa-intersex:before,.fa-transgender:before {
+.fa-intersex:before,
+.fa-transgender:before {
   content: "\f224";
 }
 
@@ -2327,7 +2421,8 @@
   content: "\f235";
 }
 
-.fa-hotel:before,.fa-bed:before {
+.fa-hotel:before,
+.fa-bed:before {
   content: "\f236";
 }
 
@@ -2347,7 +2442,8 @@
   content: "\f23a";
 }
 
-.fa-yc:before,.fa-y-combinator:before {
+.fa-yc:before,
+.fa-y-combinator:before {
   content: "\f23b";
 }
 
@@ -2363,23 +2459,28 @@
   content: "\f23e";
 }
 
-.fa-battery-4:before,.fa-battery-full:before {
+.fa-battery-4:before,
+.fa-battery-full:before {
   content: "\f240";
 }
 
-.fa-battery-3:before,.fa-battery-three-quarters:before {
+.fa-battery-3:before,
+.fa-battery-three-quarters:before {
   content: "\f241";
 }
 
-.fa-battery-2:before,.fa-battery-half:before {
+.fa-battery-2:before,
+.fa-battery-half:before {
   content: "\f242";
 }
 
-.fa-battery-1:before,.fa-battery-quarter:before {
+.fa-battery-1:before,
+.fa-battery-quarter:before {
   content: "\f243";
 }
 
-.fa-battery-0:before,.fa-battery-empty:before {
+.fa-battery-0:before,
+.fa-battery-empty:before {
   content: "\f244";
 }
 
@@ -2427,15 +2528,18 @@
   content: "\f250";
 }
 
-.fa-hourglass-1:before,.fa-hourglass-start:before {
+.fa-hourglass-1:before,
+.fa-hourglass-start:before {
   content: "\f251";
 }
 
-.fa-hourglass-2:before,.fa-hourglass-half:before {
+.fa-hourglass-2:before,
+.fa-hourglass-half:before {
   content: "\f252";
 }
 
-.fa-hourglass-3:before,.fa-hourglass-end:before {
+.fa-hourglass-3:before,
+.fa-hourglass-end:before {
   content: "\f253";
 }
 
@@ -2443,11 +2547,13 @@
   content: "\f254";
 }
 
-.fa-hand-grab-o:before,.fa-hand-rock-o:before {
+.fa-hand-grab-o:before,
+.fa-hand-rock-o:before {
   content: "\f255";
 }
 
-.fa-hand-stop-o:before,.fa-hand-paper-o:before {
+.fa-hand-stop-o:before,
+.fa-hand-paper-o:before {
   content: "\f256";
 }
 
@@ -2531,7 +2637,8 @@
   content: "\f26b";
 }
 
-.fa-tv:before,.fa-television:before {
+.fa-tv:before,
+.fa-television:before {
   content: "\f26c";
 }
 
@@ -2735,11 +2842,14 @@
   content: "\f2a2";
 }
 
-.fa-asl-interpreting:before,.fa-american-sign-language-interpreting:before {
+.fa-asl-interpreting:before,
+.fa-american-sign-language-interpreting:before {
   content: "\f2a3";
 }
 
-.fa-deafness:before,.fa-hard-of-hearing:before,.fa-deaf:before {
+.fa-deafness:before,
+.fa-hard-of-hearing:before,
+.fa-deaf:before {
   content: "\f2a4";
 }
 
@@ -2751,7 +2861,8 @@
   content: "\f2a6";
 }
 
-.fa-signing:before,.fa-sign-language:before {
+.fa-signing:before,
+.fa-sign-language:before {
   content: "\f2a7";
 }
 
@@ -2795,11 +2906,13 @@
   content: "\f2b2";
 }
 
-.fa-google-plus-circle:before,.fa-google-plus-official:before {
+.fa-google-plus-circle:before,
+.fa-google-plus-official:before {
   content: "\f2b3";
 }
 
-.fa-fa:before,.fa-font-awesome:before {
+.fa-fa:before,
+.fa-font-awesome:before {
   content: "\f2b4";
 }
 
@@ -2814,7 +2927,8 @@
   border: 0;
 }
 
-.sr-only-focusable:active,.sr-only-focusable:focus {
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
   position: static;
   width: auto;
   height: auto;

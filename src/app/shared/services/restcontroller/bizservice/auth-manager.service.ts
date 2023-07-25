@@ -7,7 +7,7 @@ import { CalloutService } from "../../services/callout.service";
 import { User001mb } from "../entities/User001mb";
 @Injectable({ providedIn: 'root' })
 export class AuthManager extends BaseService {
- 
+
     private authManagerUrl: string = `${environment.apiUrl}/auth`
     login(uName: string, pWord: string) {
         let params: any = {};
@@ -17,11 +17,11 @@ export class AuthManager extends BaseService {
         return this.getCallService(`${this.authManagerUrl}` + `/getUserAuthentication`, params)
             .pipe(map(res => {
                 if (res) {
-                    // console.log('res-->', res);
+                    console.log('res------------------dfdg->', res);
                     sessionStorage.setItem('currentUser', JSON.stringify(res));
                     this.currentUserSubject.next(res.userDTO);
                 }
-               
+
                 return res;
             }))
     }

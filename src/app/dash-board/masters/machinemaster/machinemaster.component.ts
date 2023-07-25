@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { GridOptions } from 'ag-grid-community';
@@ -23,6 +23,7 @@ export class MachinemasterComponent implements OnInit {
 
   @Input() lang: any;
   frameworkComponents: any;
+  resetForm: FormGroup | any;
   slNo: number | any;
   insertUser: string = "";
   insertDatetime: Date | any;
@@ -235,7 +236,7 @@ export class MachinemasterComponent implements OnInit {
     });
   }
 
-  onUserClick(event: any, machineForm: any) {
+  onUserClick(data: NgForm, machineForm: any, form: any) {
     this.markFormGroupTouched(this.machineForm);
     this.submitted = true;
     if (this.machineForm.invalid) {
@@ -264,8 +265,10 @@ export class MachinemasterComponent implements OnInit {
           }
         }
         this.machineForm.reset();
-        this.submitted = false;
+        form.resetForm();
         this.loaddata();
+        this.submitted = false;
+        data.resetForm();
         this.slNo = null;
       })
     }
@@ -279,13 +282,18 @@ export class MachinemasterComponent implements OnInit {
         const newItems = [JSON.parse(JSON.stringify(machinemaster001mb))];
         this.gridOptions.api.applyTransaction({ add: newItems });
         this.machineForm.reset();
+        form.resetForm();
         this.loaddata();
         this.submitted = false;
+        data.resetForm();
+
       })
     }
   }
-  onReset() {
+  onReset(data: any) {
     this.machineForm.reset();
+    data.resetForm();
+    this.loaddata();
     this.submitted = false;
   }
 }

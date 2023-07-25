@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GridOptions } from 'ag-grid-community';
 import { deserialize } from 'serializer.ts/Serializer';
@@ -28,6 +28,7 @@ export class RegionmasterComponent implements OnInit {
   public gridOptions: GridOptions | any;
   regionmaster: Regionmaster001mb[] = [];
   regionForm: FormGroup | any;
+  resetForm: FormGroup | any;
   submitted = false;
   parentMenuString: string = '';
   status: boolean = false;
@@ -224,7 +225,7 @@ export class RegionmasterComponent implements OnInit {
     });
   }
 
-  onUserClick(event: any, regionForm: any) {
+  onUserClick(data: NgForm, regionForm: any, form: any) {
     this.markFormGroupTouched(this.regionForm);
     this.submitted = true;
     if (this.regionForm.invalid) {
@@ -253,8 +254,10 @@ export class RegionmasterComponent implements OnInit {
           }
         }
         this.regionForm.reset();
-        this.submitted = false;
+        form.resetForm();
         this.loaddata();
+        this.submitted = false;
+        data.resetForm();
         this.slNo = null;
       })
     }
@@ -268,13 +271,17 @@ export class RegionmasterComponent implements OnInit {
         const newItems = [JSON.parse(JSON.stringify(regionmaster001mb))];
         this.gridOptions.api.applyTransaction({ add: newItems });
         this.regionForm.reset();
-        this.submitted = false;
+        form.resetForm();
         this.loaddata();
+        this.submitted = false;
+        data.resetForm();
       })
     }
   }
-  onReset() {
+  onReset(data: any) {
     this.regionForm.reset();
+    data.resetForm();
+    this.loaddata();
     this.submitted = false;
   }
 }

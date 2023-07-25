@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { GridOptions } from 'ag-grid-community';
@@ -75,7 +75,7 @@ export class EmployeemasterComponent implements OnInit {
 
     this.employeeForm = this.formBuilder.group({
       employeename: ['', Validators.required],
-      mobilenumber: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(10)]],
+      mobilenumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/), Validators.minLength(10)]],
       emailid: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       status: [''],
     })
@@ -250,7 +250,7 @@ export class EmployeemasterComponent implements OnInit {
     });
   }
 
-  onOrderClick(event: any, employeeForm: any) {
+  onOrderClick(data: NgForm, employeeForm: any, form: any) {
     this.markFormGroupTouched(this.employeeForm);
     this.submitted = true;
     if (this.employeeForm.invalid) {
@@ -286,8 +286,10 @@ export class EmployeemasterComponent implements OnInit {
         this.gridOptions.api.refreshView();
         this.gridOptions.api.deselectAll();
         this.employeeForm.reset();
-        this.submitted = false;
+        form.resetForm();
         this.loaddata();
+        this.submitted = false;
+        data.resetForm();
         this.employeeId = null;
       });
     }
@@ -301,13 +303,17 @@ export class EmployeemasterComponent implements OnInit {
         const newItems = [JSON.parse(JSON.stringify(doctormaster001mb))];
         this.gridOptions.api.applyTransaction({ add: newItems });
         this.employeeForm.reset();
+        form.resetForm();
         this.loaddata();
         this.submitted = false;
+        data.resetForm();
       })
     }
   }
-  onReset() {
+  onReset(data: any) {
     this.employeeForm.reset();
+    data.resetForm();
+    this.loaddata();
     this.submitted = false;
   }
 }

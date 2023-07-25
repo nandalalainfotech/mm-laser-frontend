@@ -1,78 +1,57 @@
 <fieldset class="scheduler-border">
     <legend class="scheduler-border">Employee Master</legend>
-    <div class="formData">
-        <form [formGroup]="employeeForm" (ngSubmit)="onOrderClick($event, employeeForm)">
-            <div class="row">
-                <input class="form-control" path="employeeId" type="hidden" readonly="true" />
-                <div class="col-xs-3 form-group">
-                    <label path="employeename" for="employeename" cssClass="required">Employee Name
-                    </label>
-                    <input formControlName="employeename" class="form-control" path="employeename" name="employeename"
-                        [ngClass]="{ 'is-invalid': submitted && f.employeename.errors }" />
-                    <div *ngIf="submitted && f.employeename.errors" class="invalid-feedback">
-                        <div *ngIf="f.employeename.errors.required">Employee Name is Required</div>
-                    </div>
-                </div>
-                <div class="col-xs-3 form-group">
-                    <label path="mobilenumber" for="mobilenumber" cssClass="required">Mobile
-                        Number</label>
-                    <input formControlName="mobilenumber" class="form-control" path="mobilenumber" name="mobilenumber"
-                        maxlength="10" [ngClass]="{ 'is-invalid': submitted && f.mobilenumber.errors }" />
-                    <div *ngIf="submitted && f.mobilenumber.errors" class="invalid-feedback">
-                        <!-- <div *ngIf="f.mobilenumber.errors.required">Mobile Number is Required</div> -->
-                        <div *ngIf="f.mobilenumber.errors.required">
-                            Mobile Number is Required
-                        </div>
-                        <div *ngIf="f.mobilenumber.errors.minlength">
-                            Mobile Number is Invalid
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-3 form-group">
-                    <label path="emailid" for="emailid" cssClass="required">Email ID</label>
-                    <input formControlName="emailid" class="form-control" path="emailid" name="emailid"
-                        [ngClass]="{ 'is-invalid': submitted && f.emailid.errors }" />
-                    <div *ngIf="submitted && f.emailid.errors" class="invalid-feedback">
-                        <!-- <div *ngIf="f.emailid.errors.required">Email Id is Required</div> -->
-                        <div *ngIf="f.emailid.errors.required">
-                            Email ID is Required
-                        </div>
-                        <div *ngIf="f.emailid.errors.pattern">
-                            Email ID is Invalid
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-3">
-                    <div class="form-group">
-                        <label path="status" for="status">Status</label>
-                        <br>
-                        <label class="switch">
-                            <input type="checkbox" formControlName="status" name="status">
-                            <span class="slider round"></span>
-                        </label>
-                        <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
-                            <div *ngIf="f.status.errors.required">status is required
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 ">
-                    <div class="form-group text-right">
-                        <button type="submit" class="btn btn-primary mr-2">
-                            Submit
-                        </button>
-                        <button type="button" class="btn btn-warning mr-2" (click)="onReset()">
-                            Clear
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+    <form [formGroup]="employeeForm" (ngSubmit)="onOrderClick($event, employeeForm,f)" #f="ngForm">
+        <mat-form-field appearance="outline">
+            <mat-label class="font">Employee Name</mat-label>
+            <input class="mat" formControlName="employeename" matInput>
+            <mat-error
+                *ngIf="submitted && employeeForm.controls['employeename'].invalid && employeeForm.controls['employeename'].touched">
+                Employee Name is required.
+            </mat-error>
+        </mat-form-field>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <mat-form-field appearance="outline">
+            <mat-label class="font">Mobile Number</mat-label>
+            <input class="mat" formControlName="mobilenumber" matInput maxlength="10">
+            <mat-error
+                *ngIf="employeeForm.controls['mobilenumber'].hasError('required') && employeeForm.controls['mobilenumber'].touched">
+                Mobile Number is required.
+            </mat-error>
+            <mat-error
+                *ngIf="employeeForm.controls['mobilenumber'].hasError('pattern') && employeeForm.controls['mobilenumber'].touched">
+                Mobile Number is Invalid.
+            </mat-error>
+        </mat-form-field>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <mat-form-field appearance="outline">
+            <mat-label class="font">Email ID</mat-label>
+            <input class="mat" formControlName="emailid" matInput>
+            <mat-error
+                *ngIf="employeeForm.controls['emailid'].hasError('required') && employeeForm.controls['emailid'].touched">
+                Email is required.
+            </mat-error>
+            <mat-error
+                *ngIf="employeeForm.controls['emailid'].hasError('email') && employeeForm.controls['emailid'].touched">
+                Email is Invalid.
+            </mat-error>
+        </mat-form-field>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <br>
+        <label>Status :
+        </label>
+        <br>
+        <mat-slide-toggle formControlName="status" color="primary"></mat-slide-toggle>
+
+        <br>
+        <button mat-button type="button" (click)="onReset(f)" class="material-btn mr-2">Clear</button>
+        <button mat-button type="submit" class="material-btn mr-2">Submit</button>
+    </form>
 </fieldset>
 <fieldset class="scheduler-border">
     <legend class="scheduler-border">Employee Master</legend>

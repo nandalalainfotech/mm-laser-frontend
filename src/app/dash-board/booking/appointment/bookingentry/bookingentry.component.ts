@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GridOptions } from 'ag-grid-community';
@@ -53,6 +53,7 @@ export class BookingentryComponent implements OnInit {
   user: User001mb[] = [];
   public gridOptions: GridOptions | any;
   bookingForm: FormGroup | any;
+  resetForm: FormGroup | any;
   submitted = false;
   parentMenuString: string = '';
   childMenuString: string = '';
@@ -366,7 +367,9 @@ export class BookingentryComponent implements OnInit {
     });
   }
 
-  onUserClick(event: any, bookingForm: any) {
+  onUserClick(data: NgForm, bookingForm: any, form: any) {
+    console.log('bookingForm------------------->>>>', this.f);
+
 
     this.markFormGroupTouched(this.bookingForm);
     this.submitted = true;
@@ -390,9 +393,11 @@ export class BookingentryComponent implements OnInit {
       bookingentry001mb.updatedDatetime = new Date();
       this.bookingentryManager.updatebooking(bookingentry001mb).subscribe((response: any) => {
         this.calloutService.showSuccess("Booking Entry Details Updated Successfully");
-        this.loaddata();
         this.bookingForm.reset();
+        form.resetForm();
+        this.loaddata();
         this.submitted = false;
+        data.resetForm();
         this.bookingId = null;
       })
     }
@@ -406,14 +411,18 @@ export class BookingentryComponent implements OnInit {
           this.router.navigate(['/app-dash-board/app-booking/app-calendar-table']);
           return;
         }
-        this.loaddata();
         this.bookingForm.reset();
+        form.resetForm();
+        this.loaddata();
         this.submitted = false;
+        data.resetForm();
       })
     }
   }
-  onReset() {
+  onReset(data: any) {
     this.bookingForm.reset();
+    data.resetForm();
+    this.loaddata();
     this.submitted = false;
   }
 

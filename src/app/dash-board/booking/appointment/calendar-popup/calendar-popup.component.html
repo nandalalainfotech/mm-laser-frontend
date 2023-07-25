@@ -7,24 +7,19 @@
     </div>
     &nbsp;
     <table class="table table-bordered">
-        <thead>
+        <ng-container matColumnDef="Machine Name">
             <tr>
-                <th>Machine Name</th>
-                <th>Doctor Name</th>
-                <th>Hospital</th>
-                <th>Staff</th>
-                <th>Time</th>
+                <th mat-header-cell style="font-weight: 700;color: black;"> Machine Name </th>
+                <th mat-header-cell style="font-weight: 700;color: black;"> Doctor Name </th>
+                <th mat-header-cell style="font-weight: 700;color: black;"> Hospital</th>
+                <th mat-header-cell style="font-weight: 700;color: black;"> Time</th>
             </tr>
-        </thead>
-        <tbody>
-            <tr
-                style="font-family: -apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif !important;">
-                <td>{{item.payload.mslno2.machinename}}</td>
-                <td>{{item.payload.dslno2.doctorname}}</td>
-                <td>{{item.payload.hospital}}</td>
-                <td>{{item.payload.staff}}</td>
-                <td>{{item.payload.time}}</td>
-            </tr>
-        </tbody>
+        </ng-container>
+        <ng-container matColumnDef="Doctor Name">
+            <td mat-cell>{{item.payload.mslno2.machinename}}</td>
+            <td mat-cell>{{item.payload.dslno2.doctorname}} </td>
+            <td mat-cell>{{item.payload.hospital}} </td>
+            <td mat-cell>{{item.payload.time}} </td>
+        </ng-container>
     </table>
 </ng-container>

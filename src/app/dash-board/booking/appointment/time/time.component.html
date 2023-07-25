@@ -6,21 +6,23 @@
         <span>Request Service</span>
     </div>
     <div class="popup">
-        <ul>
-            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{details.data.dslno2.doctorname}}</li>
-            <li style="padding: 9px;">
-                <i class="fa fa-clock-o" style="color:red"></i>
-                {{details.data.date | date: "MMM-dd-yyyy" }}&nbsp;/{{details.data.time}}
-            </li>
-            <li style="padding: 9px;">
-                <!-- <i class='fas fa-location-arrow' style='color:red'></i> -->
-                <i class="fa fa-map-marker" style='color:red'></i>
-                {{details.data.dslno2.addressline1}}&nbsp;{{details.data.dslno2.addressline2}}&nbsp;,{{details.data.dslno2.city}},<br>{{details.data.dslno2.state}}&nbsp;,{{details.data.dslno2.pincode}}.
-            </li>
-            <li style="padding: 9px;">
-                <i class="fa fa-cogs" aria-hidden="true" style='color:red'></i>
-                Machine Name:&nbsp;&nbsp;{{details.data.mslno2.machinename}}
-            </li>
-        </ul>
+        <mat-nav-list>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{details.data.dslno2.doctorname}}
+        </mat-nav-list>
+
+        <mat-nav-list style="padding: 9px;">
+            <i class="fa fa-clock-o" style="color:red"></i>
+            {{details.data.date | date: "MMM-dd-yyyy" }}&nbsp;/{{details.data.time}}
+        </mat-nav-list>
+
+        <mat-nav-list style="padding: 9px;">
+            <i class="fa fa-map-marker" style='color:red'></i>
+            {{details.data.dslno2.addressline1}}&nbsp;{{details.data.dslno2.addressline2}}&nbsp;,{{details.data.dslno2.city}},<br>{{details.data.dslno2.state}}&nbsp;,{{details.data.dslno2.pincode}}.
+        </mat-nav-list>
+
+        <mat-nav-list style="padding: 9px;">
+            <i class="fa fa-cogs" aria-hidden="true" style='color:red'></i>
+            Machine Name:&nbsp;&nbsp;{{details.data.mslno2.machinename}}
+        </mat-nav-list>
     </div>
 </ng-container>
