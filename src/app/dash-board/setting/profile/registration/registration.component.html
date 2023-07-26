@@ -3,7 +3,7 @@
     <form [formGroup]="registerForm" (ngSubmit)="onUserClick($event, registerForm,f)" #f="ngForm">
         <mat-form-field appearance="outline">
             <mat-label class="font">FirstName</mat-label>
-            <input class="material" formControlName="firstname" matInput>
+            <input class="material" formControlName="firstname" matInput class="mat">
             <mat-error
                 *ngIf="submitted && registerForm.controls['firstname'].hasError('required') && registerForm.controls['firstname'].touched">
                 FirstName is required.
@@ -14,7 +14,7 @@
         &nbsp;
         <mat-form-field appearance="outline">
             <mat-label class="font">LastName</mat-label>
-            <input class="material" formControlName="lastname" matInput>
+            <input class="material" formControlName="lastname" matInput class="mat">
             <mat-error
                 *ngIf="submitted && registerForm.controls['lastname'].hasError('required') && registerForm.controls['lastname'].touched">
                 LastName is required.
@@ -25,7 +25,7 @@
         &nbsp;
         <mat-form-field appearance="outline">
             <mat-label class="font">UserName</mat-label>
-            <input class="material" formControlName="username" matInput>
+            <input class="material" formControlName="username" matInput class="mat">
             <mat-error
                 *ngIf="submitted && registerForm.controls['username'].hasError('required') && registerForm.controls['username'].touched">
                 UserName is required.
@@ -35,8 +35,9 @@
         &nbsp;
         &nbsp;
         <mat-form-field appearance="outline">
-            <mat-label>Role Type</mat-label>
-            <mat-select formControlName="rolename">
+            <mat-label class="font">Role Type</mat-label>
+            <mat-select formControlName="rolename" class="mat">
+                <mat-option>- Select the Machine - </mat-option>
                 <mat-option value="Admin">Admin</mat-option>
                 <mat-option value="User">User</mat-option>
             </mat-select>
@@ -47,8 +48,9 @@
         </mat-form-field>
         <br>
         <mat-form-field appearance="outline">
-            <mat-label>Status</mat-label>
-            <mat-select formControlName="status">
+            <mat-label class="font">Status</mat-label>
+            <mat-select formControlName="status" class="mat">
+                <mat-option>- Select the Machine - </mat-option>
                 <mat-option value="A">A</mat-option>
                 <mat-option value="B">B</mat-option>
                 <mat-option value="C">C</mat-option>

@@ -49,13 +49,8 @@
   margin-top: 2px;
 }
 
-@media (min-width:337px)and(max-width:667px) {
-  .mat-head {
-    vertical-align: middle;
-    padding: 0 8px;
-    margin: 14px 0;
-    font-size: 11px;
-    cursor: pointer;
+@media (max-width:768px) {
+  .mat-nav {
     display: none !important;
   }
 }

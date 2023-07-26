@@ -3,7 +3,7 @@
     <form [formGroup]="machineForm" (ngSubmit)="onUserClick($event, machineForm,f)" #f="ngForm">
         <mat-form-field appearance="outline">
             <mat-label class="font">Executive Name</mat-label>
-            <input class="material" formControlName="machinename" matInput>
+            <input class="mat" formControlName="machinename" matInput>
             <mat-error
                 *ngIf="submitted && machineForm.controls['machinename'].invalid && machineForm.controls['machinename'].touched">
                 Executive is required.
