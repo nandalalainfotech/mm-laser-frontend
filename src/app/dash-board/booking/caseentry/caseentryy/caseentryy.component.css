@@ -15,3 +15,9 @@
     height: 37px;
     margin-top: 4px;
 }
+
+.ang-form {
+    flex-direction: row;
+    box-sizing: border-box;
+    display: inline-block;
+}

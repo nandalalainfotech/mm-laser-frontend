@@ -841,6 +841,12 @@ li a span {
     }
 }
 
+/* @media (max-width: 1199px) {
+    .ang-form {
+        display: grid !important;
+    }
+} */
+
 @media (max-width: 991px) {
     .sample {
         width: 60em !important;
@@ -974,6 +980,19 @@ li a span {
 /* MOBILE VIEW */
 
 @media (max-width: 640px) {
+    .mat-nav {
+        display: none !important;
+    }
+
+    .ang-form {
+        display: grid !important;
+    }
+
+    mat-form-field {
+        display: block !important;
+        position: relative !important;
+        text-align: left !important;
+    }
 
     /* sidemenu mobile view */
     .side_menu1 {
@@ -2051,8 +2070,8 @@ label {
     font-size: 14px;
 }
 
-.material {
-    font-size: 20px;
+.mat {
+    font-size: 14px !important;
 }
 
 .material-icons {

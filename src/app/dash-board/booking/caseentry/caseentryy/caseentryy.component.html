@@ -2,8 +2,9 @@
     <legend class="scheduler-border">Case Entry</legend>
     <form [formGroup]="caseentryForm" (ngSubmit)="onOrderClick($event, caseentryForm,f)" #f="ngForm">
         <mat-form-field appearance="outline">
-            <mat-label for="appointmentNo">Appointment No</mat-label>
-            <mat-select formControlName="appointmentNo" (selectionChange)="onChange($event.value)">
+            <mat-label for="appointmentNo" class="font">Appointment No</mat-label>
+            <mat-select formControlName="appointmentNo" (selectionChange)="onChange($event.value)" class="mat">
+                <mat-option>- Select the Appointment No - </mat-option>
                 <mat-option *ngFor="let bookingentrys of bookingentry" [value]="bookingentrys.bookingId">
                     {{bookingentrys.appNo}}
                 </mat-option>
@@ -17,8 +18,9 @@
         &nbsp;
         &nbsp;
         <mat-form-field appearance="outline">
-            <mat-label>Doctor Name</mat-label>
-            <mat-select formControlName="doctorname">
+            <mat-label class="font">Doctor Name</mat-label>
+            <mat-select formControlName="doctorname" class="mat">
+                <mat-option>- Select the Doctor Name - </mat-option>
                 <mat-option *ngFor="let doctorname of Doctormaster" [value]="doctorname.slNo">
                     {{doctorname.doctorname}}
                 </mat-option>
@@ -46,10 +48,11 @@
         <form [formGroup]="myForm">
             <div formArrayName='times' fxLayout="column" fxLayoutGap="10px" style="margin-right: -35%;">
                 <div *ngFor="let time of this.fa?.value; let i = index;  trackBy:trackByFn" fxLayout="row">
-                    <div [formGroupName]="i" fxLayout="row">
+                    <div [formGroupName]="i" class="ang-form">
                         <mat-form-field appearance="outline">
-                            <mat-label>Machine</mat-label>
-                            <mat-select formControlName="mname">
+                            <mat-label class="font">Machine</mat-label>
+                            <mat-select formControlName="mname" class="mat">
+                                <mat-option>- Select the Machine - </mat-option>
                                 <mat-option *ngFor="let mslno of machiness" [value]="mslno.machinename">
                                     {{mslno.machinename}}
                                 </mat-option>

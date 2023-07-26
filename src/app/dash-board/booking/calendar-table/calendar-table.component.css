@@ -57,6 +57,14 @@
   width: 900px !important;
   margin: 30px auto;
 }
+
+@media (max-width: 640px) {
+  .btn-group>.btn:first-child {
+    margin-left: -55px !important;
+    float: left !important;
+  }
+}
+
 /* ::ng-deep.cal-month-view .cal-event {
   background-color: #1e90ff!important;
   border-color: #d1e8ff!important;
