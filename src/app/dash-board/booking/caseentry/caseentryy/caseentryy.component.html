@@ -46,7 +46,7 @@
         <br>
         <br>
         <form [formGroup]="myForm">
-            <div formArrayName='times' fxLayout="column" fxLayoutGap="10px" style="margin-right: -35%;">
+            <div formArrayName='times' fxLayout="column" fxLayoutGap="10px">
                 <div *ngFor="let time of this.fa?.value; let i = index;  trackBy:trackByFn" fxLayout="row">
                     <div [formGroupName]="i" class="ang-form">
                         <mat-form-field appearance="outline">

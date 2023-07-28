@@ -249,6 +249,7 @@ header .header-container .dropdown .dropdown-menu::before {
 .side_menu1 mat-list a span {
     display: none;
 }
+
 .side_menu1 mat-list a mat-icon {
     font-size: x-large;
 }
@@ -844,11 +845,11 @@ li a span {
     }
 }
 
-/* @media (max-width: 1199px) {
+@media (max-width: 1199px) {
     .ang-form {
         display: grid !important;
     }
-} */
+}
 
 @media (max-width: 991px) {
     .sample {

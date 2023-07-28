@@ -13,7 +13,7 @@
         &nbsp;
         <mat-form-field appearance="outline">
             <mat-label class="font">Email Address</mat-label>
-            <input matInput placeholder="Email" formControlName="emailid" class="mat">
+            <input matInput formControlName="emailid" class="mat">
             <mat-error
                 *ngIf="submitted && doctorForm.controls['emailid'].hasError('required') && doctorForm.controls['emailid'].touched">
                 Email is required.
@@ -27,7 +27,7 @@
         &nbsp;
         <mat-form-field appearance="outline">
             <mat-label class="font">Contact Number</mat-label>
-            <input matInput placeholder="contactnumber" formControlName="contactnumber" class="mat">
+            <input matInput formControlName="contactnumber" class="mat">
             <mat-error
                 *ngIf="submitted && doctorForm.controls['contactnumber'].hasError('required') && doctorForm.controls['contactnumber'].touched">
                 contactnumber is required.
