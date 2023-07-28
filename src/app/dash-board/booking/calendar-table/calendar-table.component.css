@@ -60,10 +60,18 @@
 
 @media (max-width: 640px) {
   .btn-group>.btn:first-child {
-    margin-left: -55px !important;
+    margin-left: 17px !important;
     float: left !important;
   }
 }
+
+@media (min-width: 768px) and (max-width:1024px) {
+  .add-app {
+    margin-right: 100px;
+  }
+}
+
+
 
 /* ::ng-deep.cal-month-view .cal-event {
   background-color: #1e90ff!important;
