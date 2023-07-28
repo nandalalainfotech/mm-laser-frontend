@@ -246,8 +246,11 @@ header .header-container .dropdown .dropdown-menu::before {
     background-color: var(--color_l2) !important;
 }
 
-.side_menu1 li a span {
+.side_menu1 mat-list a span {
     display: none;
+}
+.side_menu1 mat-list a mat-icon {
+    font-size: x-large;
 }
 
 .side_menu1 .panel-body ul a span {
