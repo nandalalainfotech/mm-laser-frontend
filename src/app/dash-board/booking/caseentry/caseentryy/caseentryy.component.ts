@@ -115,6 +115,7 @@ export class CaseentryyComponent implements OnInit {
       hospname: ['', Validators.required],
       doctorname: ['', Validators.required],
       status: ['',],
+      // times: this.fb.array([]),
     })
 
     this.loaddata();
@@ -398,6 +399,13 @@ export class CaseentryyComponent implements OnInit {
 
 
   onEditButtonClick(params: any) {
+    this.ngOnInit();
+    let deletelength = this.fa.controls.length
+    if (deletelength > 1) {
+      for (let j = 0; j < deletelength; j++) {
+        this.fa.removeAt(j);
+      }
+    }
     this.myForm.reset()
     this.caseentryId = params.data.caseentryId;
     this.insertUser = params.data.insertUser;
@@ -406,21 +414,15 @@ export class CaseentryyComponent implements OnInit {
       'hospname': params.data.hospname,
       'doctorname': params.data.doctorname,
       'status': params.data.status,
-      'appointmentNo': params.data.appointmentNo
+      'appointmentNo': params.data.appointmentNo,
     });
-
-    for (let i = 0; i < params.data.casemachine001wbs.length; i++) {
+    for (let i = 0; i < (params.data.casemachine001wbs.length); i++) {
       this.myForm.get('times') as FormArray;
-      if (params.data.casemachine001wbs.length - 1) {
-        this.fa.push(this.initTimes());
-      }
+      this.fa.push(this.initTimes());
     }
-
     for (let i = 0; i < params.data.casemachine001wbs.length; i++) {
-      console.log("params.data.casemachine001wbs.length11111111", params.data.casemachine001wbs.length);
 
       for (let j = 0; j < this.myForm.controls.times.controls.length; j++) {
-        console.log("myForm.controls.times.controls.length22222222", this.myForm.controls.times.controls.length);
         if (i == j) {
           this.slNo.push(params.data.casemachine001wbs[i].slno)
           this.cslNo.push(params.data.casemachine001wbs[i].cslno)
